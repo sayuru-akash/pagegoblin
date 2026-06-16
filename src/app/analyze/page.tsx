@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Shield, Crosshair, FileWarning, Users } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -7,6 +8,20 @@ import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { getAppSettings } from "@/lib/admin/service";
+
+export const metadata: Metadata = {
+  title: "Analyze a Website — Free Landing Page Roast",
+  description:
+    "Paste any public URL and get a PageGoblin website roast covering trust signals, CTA clarity, copy quality, buyer confusion, and conversion friction.",
+  alternates: { canonical: "/analyze" },
+  openGraph: {
+    title: "Analyze a Website with PageGoblin",
+    description:
+      "Get a fast, practical landing page roast with a Goblin Score, biggest crime, complaints, and useful fixes.",
+    url: "/analyze",
+  },
+};
+
 
 const criteria = [
   {

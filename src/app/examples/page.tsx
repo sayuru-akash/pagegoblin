@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -8,6 +9,20 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ScoreOrb } from "@/components/ui/score-orb";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+
+export const metadata: Metadata = {
+  title: "Website Roast Examples — Landing Page Audit Samples",
+  description:
+    "See PageGoblin website roast examples with Goblin Scores, conversion complaints, biggest crimes, and practical landing page fixes.",
+  alternates: { canonical: "/examples" },
+  openGraph: {
+    title: "PageGoblin Website Roast Examples",
+    description:
+      "Sample website roasts showing how PageGoblin turns vague landing page problems into specific conversion fixes.",
+    url: "/examples",
+  },
+};
+
 
 interface MockRoast {
   domain: string;

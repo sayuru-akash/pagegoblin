@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Mail, Code2, ArrowRight } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
@@ -6,6 +7,19 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+
+export const metadata: Metadata = {
+  title: "Support — PageGoblin Help",
+  description:
+    "Get help with PageGoblin website roasts, report sharing, Chrome extension behavior, privacy questions, and support requests.",
+  alternates: { canonical: "/support" },
+  openGraph: {
+    title: "PageGoblin Support",
+    description: "Help and support for PageGoblin website roast reports and the Chrome extension.",
+    url: "/support",
+  },
+};
+
 
 const quickFaqs = [
   {

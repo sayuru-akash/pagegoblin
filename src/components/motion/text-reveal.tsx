@@ -3,7 +3,7 @@
 import { motion, type HTMLMotionProps } from "motion/react";
 import { cn } from "@/lib/utils";
 
-interface TextRevealProps extends HTMLMotionProps<"div"> {
+interface TextRevealProps extends HTMLMotionProps<"span"> {
   text: string;
   className?: string;
   wordClassName?: string;
@@ -22,7 +22,7 @@ export function TextReveal({
   const words = text.split(" ");
 
   return (
-    <motion.div
+    <motion.span
       className={cn("flex flex-wrap", className)}
       initial="hidden"
       whileInView="visible"
@@ -56,8 +56,9 @@ export function TextReveal({
           }}
         >
           {word}
+          {i < words.length - 1 ? " " : ""}
         </motion.span>
       ))}
-    </motion.div>
+    </motion.span>
   );
 }

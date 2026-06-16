@@ -11,6 +11,7 @@ export function mapFetchErrorToStatus(error: unknown): { status: number; message
       case "DNS_PRIVATE_IP":
         return { status: 400, message: error.message };
       case "DNS_LOOKUP_FAILED":
+        return { status: 400, message: "Enter a real, publicly reachable website URL." };
       case "FETCH_FAILED":
         return { status: 502, message: "Failed to reach the page." };
       case "REDIRECT_LIMIT":

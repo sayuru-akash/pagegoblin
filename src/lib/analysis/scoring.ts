@@ -306,7 +306,7 @@ export function generateComplaints(
   ].join(" ");
 
   // Trust complaints
-  if (categories.trustTax < 50) {
+  if (categories.trustTax < 70) {
     const trustCount =
       (signals.trustIndicators?.length ?? 0) +
       (signals.socialProofText?.length ?? 0);
@@ -327,7 +327,7 @@ export function generateComplaints(
   }
 
   // CTA complaints
-  if (categories.ctaCorpse < 50) {
+  if (categories.ctaCorpse < 70) {
     const ctas = signals.ctaTexts ?? [];
     const weakCTAs = ctas.filter((c) =>
       WEAK_CTAS.some((w) => c.toLowerCase() === w || c.toLowerCase().startsWith(w))
@@ -361,7 +361,7 @@ export function generateComplaints(
 
   // Fluff complaints
   const { count: buzzCount, found: buzzwords } = countBuzzwords(allText);
-  if (buzzCount >= 2) {
+  if (buzzCount >= 1) {
     complaints.push({
       id: "fluff-buzzwords",
       title: "Fluff Damage: Buzzword Overload",
@@ -397,7 +397,7 @@ export function generateComplaints(
   }
 
   // Buyer confusion
-  if (categories.buyerConfusionLevel < 40) {
+  if (categories.buyerConfusionLevel < 60) {
     complaints.push({
       id: "confusion-offer",
       title: "Buyer Confusion: Unclear Offer",
@@ -407,7 +407,7 @@ export function generateComplaints(
   }
 
   // Conversion friction
-  if (categories.conversionFriction < 40) {
+  if (categories.conversionFriction < 60) {
     const issues: string[] = [];
     if (!signals.hasContact) issues.push("no contact info");
     if (!signals.hasPricing) issues.push("no pricing visible");
@@ -419,6 +419,66 @@ export function generateComplaints(
       severity: "medium",
       detail: `Buyers face friction: ${issues.join(", ")}. Make the next step obvious.`,
       evidence: issues,
+    });
+  }
+
+  // MISSING META DESCRIPTION
+  if (!signals.metaDescription || signals.metaDescription.length < 30) {
+    complaints.push({
+      id: "missing-meta-description",
+      title: "Invisible to Search: Missing Meta Description",
+      severity: "medium",
+      detail: "Your page has no meta description (or a very short one). Search engines show garbage instead of your pitch. Write 150-160 chars that sell the click.",
+    });
+  }
+
+  // TOO MANY LINKS (navigation soup)
+  if ((signals.linkCount ?? 0) > 50) {
+    complaints.push({
+      id: "link-overload",
+      title: "Navigation Soup: Too Many Links",
+      severity: "low",
+      detail: `Your page has ${signals.linkCount} links. Visitors drown in options. Reduce to the essential paths.`,
+    });
+  }
+
+  // NO H2s (poor content structure)
+  if ((signals.h2?.length ?? 0) < 2) {
+    complaints.push({
+      id: "poor-structure",
+      title: "Wall of Text: Poor Content Structure",
+      severity: "low",
+      detail: "Your page has almost no H2 subheadings. Visitors skim, they don't read. Break content into scannable sections.",
+    });
+  }
+
+  // IMAGE-HEAVY, TEXT-LIGHT
+  if ((signals.imageCount ?? 0) > 10 && (signals.bodyTextSample?.length ?? 9999) < 500) {
+    complaints.push({
+      id: "image-heavy",
+      title: "All Pictures, No Words",
+      severity: "medium",
+      detail: `Your page has ${signals.imageCount} images but barely any text. Search engines and buyers both need words to understand your value.`,
+    });
+  }
+
+  // TOO MANY FORMS (friction)
+  if ((signals.formCount ?? 0) > 3) {
+    complaints.push({
+      id: "form-overload",
+      title: "Form Fatigue: Too Many Forms",
+      severity: "low",
+      detail: `Your page has ${signals.formCount} forms. Each form is friction. Consolidate or remove unnecessary ones.`,
+    });
+  }
+
+  // MISSING TEAM/ABOUT (credibility)
+  if (!signals.hasTeam && (signals.trustIndicators?.length ?? 0) < 2) {
+    complaints.push({
+      id: "anonymous-brand",
+      title: "Who Are You? No Team or About Info",
+      severity: "medium",
+      detail: "There's no team page, no 'about us', no human faces. Anonymous pages feel sketchy. Show the people behind the product.",
     });
   }
 
@@ -455,7 +515,7 @@ export function generateFixes(
   }
 
   // Trust fixes
-  if (categories.trustTax < 60) {
+  if (categories.trustTax < 75) {
     if (!signals.hasTestimonials) {
       fixes.push({
         title: "Add Testimonials or Reviews",
@@ -483,7 +543,7 @@ export function generateFixes(
   }
 
   // CTA fixes
-  if (categories.ctaCorpse < 60) {
+  if (categories.ctaCorpse < 75) {
     const ctas = signals.ctaTexts ?? [];
     if (ctas.length === 0) {
       fixes.push({
@@ -510,7 +570,7 @@ export function generateFixes(
   // Fluff fix
   const allText = [signals.heroText ?? "", signals.bodyTextSample ?? ""].join(" ");
   const { count: buzzCount } = countBuzzwords(allText);
-  if (buzzCount >= 2) {
+  if (buzzCount >= 1) {
     fixes.push({
       title: "Cut the Buzzwords",
       detail: "Replace vague terms like 'innovative', 'cutting-edge', and 'world-class' with specific claims. '99.9% uptime' beats 'world-class reliability' every time.",
@@ -547,6 +607,94 @@ export function generateFixes(
       priority: "high",
       effort: "low",
     });
+  }
+
+  // META DESCRIPTION FIX
+  if (!signals.metaDescription || signals.metaDescription.length < 30) {
+    fixes.push({
+      title: "Write a Compelling Meta Description",
+      detail: "Add a 150-160 character description that appears in search results. Think of it as a mini sales pitch: what you do + who it's for + why click.",
+      priority: "medium",
+      effort: "low",
+    });
+  }
+
+  // CONTENT STRUCTURE FIX
+  if ((signals.h2?.length ?? 0) < 2) {
+    fixes.push({
+      title: "Add Subheadings (H2s) to Break Up Content",
+      detail: "Most visitors skim. Use 3-5 H2 subheadings to create a visual hierarchy. Each section should have a clear topic.",
+      priority: "medium",
+      effort: "low",
+    });
+  }
+
+  // CONSOLIDATE NAVIGATION FIX
+  if ((signals.linkCount ?? 0) > 50) {
+    fixes.push({
+      title: "Simplify Your Navigation",
+      detail: `With ${signals.linkCount} links, visitors don't know where to click. Limit main navigation to 5-7 items. Move secondary links to footer.`,
+      priority: "low",
+      effort: "medium",
+    });
+  }
+
+  // ADD TEAM/ABOUT FIX
+  if (!signals.hasTeam) {
+    fixes.push({
+      title: "Add Team or About Section",
+      detail: "Show the humans behind the brand. Names, photos, short bios. People buy from people, not anonymous pages.",
+      priority: "medium",
+      effort: "medium",
+    });
+  }
+
+  // HERO COPY FIX (if hero is vague)
+  if (signals.heroText && signals.heroText.length > 0) {
+    const heroLower = signals.heroText.toLowerCase();
+    const hasBenefit = /\b(save|faster|grow|increase|reduce|automate|simplify|boost|improve|cut|eliminate)\b/.test(heroLower);
+    const hasSpecificNumber = /\b\d+/.test(heroLower);
+    if (!hasBenefit && !hasSpecificNumber && signals.heroText.length > 20) {
+      fixes.push({
+        title: "Make Your Hero Copy Benefit-Driven",
+        detail: `Your hero text "${signals.heroText.slice(0, 60)}..." doesn't state a clear benefit. Rewrite it with: what outcome + for whom + how fast.`,
+        priority: "high",
+        effort: "low",
+      });
+    }
+  }
+
+  // Ensure every report has enough practical value. Even strong pages deserve
+  // at least three concrete next steps, otherwise the roast feels thin.
+  if (fixes.length < 3) {
+    const existingTitles = new Set(fixes.map((fix) => fix.title));
+
+    if (!existingTitles.has("Make the Primary Next Step Impossible to Miss")) {
+      fixes.push({
+        title: "Make the Primary Next Step Impossible to Miss",
+        detail: "Pick one primary action and make it visually dominant above the fold. The goblin should not need a treasure map to find the conversion path.",
+        priority: "high",
+        effort: "low",
+      });
+    }
+
+    if (fixes.length < 3 && !existingTitles.has("Put Proof Next to the CTA")) {
+      fixes.push({
+        title: "Put Proof Next to the CTA",
+        detail: "Place a testimonial, customer count, rating, logo strip, or guarantee near the main CTA. Buyers need reassurance at the moment you ask them to act.",
+        priority: "medium",
+        effort: "low",
+      });
+    }
+
+    if (fixes.length < 3 && !existingTitles.has("Tighten the Above-the-Fold Pitch")) {
+      fixes.push({
+        title: "Tighten the Above-the-Fold Pitch",
+        detail: "Your first screen should answer: what is this, who is it for, why should I care, and what do I do next? Remove anything that does not support those answers.",
+        priority: "medium",
+        effort: "medium",
+      });
+    }
   }
 
   return fixes;

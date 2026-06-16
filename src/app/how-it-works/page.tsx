@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import {
   Link as LinkIcon,
   Search,
@@ -16,6 +17,20 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { UrlRoastForm } from "@/components/roast/url-roast-form";
+
+export const metadata: Metadata = {
+  title: "How PageGoblin Works — Website Roast Methodology",
+  description:
+    "Learn how PageGoblin analyzes landing pages for trust, CTA clarity, copy, buyer confusion, and conversion friction before producing a practical roast report.",
+  alternates: { canonical: "/how-it-works" },
+  openGraph: {
+    title: "How PageGoblin Works",
+    description:
+      "A transparent breakdown of PageGoblin's website roast scoring and conversion teardown methodology.",
+    url: "/how-it-works",
+  },
+};
+
 
 const steps = [
   {

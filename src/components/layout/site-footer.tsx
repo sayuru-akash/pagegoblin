@@ -2,9 +2,12 @@ import Link from "next/link";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const footerLinks = [
+  { href: "/analyze", label: "Analyze" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/examples", label: "Examples" },
   { href: "/privacy", label: "Privacy" },
+  { href: "/terms", label: "Terms" },
+  { href: "/support", label: "Support" },
   { href: "https://github.com/sayuru-akash/pagegoblin", label: "GitHub" },
 ];
 
@@ -18,7 +21,7 @@ export function SiteFooter() {
             Conversion judgment, delivered instantly.
           </p>
         </div>
-        <div className="flex items-center gap-6">
+        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
           {footerLinks.map((link) => (
             <Link
               key={link.href}
@@ -37,7 +40,7 @@ export function SiteFooter() {
           <p className="text-sm text-muted">
             &copy; 2026 Sayuru Amarasinghe. MIT License.
           </p>
-          <p className="font-mono text-xs text-muted/60">goblin.exe v0.1.0</p>
+          <p className="font-mono text-xs text-muted">goblin.exe v1.0.0</p>
         </div>
       </div>
     </footer>

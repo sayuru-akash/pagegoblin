@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -82,6 +83,19 @@ const audienceRoles = [
   "Growth teams",
 ];
 
+export const metadata: Metadata = {
+  title: "Website Roast & Conversion Teardown Tool",
+  description:
+    "PageGoblin is a brutally honest website roast tool for landing page audits, CTA checks, trust-signal reviews, copy analysis, and conversion optimization.",
+  alternates: { canonical: "/" },
+  openGraph: {
+    title: "PageGoblin — Website Roast & Conversion Teardown Tool",
+    description:
+      "Drop a URL and get a brutal, practical conversion teardown for trust, clarity, CTAs, copy, and buyer friction.",
+    url: "/",
+  },
+};
+
 export default async function Home() {
   const settings = await getAppSettings();
   const aiAvailable = settings.aiModeEnabled === true;
@@ -106,31 +120,32 @@ export default async function Home() {
 
           <div className="relative mx-auto max-w-5xl w-full">
             {/* Headline */}
-            <div className="mb-8">
+            <h1 className="mb-8">
               <TextReveal
                 text="Your site"
                 className="justify-center font-display text-5xl font-bold tracking-tight text-ink sm:text-6xl lg:text-7xl"
-                delay={0.2}
+                delay={0}
                 staggerDelay={0.05}
               />
+              <span className="sr-only"> </span>
               <TextReveal
                 text="deserves a beating."
                 className="justify-center font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
                 wordClassName="text-gradient-goblin"
-                delay={0.5}
+                delay={0.08}
                 staggerDelay={0.08}
               />
-            </div>
+            </h1>
 
             {/* Subtitle */}
-            <Reveal delay={0.8}>
+            <Reveal delay={0.16}>
               <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
                 Drop a URL. Watch the goblin drag your page behind the shed.
               </p>
             </Reveal>
 
             {/* Search */}
-            <Reveal delay={1.0}>
+            <Reveal delay={0.24}>
               <div className="mt-10 flex flex-col items-center">
                 <UrlRoastForm variant="hero" aiAvailable={aiAvailable} />
                 <p className="mt-4 text-center text-xs text-muted/60">
@@ -140,7 +155,7 @@ export default async function Home() {
             </Reveal>
 
             {/* Sample report — the real hero */}
-            <Reveal delay={1.4}>
+            <Reveal delay={0.32}>
               <div className="mt-20 flex justify-center">
                 <SampleReportCard />
               </div>
@@ -148,7 +163,7 @@ export default async function Home() {
           </div>
 
           {/* Scroll indicator */}
-          <Reveal delay={1.8}>
+          <Reveal delay={0.5}>
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
               <ScrollIndicator />
             </div>

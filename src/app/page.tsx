@@ -7,6 +7,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ScoreOrb } from "@/components/ui/score-orb";
 import { GoblinMascot } from "@/components/brand/goblin-mascot";
+import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
@@ -85,21 +86,10 @@ export default function Home() {
             </Reveal>
 
             <Reveal delay={0.3}>
-              <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-                <Link
-                  href="/analyze"
-                  className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-ink shadow-goblin transition-all hover:bg-goblin-dark hover:shadow-lg"
-                >
-                  Roast a page
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="#"
-                  className="inline-flex h-12 items-center justify-center rounded-xl border border-border bg-bone px-8 text-sm font-semibold text-ink transition-colors hover:bg-parchment"
-                >
-                  Install Chrome extension
-                </Link>
-              </div>
+              <UrlRoastForm variant="hero" className="mt-10" />
+              <p className="mt-4 text-center text-xs text-muted">
+                No signup needed. The goblin works fast and keeps things private.
+              </p>
             </Reveal>
 
             <Reveal delay={0.4}>

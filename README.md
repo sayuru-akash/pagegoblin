@@ -76,6 +76,39 @@ The deterministic analysis engine lives in `src/lib/analysis`. It is a set of pu
 | `PageSignalsSchema` | `schema.ts` | Zod schema for input validation |
 | `AnalysisResultSchema` | `schema.ts` | Zod schema for output validation |
 
+## Safe Page Fetcher
+
+The fetcher in `src/lib/fetcher` safely fetches web pages and extracts signals for analysis.
+
+### Public API
+
+| Export | Source | Description |
+|--------|--------|-------------|
+| `assertSafeFetchUrl` | `url-safety.ts` | Validates URL safety before fetching |
+| `fetchPageHtml` | `page-fetcher.ts` | Fetches raw HTML with safety constraints |
+| `fetchAndExtractSignals` | `page-fetcher.ts` | Fetches and extracts `PageSignals` in one call |
+| `extractSignalsFromHtml` | `html-signals.ts` | Extracts signals from raw HTML |
+| `PageFetchError` | `types.ts` | Typed fetch error with error codes |
+
+### Safety Constraints
+
+- **Protocol**: HTTP/HTTPS only
+- **SSRF protection**: Private network IPs blocked (localhost, 10.x, 192.168.x, etc.)
+- **DNS pinning**: Private IPs resolved via DNS are rejected
+- **Redirect limit**: Configurable max redirects (default 3)
+- **Timeout**: Configurable request timeout (default 8s)
+- **Body cap**: Response size limit (default 1.5MB)
+- **Content-type**: HTML-only responses accepted
+- **Data minimization**: Full HTML is not persisted; only extracted signals are returned
+
+### Tests
+
+```bash
+pnpm test:run
+```
+
+Includes fetcher safety tests, redirect handling, content-type validation, and signal extraction.
+
 ## License
 
 MIT © Sayuru Amarasinghe

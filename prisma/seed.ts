@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient, Prisma } from "../src/generated/prisma/client";
 import { hash } from "bcryptjs";
 import { encryptSecret } from "../src/lib/crypto";
 
@@ -37,18 +37,20 @@ async function main() {
   });
   console.log("  ✓ Admin user");
 
+  // Keys must match what the admin settings form & service read
   const settings = [
-    { key: "site.name", value: { value: "PageGoblin" } },
-    { key: "roast.defaultMode", value: { value: "DETERMINISTIC" } },
-    { key: "ai.enabled", value: { value: false } },
-    { key: "rateLimit.roastsPerHour", value: { value: 20 } },
+    { key: "siteTitle", value: "PageGoblin" },
+    { key: "siteTagline", value: "The tiny goblin that judges your website" },
+    { key: "defaultVisibility", value: "UNLISTED" },
+    { key: "rateLimitPerHour", value: 20 },
+    { key: "aiModeEnabled", value: false },
   ];
 
   for (const setting of settings) {
     await prisma.appSetting.upsert({
       where: { key: setting.key },
-      update: { value: setting.value },
-      create: setting,
+      update: {},
+      create: { key: setting.key, value: setting.value as unknown as Prisma.InputJsonValue },
     });
   }
   console.log("  ✓ App settings");

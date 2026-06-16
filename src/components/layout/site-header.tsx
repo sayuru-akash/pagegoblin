@@ -35,7 +35,7 @@ export function SiteHeader() {
         <div className="flex items-center gap-3">
           <Link
             href="/analyze"
-            className="group inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-goblin px-4 text-sm font-semibold text-ink shadow-goblin transition-all duration-200 hover:bg-goblin-dark hover:shadow-glow"
+            className="group inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-goblin px-4 text-sm font-semibold text-white shadow-goblin transition-all duration-200 hover:bg-goblin-dark hover:shadow-glow"
           >
             Roast a page
             <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />

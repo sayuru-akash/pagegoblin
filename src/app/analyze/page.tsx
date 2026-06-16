@@ -80,8 +80,8 @@ export default async function AnalyzePage() {
 
             <Stagger className="mt-10 grid gap-4 sm:grid-cols-2" staggerDelay={0.08}>
               {criteria.map((item) => (
-                <StaggerItem key={item.title}>
-                  <Card>
+                <StaggerItem key={item.title} className="h-full">
+                  <Card className="h-full">
                     <CardHeader>
                       <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-goblin/15 text-goblin">
                         <item.icon className="h-4 w-4" />

@@ -113,7 +113,7 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
             </p>
             <Link
               href="/"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-ink shadow-goblin transition-colors hover:bg-goblin-dark"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
             >
               Roast another page
               <ArrowRight className="h-4 w-4" />

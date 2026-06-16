@@ -29,7 +29,7 @@ export default function RoastError({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={reset}
-          className="mt-4 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-ink shadow-goblin transition-colors hover:bg-goblin-dark"
+          className="mt-4 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
         >
           Try again
         </motion.button>

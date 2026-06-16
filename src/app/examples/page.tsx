@@ -224,7 +224,7 @@ export default function ExamplesPage() {
             <Reveal delay={0.2}>
               <Link
                 href="/analyze"
-                className="mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-ink shadow-goblin transition-colors hover:bg-goblin-dark"
+                className="mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
               >
                 Roast my page
                 <ArrowRight className="h-4 w-4" />

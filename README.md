@@ -36,6 +36,7 @@ pnpm db:seed
 | `pnpm start` | Start production server |
 | `pnpm lint` | Run ESLint |
 | `pnpm type-check` | TypeScript type checking |
+| `pnpm test:run` | Run analysis engine tests (Vitest) |
 | `pnpm verify` | Full verification (env + type-check + lint + build) |
 | `pnpm db:generate` | Generate Prisma client |
 | `pnpm db:push` | Push schema to database |
@@ -59,6 +60,21 @@ DOCKER_BUILD=1 pnpm build
 - [Prisma](https://prisma.io) 7 + PostgreSQL
 - [Auth.js](https://authjs.dev) (Prisma adapter)
 - [Zod](https://zod.dev)
+
+## Analysis Engine
+
+The deterministic analysis engine lives in `src/lib/analysis`. It is a set of pure functions — no AI calls, no network requests, no database access. Signals are validated with a Zod schema and all data is minimized before processing.
+
+### Public API
+
+| Export | Source | Description |
+|--------|--------|-------------|
+| `sanitizePageSignals` | `signals.ts` | Validates and sanitizes raw input via Zod |
+| `detectPageRisk` | `signals.ts` | Flags private/internal pages (localhost, dashboard, admin, body-text keywords) |
+| `analyzePage` | `engine.ts` | Full analysis pipeline: sanitize → risk → score → complaints → fixes → summary |
+| `normalizePageUrl` | `url.ts` | Normalizes URL and extracts domain |
+| `PageSignalsSchema` | `schema.ts` | Zod schema for input validation |
+| `AnalysisResultSchema` | `schema.ts` | Zod schema for output validation |
 
 ## License
 

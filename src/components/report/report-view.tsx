@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { ReportMeta } from "@/components/report/report-meta";
@@ -28,7 +28,18 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
                   {report.title}
                 </h1>
               )}
-              <ReportMeta report={report} />
+              <div className="flex items-center gap-3">
+                <ReportMeta report={report} />
+                {report.roastMode === "AI_ASSISTED" && (
+                  <span
+                    className="inline-flex items-center gap-1.5 rounded-full border border-goblin/30 bg-goblin/10 px-3 py-1 text-xs font-medium text-goblin-dark"
+                    title="This roast was sharpened by AI. The score is still computed objectively from page signals."
+                  >
+                    <Sparkles className="h-3 w-3" />
+                    AI-Enhanced Roast
+                  </span>
+                )}
+              </div>
             </div>
           </Reveal>
           <ScoreHero report={report} />

@@ -51,4 +51,5 @@ export interface ReportMetrics {
   actuallyUsefulFixes: UsefulFix[];
   warnings: PageRisk[];
   analysisMetrics: Record<string, unknown>;
+  aiMetadata?: { provider: string; model: string; enhanced: boolean };
 }

@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Loader2, Flame } from "lucide-react";
+import { ArrowRight, Loader2, Flame, Sparkles, Info } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 interface UrlRoastFormProps {
   variant?: "hero" | "standalone";
   className?: string;
+  aiAvailable?: boolean;
 }
 
 function normalizeUrl(input: string): string {
@@ -24,12 +25,13 @@ function isValidUrl(input: string): boolean {
   return input.includes(".");
 }
 
-export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps) {
+export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRoastFormProps) {
   const router = useRouter();
   const [url, setUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
+  const [aiMode, setAiMode] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -47,7 +49,10 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       const res = await fetch("/api/roasts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: normalized }),
+        body: JSON.stringify({
+          url: normalized,
+          ...(aiMode ? { mode: "AI_ASSISTED" } : {}),
+        }),
       });
 
       const data = await res.json();
@@ -154,6 +159,46 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
             </motion.p>
           )}
         </AnimatePresence>
+
+        {aiAvailable && (
+          <div className="flex flex-col gap-2 pt-1">
+            <button
+              type="button"
+              onClick={() => setAiMode(!aiMode)}
+              className="flex items-center gap-2 text-sm text-muted hover:text-ink transition-colors cursor-pointer"
+            >
+              <div
+                className={cn(
+                  "relative h-5 w-9 rounded-full transition-colors duration-200",
+                  aiMode ? "bg-goblin" : "bg-border"
+                )}
+              >
+                <motion.div
+                  className="absolute top-0.5 left-0.5 h-4 w-4 rounded-full bg-white shadow-sm"
+                  animate={{ x: aiMode ? 16 : 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+              </div>
+              <Sparkles className={cn("h-3.5 w-3.5", aiMode ? "text-goblin" : "text-muted/60")} />
+              <span className="font-medium">Goblin AI mode</span>
+              <span className="text-muted/60">(sharper roast)</span>
+              <Info className="h-3 w-3 text-muted/40" />
+            </button>
+
+            <AnimatePresence>
+              {aiMode && (
+                <motion.p
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="text-xs text-muted/70 leading-relaxed overflow-hidden"
+                >
+                  AI mode sends page signals to the configured AI provider for a sharper, funnier roast. Your URL and page content leave our servers.
+                </motion.p>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
       </form>
     </div>
   );

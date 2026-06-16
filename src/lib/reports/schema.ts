@@ -36,6 +36,7 @@ export const CreateRoastRequestSchema = z
       .optional(),
     source: z.enum(["WEB_URL", "EXTENSION", "MANUAL_SIGNALS"]).optional(),
     visibility: z.enum(["PRIVATE", "UNLISTED", "PUBLIC"]).optional(),
+    mode: z.enum(["DETERMINISTIC", "AI_ASSISTED"]).optional(),
   })
   .strict();
 

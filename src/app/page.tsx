@@ -26,6 +26,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { TextReveal } from "@/components/motion/text-reveal";
 import { ScrollIndicator } from "@/components/motion/scroll-indicator";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { getAppSettings } from "@/lib/admin/service";
 
 const judgeCards = [
   {
@@ -81,7 +82,10 @@ const audienceRoles = [
   "Growth teams",
 ];
 
-export default function Home() {
+export default async function Home() {
+  const settings = await getAppSettings();
+  const aiAvailable = settings.aiModeEnabled === true;
+
   return (
     <>
       <SiteHeader />
@@ -128,7 +132,7 @@ export default function Home() {
             {/* Search */}
             <Reveal delay={1.0}>
               <div className="mt-10 flex flex-col items-center">
-                <UrlRoastForm variant="hero" />
+                <UrlRoastForm variant="hero" aiAvailable={aiAvailable} />
                 <p className="mt-4 text-center text-xs text-muted/60">
                   No login. No mercy. The goblin bites and the bite is private.
                 </p>

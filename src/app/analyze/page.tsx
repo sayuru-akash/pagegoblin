@@ -6,6 +6,7 @@ import { GoblinMascot } from "@/components/brand/goblin-mascot";
 import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { getAppSettings } from "@/lib/admin/service";
 
 const criteria = [
   {
@@ -30,7 +31,10 @@ const criteria = [
   },
 ];
 
-export default function AnalyzePage() {
+export default async function AnalyzePage() {
+  const settings = await getAppSettings();
+  const aiAvailable = settings.aiModeEnabled === true;
+
   return (
     <>
       <SiteHeader />
@@ -55,7 +59,7 @@ export default function AnalyzePage() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <UrlRoastForm variant="standalone" className="mt-10 mx-auto" />
+              <UrlRoastForm variant="standalone" className="mt-10 mx-auto" aiAvailable={aiAvailable} />
             </Reveal>
 
             <Reveal delay={0.25}>

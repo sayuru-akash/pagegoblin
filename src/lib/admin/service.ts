@@ -178,3 +178,33 @@ export async function updateAppSetting(key: string, value: unknown) {
     create: { key, value: value as unknown as Prisma.InputJsonValue },
   });
 }
+
+export async function getEnabledAiConfig(): Promise<{
+  baseUrl: string;
+  apiKey: string;
+  model: string;
+  name: string;
+  providerType: string;
+} | null> {
+  const config = await prisma.apiConfig.findFirst({
+    where: { enabled: true },
+    orderBy: { createdAt: "desc" },
+  });
+  if (!config) return null;
+
+  const encryptionKey = process.env.ENCRYPTION_KEY!;
+  let apiKey: string;
+  try {
+    apiKey = decryptSecret(config.encryptedApiKey, encryptionKey);
+  } catch {
+    return null;
+  }
+
+  return {
+    baseUrl: (config.baseUrl || "https://api.openai.com/v1").replace(/\/$/, ""),
+    apiKey,
+    model: config.model,
+    name: config.name,
+    providerType: config.providerType,
+  };
+}

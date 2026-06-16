@@ -7,8 +7,10 @@ import { generateSlug } from "./slug";
 import { serializeReport } from "./serializer";
 import { mapFetchErrorToStatus } from "./errors";
 import type { CreateRoastResult, ReportPayload, ReportMetrics } from "./types";
-import type { ReportSource, ReportVisibility } from "@/generated/prisma/enums";
+import type { ReportSource, ReportVisibility, RoastMode } from "@/generated/prisma/enums";
 import { Prisma } from "@/generated/prisma/client";
+import { getAppSettings, getEnabledAiConfig } from "@/lib/admin/service";
+import { enhanceRoastWithAI } from "@/lib/ai";
 
 const MAX_SLUG_RETRIES = 5;
 
@@ -71,12 +73,48 @@ export async function createRoastReport(
 
   const analysis = analyzePage(signals);
 
+  let roastMode: "DETERMINISTIC" | "AI_ASSISTED" = "DETERMINISTIC";
+  let finalVerdict = analysis.verdict;
+  let finalBiggestCrime = analysis.biggestCrime;
+  let finalSummaryMarkdown = analysis.summaryMarkdown;
+  let finalComplaints = analysis.goblinComplaints;
+  let finalFixes = analysis.actuallyUsefulFixes;
+  let aiMetadata: { provider: string; model: string; enhanced: boolean } | undefined;
+
+  const requestedMode = parsed.data.mode ?? "DETERMINISTIC";
+  if (requestedMode === "AI_ASSISTED") {
+    try {
+      const settings = await getAppSettings();
+      const aiEnabled = settings.aiModeEnabled === true;
+      if (aiEnabled) {
+        const aiConfig = await getEnabledAiConfig();
+        if (aiConfig) {
+          const outcome = await enhanceRoastWithAI({ signals, analysis, config: aiConfig });
+          if (outcome.enhanced && outcome.result) {
+            roastMode = "AI_ASSISTED";
+            finalVerdict = outcome.result.verdict;
+            finalBiggestCrime = outcome.result.biggestCrime;
+            finalSummaryMarkdown = outcome.result.summaryMarkdown;
+            finalComplaints = outcome.result.goblinComplaints;
+            finalFixes = outcome.result.actuallyUsefulFixes;
+            aiMetadata = { provider: outcome.result.aiProvider, model: outcome.result.aiModel, enhanced: true };
+          } else {
+            console.warn("AI enhancement failed, falling back to deterministic:", outcome.error);
+          }
+        }
+      }
+    } catch (err) {
+      console.warn("AI enhancement error, falling back to deterministic:", err);
+    }
+  }
+
   const metricsData: ReportMetrics = {
     categoryScores: analysis.categoryScores,
-    goblinComplaints: analysis.goblinComplaints,
-    actuallyUsefulFixes: analysis.actuallyUsefulFixes,
+    goblinComplaints: finalComplaints,
+    actuallyUsefulFixes: finalFixes,
     warnings: analysis.warnings,
     analysisMetrics: analysis.metrics,
+    aiMetadata,
   };
 
   const domain = analysis.domain;
@@ -86,7 +124,7 @@ export async function createRoastReport(
     data: {
       slug,
       source: source as ReportSource,
-      roastMode: "DETERMINISTIC",
+      roastMode: roastMode as RoastMode,
       visibility: (visibility ?? "UNLISTED") as ReportVisibility,
       url: analysis.normalizedUrl,
       normalizedUrl: analysis.normalizedUrl,
@@ -96,9 +134,9 @@ export async function createRoastReport(
       signals: signals as unknown as Prisma.InputJsonValue,
       metrics: metricsData as unknown as Prisma.InputJsonValue,
       score: analysis.goblinScore,
-      biggestCrime: analysis.biggestCrime,
-      verdict: analysis.verdict,
-      summaryMarkdown: analysis.summaryMarkdown,
+      biggestCrime: finalBiggestCrime,
+      verdict: finalVerdict,
+      summaryMarkdown: finalSummaryMarkdown,
       userId: null,
     },
   });

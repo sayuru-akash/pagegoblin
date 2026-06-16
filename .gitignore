@@ -37,6 +37,10 @@ yarn-error.log*
 # prisma generated client (regenerated via postinstall / prisma generate)
 /src/generated/prisma/
 
+# playwright
+/playwright-report/
+/test-results/
+
 # vercel
 .vercel
 

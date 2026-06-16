@@ -16,7 +16,10 @@
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "env:check": "tsx scripts/verify-env.ts",
-    "verify": "pnpm env:check && pnpm test:run && pnpm type-check && pnpm lint && pnpm build"
+    "verify": "pnpm env:check && pnpm test:run && pnpm type-check && pnpm lint && pnpm build",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.2",
@@ -39,6 +42,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/pg": "^8.20.0",

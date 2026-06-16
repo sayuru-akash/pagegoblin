@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Loader2, Sparkles } from "lucide-react";
+import { ArrowRight, Loader2, Flame } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -36,7 +36,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
     setError(null);
 
     if (!isValidUrl(url)) {
-      setError("That doesn't look like a valid URL. Try example.com");
+      setError("That is not a URL. Try something like example.com before the goblin gets angry.");
       return;
     }
 
@@ -55,11 +55,11 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       if (!res.ok || !data.ok) {
         const status = data.error?.status ?? res.status;
         if (status === 400) {
-          setError(data.error?.message ?? "That URL doesn't look right.");
+          setError(data.error?.message ?? "That URL does not look right. The goblin is suspicious.");
         } else if (status === 429) {
-          setError("Our servers need a moment. Please try again shortly.");
+          setError("The goblin is overwhelmed. Too many victims. Try again in a minute.");
         } else {
-          setError("Something went wrong. Please try again.");
+          setError("The goblin choked on your page. It might be that bad. Try again.");
         }
         return;
       }
@@ -67,7 +67,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       const slug = data.data.links.report.replace("/roasts/", "");
       router.push(`/roasts/${slug}`);
     } catch {
-      setError("Can't reach our servers. Check your connection.");
+      setError("The goblin cannot reach the server. Check your connection or run.");
     } finally {
       setIsLoading(false);
     }
@@ -85,7 +85,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
         <div className="relative">
           <label htmlFor="url-roast-input" className="sr-only">
-            Enter a URL to analyze
+            Enter a URL to roast
           </label>
           <div className={cn(
             "relative rounded-xl transition-all duration-300",
@@ -114,7 +114,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
                 animate={{ opacity: 1, scale: 1 }}
                 className="absolute right-4 top-1/2 -translate-y-1/2"
               >
-                <Sparkles className="h-4 w-4 text-goblin/40" />
+                <Flame className="h-4 w-4 text-goblin/40" />
               </motion.div>
             )}
           </div>
@@ -130,11 +130,11 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
           {isLoading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Analyzing your page...
+              Gutting your page...
             </>
           ) : (
             <>
-              Begin inspection
+              Unleash the goblin
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </>
           )}

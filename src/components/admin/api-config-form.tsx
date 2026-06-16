@@ -15,7 +15,7 @@ interface ApiConfigItem {
   maskedApiKey: string;
   model: string;
   enabled: boolean;
-  lastTestedAt: string | null;
+  lastTestedAt: Date | string | null;
   lastTestStatus: string | null;
 }
 

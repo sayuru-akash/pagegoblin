@@ -5,10 +5,10 @@ import {
   Crosshair,
   FileWarning,
   Users,
-  Sparkles,
   Zap,
-  Eye,
   Scale,
+  Skull,
+  Swords,
 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -32,27 +32,27 @@ import { Stagger, StaggerItem } from "@/components/motion/stagger";
 const judgeCards = [
   {
     icon: Shield,
-    title: "Trust Signals",
+    title: "Trust Tax",
     description:
-      "Missing testimonials, weak social proof, zero credibility markers. We see through the facade and flag every gap that erodes confidence.",
+      "Missing testimonials, weak social proof, zero credibility signals. Your page screams 'we might be a scam' and the goblin will absolutely say it to your face.",
   },
   {
     icon: Crosshair,
-    title: "CTA Clarity",
+    title: "CTA Corpse",
     description:
-      "Your call-to-action is buried, vague, or invisible. We pinpoint exactly where it flatlines and how to resurrect it.",
+      "Your call-to-action is buried, vague, or dead on arrival. The goblin will perform the autopsy and tell you exactly where it flatlined.",
   },
   {
     icon: FileWarning,
-    title: "Copy Quality",
+    title: "Fluff Damage",
     description:
-      "Jargon, filler, saying nothing with maximum syllables. We cut through the noise and deliver language that converts.",
+      "Jargon, filler words, saying nothing with maximum syllables. The goblin cuts through your corporate nonsense with a rusty, blood-stained knife.",
   },
   {
     icon: Users,
-    title: "Visitor Clarity",
+    title: "Buyer Confusion",
     description:
-      "If visitors cannot figure out what you do in five seconds, we will not sugarcoat it. Clarity is the currency of conversion.",
+      "If visitors cannot figure out what you do in five seconds, the goblin will not sugarcoat it. Clarity is not optional. It is survival.",
   },
 ];
 
@@ -89,8 +89,8 @@ export default function Home() {
       <SiteHeader />
       <main className="flex flex-1 flex-col items-center overflow-hidden">
         {/* Hero */}
-        <section className="relative flex w-full min-h-[90vh] flex-col items-center justify-center px-6 pt-20 pb-24 text-center hero-gradient">
-          {/* Floating particles */}
+        <section className="relative flex w-full min-h-[92vh] flex-col items-center justify-center px-6 pt-20 pb-24 text-center hero-gradient">
+          {/* Floating embers */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             {[...Array(10)].map((_, i) => (
               <div key={i} className="particle" />
@@ -98,26 +98,16 @@ export default function Home() {
           </div>
 
           <div className="relative mx-auto max-w-4xl">
-            {/* Eyebrow */}
-            <Reveal delay={0.1}>
-              <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-goblin/20 bg-goblin/5 px-4 py-2">
-                <Sparkles className="h-3.5 w-3.5 text-goblin" />
-                <span className="text-xs font-medium text-goblin-dark tracking-wide">
-                  Conversion intelligence, instant and free
-                </span>
-              </div>
-            </Reveal>
-
             {/* Headline */}
-            <div className="mb-6">
+            <div className="mb-8">
               <TextReveal
-                text="Your website."
+                text="Your site"
                 className="justify-center font-display text-5xl font-bold tracking-tight text-ink sm:text-6xl lg:text-7xl"
                 delay={0.2}
                 staggerDelay={0.05}
               />
               <TextReveal
-                text="Judged."
+                text="deserves a beating."
                 className="justify-center font-display text-5xl font-bold tracking-tight sm:text-6xl lg:text-7xl"
                 wordClassName="text-gradient-goblin"
                 delay={0.5}
@@ -127,17 +117,17 @@ export default function Home() {
 
             {/* Subtitle */}
             <Reveal delay={0.8}>
-              <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted sm:text-xl">
-                PageGoblin inspects trust, clarity, and conversion confidence — then tells you exactly what to fix. No 47-page PDF. Just the truth.
+              <p className="mx-auto text-lg leading-relaxed text-muted sm:text-xl">
+                Drop a URL. Watch the goblin drag your page behind the shed.
               </p>
             </Reveal>
 
             {/* Search */}
             <Reveal delay={1.0}>
-              <div className="mt-10 flex flex-col items-center">
+              <div className="mt-12 flex flex-col items-center">
                 <UrlRoastForm variant="hero" />
-                <p className="mt-4 text-center text-xs text-muted/70">
-                  No signup needed. Results in seconds. Private by default.
+                <p className="mt-4 text-center text-xs text-muted/60">
+                  No login. No mercy. The goblin bites and the bite is private.
                 </p>
               </div>
             </Reveal>
@@ -161,7 +151,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        {/* What we inspect */}
+        {/* What the goblin judges */}
         <section
           id="how-it-works"
           className="relative w-full border-t border-border bg-bone/30 px-6 py-28"
@@ -169,9 +159,9 @@ export default function Home() {
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Inspection criteria"
-                title="The four pillars of conversion"
-                description="Every page is judged against the metrics that actually matter. No fluff. No vanity scores. Just what moves the needle."
+                eyebrow="The execution list"
+                title="What gets roasted"
+                description="Every page is judged against the four horsemen of conversion death. No fluff. No vanity metrics. Just what actually kills your revenue."
               />
             </Reveal>
 
@@ -179,11 +169,11 @@ export default function Home() {
               className="mt-16 grid gap-6 sm:grid-cols-2"
               staggerDelay={0.1}
             >
-              {judgeCards.map((card, i) => (
+              {judgeCards.map((card) => (
                 <StaggerItem key={card.title}>
                   <Card className="group h-full glow-border cursor-default">
                     <CardHeader>
-                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-goblin/10 text-goblin transition-all duration-300 group-hover:bg-goblin/15 group-hover:scale-110">
+                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-goblin/10 text-goblin transition-all duration-300 group-hover:bg-goblin/15 group-hover:scale-110 group-hover:shadow-goblin">
                         <card.icon className="h-5 w-5" />
                       </div>
                       <CardTitle className="text-xl">{card.title}</CardTitle>
@@ -193,8 +183,8 @@ export default function Home() {
                     </CardHeader>
                     <div className="px-6 pb-6">
                       <div className="flex items-center gap-2 text-xs font-medium text-goblin-dark opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <Eye className="h-3.5 w-3.5" />
-                        <span>Inspected automatically</span>
+                        <Swords className="h-3.5 w-3.5" />
+                        <span>Judged without mercy</span>
                       </div>
                     </div>
                   </Card>
@@ -210,8 +200,8 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 eyebrow="Not another audit tool"
-                title="A verdict, not a report"
-                description="Other tools give you a 47-page PDF you will never read. PageGoblin tells you what is broken and how to fix it, in plain language."
+                title="A roast, not a report"
+                description="Other tools give you a 47-page PDF you will never read. PageGoblin tells you what is broken and how to fix it, in language that does not require a computer science degree."
               />
             </Reveal>
 
@@ -219,7 +209,7 @@ export default function Home() {
               <div className="mt-14 grid gap-6 sm:grid-cols-3 items-stretch">
                 <Card className="border-rose/20 bg-rose/5 relative overflow-hidden">
                   <div className="absolute top-0 right-0 p-3 opacity-10">
-                    <FileWarning className="h-16 w-16 text-rose" />
+                    <Skull className="h-16 w-16 text-rose" />
                   </div>
                   <CardHeader>
                     <Badge variant="danger" className="w-fit">
@@ -247,10 +237,10 @@ export default function Home() {
                   </div>
                   <CardHeader>
                     <Badge variant="goblin" className="w-fit">
-                      PageGoblin verdict
+                      PageGoblin roast
                     </Badge>
                     <CardDescription className="mt-4 text-sm leading-relaxed font-medium text-ink/80">
-                      &ldquo;Your hero image is 4MB. That is not a hero, that is a hostage situation. Compress it or watch visitors bounce.&rdquo;
+                      &ldquo;Your hero image is 4MB. That is not a hero, that is a hostage situation. Compress it or watch visitors bounce harder than a basketball.&rdquo;
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -265,8 +255,8 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 eyebrow="Real fixes"
-                title="Before and after"
-                description="No vague suggestions. Concrete before-and-after fixes that move the needle."
+                title="Before and after the carnage"
+                description="No vague suggestions. No 'consider improving user experience.' Concrete before-and-after fixes that actually move the needle."
               />
             </Reveal>
 
@@ -277,14 +267,14 @@ export default function Home() {
                     <div className="flex flex-col gap-5 p-6 sm:flex-row sm:items-center sm:justify-between">
                       <div className="flex-1 space-y-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-rose font-medium">Before</span>
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-rose font-medium">The crime</span>
                           <div className="h-px flex-1 bg-rose/20" />
                         </div>
                         <p className="text-sm text-rose line-through opacity-70">
                           {fix.before}
                         </p>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono uppercase tracking-wider text-goblin-dark font-medium">After</span>
+                          <span className="text-[10px] font-mono uppercase tracking-wider text-goblin-dark font-medium">The fix</span>
                           <div className="h-px flex-1 bg-goblin/20" />
                         </div>
                         <p className="text-sm font-medium text-goblin-dark">
@@ -318,7 +308,7 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 title="Built for the builders"
-                description="Whether you are shipping a side project or managing fifty client sites, PageGoblin gives you the conversion confidence check you actually need."
+                description="Whether you are shipping a side project or managing fifty client sites, PageGoblin gives you the conversion confidence check you actually need. Not the one you want."
               />
             </Reveal>
 
@@ -342,7 +332,7 @@ export default function Home() {
                   href="/analyze"
                   className="group inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-cave px-8 text-sm font-semibold text-parchment transition-all duration-300 hover:bg-cave-2 hover:shadow-lg"
                 >
-                  Try PageGoblin free
+                  Face the judgment
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>
@@ -357,16 +347,16 @@ export default function Home() {
               <div className="flex flex-col items-center gap-6">
                 <GoblinMascot className="opacity-80" />
                 <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                  Ready for the verdict?
+                  Ready for your funeral?
                 </h2>
                 <p className="text-muted">
-                  Your page is waiting. The judgment is instant.
+                  Your page is waiting. The judgment is instant. The ego death is free.
                 </p>
                 <Link
                   href="/analyze"
-                  className="group inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-ink shadow-goblin transition-all duration-300 hover:bg-goblin-dark hover:shadow-glow"
+                  className="group inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-parchment shadow-goblin transition-all duration-300 hover:bg-goblin-dark hover:shadow-glow"
                 >
-                  Begin inspection
+                  Feed the goblin
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </div>

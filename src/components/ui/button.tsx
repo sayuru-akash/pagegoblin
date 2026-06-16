@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const variantStyles = {
   primary:
-    "bg-goblin text-ink font-semibold shadow-goblin hover:bg-goblin-dark hover:shadow-glow",
+    "bg-cave text-parchment font-semibold shadow-goblin hover:bg-cave-2 hover:shadow-glow",
   secondary:
     "bg-bone text-ink font-semibold border border-border hover:bg-parchment hover:border-goblin/30",
   ghost:

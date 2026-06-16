@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { ArrowUpRight, AlertTriangle, CheckCircle2, XCircle, Clock } from "lucide-react";
+import { ArrowUpRight, AlertTriangle, XCircle, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SampleReportCardProps {

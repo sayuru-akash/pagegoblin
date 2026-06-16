@@ -336,19 +336,14 @@ export default function Home() {
 
         {/* Final CTA */}
         <section className="relative w-full border-t border-border bg-bone/30 px-6 py-24 overflow-hidden">
-          {/* Soft ambient glow behind goblin */}
           <div className="hero-aurora hero-aurora-1 opacity-30" />
 
           <div className="relative mx-auto max-w-2xl text-center">
             <Reveal>
               <div className="flex flex-col items-center gap-5">
-                <div className="relative -my-4">
-                  {/* Glow ring behind goblin */}
-                  <div className="absolute inset-0 -m-12 rounded-full bg-goblin/15 blur-3xl animate-glow-pulse" />
-                  <GoblinMascot className="relative" />
-                </div>
+                <GoblinMascot />
                 <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl mt-2">
-                  Ready for your funeral?
+                  Ready for your ego funeral?
                 </h2>
                 <p className="text-muted max-w-md">
                   Your page is waiting. The judgment is instant. The ego death is free.

@@ -120,7 +120,7 @@ export default function SupportPage() {
                       Report bugs, request features, or browse open issues.
                     </CardDescription>
                     <Link
-                      href="https://github.com/anomalyco/pagegoblin/issues"
+                      href="https://github.com/sayuru-akash/pagegoblin/issues"
                       className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-goblin transition-colors hover:text-goblin-dark"
                     >
                       Open an issue

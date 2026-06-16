@@ -4,7 +4,7 @@ import { GoblinLogo } from "@/components/brand/goblin-logo";
 const footerLinks = [
   { href: "#how-it-works", label: "How it works" },
   { href: "/privacy", label: "Privacy" },
-  { href: "https://github.com/anomalyco/pagegoblin", label: "GitHub" },
+  { href: "https://github.com/sayuru-akash/pagegoblin", label: "GitHub" },
 ];
 
 export function SiteFooter() {
@@ -22,6 +22,10 @@ export function SiteFooter() {
             <Link
               key={link.href}
               href={link.href}
+              target={link.href.startsWith("http") ? "_blank" : undefined}
+              rel={
+                link.href.startsWith("http") ? "noopener noreferrer" : undefined
+              }
               className="text-sm text-muted transition-colors hover:text-ink"
             >
               {link.label}
@@ -32,9 +36,7 @@ export function SiteFooter() {
           <p className="text-sm text-muted">
             &copy; 2026 Sayuru Amarasinghe. MIT License.
           </p>
-          <p className="font-mono text-xs text-muted/60">
-            goblin.exe v0.1.0
-          </p>
+          <p className="font-mono text-xs text-muted/60">goblin.exe v0.1.0</p>
         </div>
       </div>
     </footer>

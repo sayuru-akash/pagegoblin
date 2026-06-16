@@ -8,7 +8,6 @@ import {
   Zap,
   Scale,
   Skull,
-  Swords,
 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -20,9 +19,8 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { SectionHeading } from "@/components/ui/section-heading";
-import { ScoreOrb } from "@/components/ui/score-orb";
 import { GoblinMascot } from "@/components/brand/goblin-mascot";
-import { GoblinEye } from "@/components/brand/goblin-eye";
+import { SampleReportCard } from "@/components/brand/sample-report-card";
 import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
 import { TextReveal } from "@/components/motion/text-reveal";
@@ -89,15 +87,20 @@ export default function Home() {
       <SiteHeader />
       <main className="flex flex-1 flex-col items-center overflow-hidden">
         {/* Hero */}
-        <section className="relative flex w-full min-h-[92vh] flex-col items-center justify-center px-6 pt-20 pb-24 text-center hero-gradient">
+        <section className="relative flex w-full min-h-[92vh] flex-col items-center justify-center px-6 pt-20 pb-24 text-center overflow-hidden hero-gradient">
+          {/* Aurora background */}
+          <div className="hero-aurora hero-aurora-1" />
+          <div className="hero-aurora hero-aurora-2" />
+          <div className="hero-aurora hero-aurora-3" />
+
           {/* Floating embers */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {[...Array(10)].map((_, i) => (
+            {[...Array(8)].map((_, i) => (
               <div key={i} className="particle" />
             ))}
           </div>
 
-          <div className="relative mx-auto max-w-4xl">
+          <div className="relative mx-auto max-w-5xl w-full">
             {/* Headline */}
             <div className="mb-8">
               <TextReveal
@@ -117,14 +120,14 @@ export default function Home() {
 
             {/* Subtitle */}
             <Reveal delay={0.8}>
-              <p className="mx-auto text-lg leading-relaxed text-muted sm:text-xl">
+              <p className="mx-auto max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
                 Drop a URL. Watch the goblin drag your page behind the shed.
               </p>
             </Reveal>
 
             {/* Search */}
             <Reveal delay={1.0}>
-              <div className="mt-12 flex flex-col items-center">
+              <div className="mt-10 flex flex-col items-center">
                 <UrlRoastForm variant="hero" />
                 <p className="mt-4 text-center text-xs text-muted/60">
                   No login. No mercy. The goblin bites and the bite is private.
@@ -132,19 +135,16 @@ export default function Home() {
               </div>
             </Reveal>
 
-            {/* Visual elements */}
-            <Reveal delay={1.2}>
-              <div className="mt-16 flex items-center justify-center gap-12">
-                <GoblinEye size={160} />
-                <div className="hidden sm:block">
-                  <ScoreOrb score={73} size="lg" />
-                </div>
+            {/* Sample report — the real hero */}
+            <Reveal delay={1.4}>
+              <div className="mt-20 flex justify-center">
+                <SampleReportCard />
               </div>
             </Reveal>
           </div>
 
           {/* Scroll indicator */}
-          <Reveal delay={1.5}>
+          <Reveal delay={1.8}>
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
               <ScrollIndicator />
             </div>
@@ -171,22 +171,16 @@ export default function Home() {
             >
               {judgeCards.map((card) => (
                 <StaggerItem key={card.title}>
-                  <Card className="group h-full glow-border cursor-default">
-                    <CardHeader>
-                      <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-goblin/10 text-goblin transition-all duration-300 group-hover:bg-goblin/15 group-hover:scale-110 group-hover:shadow-goblin">
+                  <Card className="group h-full cursor-default p-5 glow-border">
+                    <CardHeader className="mb-0">
+                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-goblin/10 text-goblin transition-all duration-300 group-hover:bg-goblin/15 group-hover:scale-110 group-hover:shadow-goblin">
                         <card.icon className="h-5 w-5" />
                       </div>
-                      <CardTitle className="text-xl">{card.title}</CardTitle>
-                      <CardDescription className="text-sm leading-relaxed">
+                      <CardTitle className="text-lg">{card.title}</CardTitle>
+                      <CardDescription className="mt-1.5 text-[13px] leading-relaxed">
                         {card.description}
                       </CardDescription>
                     </CardHeader>
-                    <div className="px-6 pb-6">
-                      <div className="flex items-center gap-2 text-xs font-medium text-goblin-dark opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                        <Swords className="h-3.5 w-3.5" />
-                        <span>Judged without mercy</span>
-                      </div>
-                    </div>
                   </Card>
                 </StaggerItem>
               ))}
@@ -341,20 +335,27 @@ export default function Home() {
         </section>
 
         {/* Final CTA */}
-        <section className="relative w-full border-t border-border bg-bone/30 px-6 py-20">
-          <div className="mx-auto max-w-2xl text-center">
+        <section className="relative w-full border-t border-border bg-bone/30 px-6 py-24 overflow-hidden">
+          {/* Soft ambient glow behind goblin */}
+          <div className="hero-aurora hero-aurora-1 opacity-30" />
+
+          <div className="relative mx-auto max-w-2xl text-center">
             <Reveal>
-              <div className="flex flex-col items-center gap-6">
-                <GoblinMascot className="opacity-80" />
-                <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              <div className="flex flex-col items-center gap-5">
+                <div className="relative -my-4">
+                  {/* Glow ring behind goblin */}
+                  <div className="absolute inset-0 -m-12 rounded-full bg-goblin/15 blur-3xl animate-glow-pulse" />
+                  <GoblinMascot className="relative" />
+                </div>
+                <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl mt-2">
                   Ready for your funeral?
                 </h2>
-                <p className="text-muted">
+                <p className="text-muted max-w-md">
                   Your page is waiting. The judgment is instant. The ego death is free.
                 </p>
                 <Link
                   href="/analyze"
-                  className="group inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-parchment shadow-goblin transition-all duration-300 hover:bg-goblin-dark hover:shadow-glow"
+                  className="group inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-cave px-8 text-sm font-semibold text-parchment shadow-goblin transition-all duration-300 hover:bg-cave-2 hover:shadow-glow"
                 >
                   Feed the goblin
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

@@ -10,7 +10,7 @@ export interface ReportPayload {
     title?: string;
     metaDescription?: string;
     source: "WEB_URL" | "EXTENSION" | "MANUAL_SIGNALS";
-    roastMode: "DETERMINISTIC";
+    roastMode: "DETERMINISTIC" | "AI_ASSISTED" | "HYBRID";
     visibility: "PRIVATE" | "UNLISTED" | "PUBLIC";
     score: number;
     categoryScores: CategoryScores;

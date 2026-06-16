@@ -34,7 +34,7 @@ export function serializeReport(report: PrismaReportLike): ReportPayload {
       title: report.title ?? undefined,
       metaDescription: report.metaDescription ?? undefined,
       source: report.source as "WEB_URL" | "EXTENSION" | "MANUAL_SIGNALS",
-      roastMode: "DETERMINISTIC",
+      roastMode: report.roastMode as "DETERMINISTIC" | "AI_ASSISTED" | "HYBRID",
       visibility: report.visibility as "PRIVATE" | "UNLISTED" | "PUBLIC",
       score: report.score,
       categoryScores: metrics.categoryScores ?? {

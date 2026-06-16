@@ -52,7 +52,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
 
       const data = await res.json();
 
-      if (!res.ok || !data.ok) {
+      if (!res.ok || !data.report) {
         const status = data.error?.status ?? res.status;
         if (status === 400) {
           setError(data.error?.message ?? "That URL does not look right. The goblin is suspicious.");
@@ -64,7 +64,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
         return;
       }
 
-      const slug = data.data.links.report.replace("/roasts/", "");
+      const slug = data.links.report.replace("/roasts/", "");
       router.push(`/roasts/${slug}`);
     } catch {
       setError("The goblin cannot reach the server. Check your connection or run.");

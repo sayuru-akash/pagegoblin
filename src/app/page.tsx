@@ -1,15 +1,10 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 import {
   ArrowRight,
-  CheckCircle2,
+  Shield,
   Crosshair,
-  Eye,
   FileWarning,
-  MessageSquareWarning,
-  Sparkles,
-  WandSparkles,
-  Zap,
+  Users,
 } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
@@ -29,98 +24,48 @@ import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
 const judgeCards = [
   {
-    icon: Eye,
-    eyebrow: "01 / trust",
-    title: "Credibility under the microscope",
+    icon: Shield,
+    title: "Trust Tax",
     description:
-      "The goblin checks whether your page earns trust before asking visitors to act.",
-    proof: "Proof, clarity, proof",
+      "Missing testimonials, weak social proof, zero credibility signals? The goblin sees through your facade.",
   },
   {
     icon: Crosshair,
-    eyebrow: "02 / action",
-    title: "CTAs that actually move",
+    title: "CTA Corpse",
     description:
-      "Weak buttons, vague labels, and hidden offers get dragged into the light.",
-    proof: "Sharper next step",
+      "Your call-to-action is buried, vague, or dead on arrival. The goblin will tell you exactly where it flatlined.",
   },
   {
     icon: FileWarning,
-    eyebrow: "03 / copy",
-    title: "Fluff, fog, and fake polish",
+    title: "Fluff Damage",
     description:
-      "Jargon and generic claims are replaced with words buyers can understand.",
-    proof: "Human language",
+      "Jargon, filler words, saying nothing with maximum syllables. The goblin cuts through the noise with a rusty knife.",
   },
   {
-    icon: MessageSquareWarning,
-    eyebrow: "04 / message",
-    title: "The five-second test",
+    icon: Users,
+    title: "Buyer Confusion Level",
     description:
-      "If visitors cannot tell what you do, why it matters, and what to do next, the goblin pounces.",
-    proof: "Clear value story",
+      "If visitors cannot figure out what you do in 5 seconds, the goblin will not sugarcoat it.",
   },
 ];
 
 const sampleFixes = [
   {
-    label: "Hero claim",
-    before: "We leverage synergistic solutions",
-    after: "We fix your broken checkout in 48 hours",
+    before: '"We leverage synergistic solutions"',
+    after: '"We fix your broken checkout in 48 hours"',
     score: 12,
   },
   {
-    label: "Primary CTA",
-    before: "Submit",
-    after: "Get my free audit",
+    before: "CTA button says Submit",
+    after: 'CTA button says "Get my free audit"',
     score: 34,
   },
   {
-    label: "Social proof",
     before: "No testimonials visible",
     after: "3 testimonials above the fold",
     score: 58,
   },
 ];
-
-const quickStats = [
-  {
-    label: "Instant roast",
-    value: "60s",
-    note: "paste a URL, get a readable verdict",
-  },
-  {
-    label: "Signals scanned",
-    value: "40+",
-    note: "copy, trust, CTA, and clarity checks",
-  },
-  {
-    label: "Fix-first output",
-    value: "0 fluff",
-    note: "specific changes, not generic advice",
-  },
-];
-
-const audienceRoles = [
-  "Founders",
-  "Marketers",
-  "Agencies",
-  "Indie hackers",
-  "Freelancers",
-  "Growth teams",
-];
-
-function FloatingBlob({ className }: { className: string }) {
-  return (
-    <div
-      aria-hidden="true"
-      className={cn(
-        "pointer-events-none absolute rounded-full blur-3xl",
-        className,
-      )}
-    />
-  );
-}
 
 export default function Home() {
   return (

@@ -1,0 +1,14 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f5f0e8"/>
+  <rect x="0" y="0" width="1200" height="630" rx="0" fill="#f5f0e8"/>
+  <circle cx="600" cy="240" r="80" fill="#2d1b4e"/>
+  <circle cx="575" cy="225" r="12" fill="#f5f0e8"/>
+  <circle cx="625" cy="225" r="12" fill="#f5f0e8"/>
+  <circle cx="577" cy="223" r="6" fill="#1a1a1a"/>
+  <circle cx="627" cy="223" r="6" fill="#1a1a1a"/>
+  <path d="M580 270 Q600 285 620 270" stroke="#84cc16" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M540 170 L570 210" stroke="#84cc16" stroke-width="8" stroke-linecap="round"/>
+  <path d="M660 170 L630 210" stroke="#84cc16" stroke-width="8" stroke-linecap="round"/>
+  <text x="600" y="400" text-anchor="middle" font-family="system-ui, sans-serif" font-size="48" font-weight="bold" fill="#1a1a1a">PageGoblin</text>
+  <text x="600" y="450" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" fill="#78716c">The tiny goblin that judges your website.</text>
+</svg>

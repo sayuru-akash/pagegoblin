@@ -21,13 +21,18 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.APP_URL || "https://pagegoblin.org"),
   title: "PageGoblin — The tiny goblin that judges your website",
   description:
-    "PageGoblin is a tiny goblin that crawls your website and judges every pixel. Get brutally honest feedback on your web design.",
+    "PageGoblin roasts trust, clarity, CTAs, copy, and conversion confidence before your buyers silently leave.",
   openGraph: {
     title: "PageGoblin",
     description: "The tiny goblin that judges your website.",
     type: "website",
+    images: ["/og-default.svg"],
+  },
+  icons: {
+    icon: "/favicon.svg",
   },
 };
 

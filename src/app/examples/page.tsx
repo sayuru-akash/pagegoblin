@@ -156,7 +156,7 @@ export default function ExamplesPage() {
                       </div>
 
                       <Link
-                        href="#"
+                        href="/analyze"
                         className="inline-flex items-center gap-1.5 text-sm font-medium text-goblin transition-colors hover:text-goblin-dark"
                       >
                         View full roast

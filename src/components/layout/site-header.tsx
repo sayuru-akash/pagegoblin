@@ -6,8 +6,8 @@ import { motion } from "motion/react";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const navLinks = [
-  { href: "#how-it-works", label: "How it works" },
-  { href: "#examples", label: "Examples" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/examples", label: "Examples" },
   { href: "/privacy", label: "Privacy" },
 ];
 

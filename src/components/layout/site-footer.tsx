@@ -2,7 +2,8 @@ import Link from "next/link";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const footerLinks = [
-  { href: "#how-it-works", label: "How it works" },
+  { href: "/how-it-works", label: "How it works" },
+  { href: "/examples", label: "Examples" },
   { href: "/privacy", label: "Privacy" },
   { href: "https://github.com/sayuru-akash/pagegoblin", label: "GitHub" },
 ];

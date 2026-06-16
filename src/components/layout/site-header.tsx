@@ -26,7 +26,7 @@ export function SiteHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-muted transition-colors hover:text-ink hover:bg-bone"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-muted transition-all duration-200 hover:text-ink hover:bg-bone"
             >
               {link.label}
             </Link>
@@ -34,17 +34,11 @@ export function SiteHeader() {
         </nav>
         <div className="flex items-center gap-3">
           <Link
-            href="#"
-            className="hidden text-sm font-medium text-muted transition-colors hover:text-ink sm:block"
-          >
-            Sign in
-          </Link>
-          <Link
             href="/analyze"
-            className="inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-goblin px-4 text-sm font-semibold text-ink shadow-goblin transition-colors hover:bg-goblin-dark"
+            className="group inline-flex h-9 items-center justify-center gap-1.5 rounded-lg bg-goblin px-4 text-sm font-semibold text-ink shadow-goblin transition-all duration-200 hover:bg-goblin-dark hover:shadow-glow"
           >
             Roast a page
-            <ArrowRight className="h-3.5 w-3.5" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>

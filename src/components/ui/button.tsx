@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 
 const variantStyles = {
   primary:
-    "bg-goblin text-ink font-semibold shadow-goblin hover:bg-goblin-dark",
+    "bg-goblin text-ink font-semibold shadow-goblin hover:bg-goblin-dark hover:shadow-glow",
   secondary:
-    "bg-bone text-ink font-semibold border border-border hover:bg-parchment",
+    "bg-bone text-ink font-semibold border border-border hover:bg-parchment hover:border-goblin/30",
   ghost:
     "bg-transparent text-ink font-medium hover:bg-bone",
   danger:
@@ -18,7 +18,7 @@ const variantStyles = {
 const sizeStyles = {
   sm: "h-9 px-4 text-sm rounded-lg gap-1.5",
   md: "h-11 px-6 text-sm rounded-xl gap-2",
-  lg: "h-13 px-8 text-base rounded-xl gap-2.5",
+  lg: "h-14 px-8 text-base rounded-xl gap-2.5",
 } as const;
 
 type ButtonVariant = keyof typeof variantStyles;
@@ -39,7 +39,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         whileTap={{ scale: 0.98 }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
         className={cn(
-          "inline-flex items-center justify-center transition-colors focus-goblin cursor-pointer disabled:opacity-50 disabled:pointer-events-none",
+          "inline-flex items-center justify-center transition-all duration-300 focus-goblin cursor-pointer disabled:opacity-50 disabled:pointer-events-none",
           variantStyles[variant],
           sizeStyles[size],
           className

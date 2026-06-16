@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
-import { Flame, Loader2 } from "lucide-react";
+import { ArrowRight, Loader2, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,13 +29,14 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
   const [url, setUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
 
     if (!isValidUrl(url)) {
-      setError("That doesn't look like a URL. Try something like example.com");
+      setError("That doesn't look like a valid URL. Try example.com");
       return;
     }
 
@@ -56,9 +57,9 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
         if (status === 400) {
           setError(data.error?.message ?? "That URL doesn't look right.");
         } else if (status === 429) {
-          setError("The goblin needs a break. Try again in a minute.");
+          setError("Our servers need a moment. Please try again shortly.");
         } else {
-          setError("The goblin choked on something. Try again.");
+          setError("Something went wrong. Please try again.");
         }
         return;
       }
@@ -66,7 +67,7 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       const slug = data.data.links.report.replace("/roasts/", "");
       router.push(`/roasts/${slug}`);
     } catch {
-      setError("The goblin can't reach the server. Check your connection.");
+      setError("Can't reach our servers. Check your connection.");
     } finally {
       setIsLoading(false);
     }
@@ -84,22 +85,39 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
         <div className="relative">
           <label htmlFor="url-roast-input" className="sr-only">
-            Enter a URL to roast
+            Enter a URL to analyze
           </label>
-          <Input
-            id="url-roast-input"
-            type="text"
-            placeholder="https://your-website.com"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            disabled={isLoading}
-            aria-invalid={error ? "true" : undefined}
-            aria-describedby={error ? "url-roast-error" : undefined}
-            className={cn(
-              isHero ? "h-14 text-base" : "h-12",
-              "pr-4"
+          <div className={cn(
+            "relative rounded-xl transition-all duration-300",
+            isFocused && "shadow-glow"
+          )}>
+            <Input
+              id="url-roast-input"
+              type="text"
+              placeholder="your-website.com"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              onFocus={() => setIsFocused(true)}
+              onBlur={() => setIsFocused(false)}
+              disabled={isLoading}
+              aria-invalid={error ? "true" : undefined}
+              aria-describedby={error ? "url-roast-error" : undefined}
+              className={cn(
+                isHero ? "h-14 text-base" : "h-12",
+                "pr-4 border-2 transition-all duration-300",
+                isFocused && "border-goblin/50 bg-bone"
+              )}
+            />
+            {isFocused && !url && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="absolute right-4 top-1/2 -translate-y-1/2"
+              >
+                <Sparkles className="h-4 w-4 text-goblin/40" />
+              </motion.div>
             )}
-          />
+          </div>
         </div>
 
         <Button
@@ -107,17 +125,17 @@ export function UrlRoastForm({ variant = "hero", className }: UrlRoastFormProps)
           variant="primary"
           size={isHero ? "lg" : "md"}
           disabled={isLoading}
-          className="w-full"
+          className="w-full group"
         >
           {isLoading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              The goblin is inspecting...
+              Analyzing your page...
             </>
           ) : (
             <>
-              <Flame className="h-4 w-4" />
-              Roast this page
+              Begin inspection
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </>
           )}
         </Button>

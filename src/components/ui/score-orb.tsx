@@ -29,9 +29,16 @@ export function ScoreOrb({ score, label = "Goblin Score", size = "md", className
   const progress = (score / 100) * circumference;
 
   return (
-    <div className={cn("relative flex flex-col items-center gap-2", className)}>
+    <div className={cn("relative flex flex-col items-center gap-3", className)}>
       <div className={cn("relative", config.container)}>
-        <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
+        {/* Glow effect */}
+        <div 
+          className="absolute inset-0 rounded-full animate-glow-pulse"
+          style={{
+            background: `radial-gradient(circle, ${getScoreColor(score).replace(')', ' / 0.15)')}, transparent 70%)`,
+          }}
+        />
+        <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90 relative">
           <circle
             cx="50"
             cy="50"

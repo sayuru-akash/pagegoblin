@@ -11,6 +11,22 @@ pnpm dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Database Setup
+
+Requires a running PostgreSQL instance. Copy `.env.example` to `.env` and configure:
+
+```bash
+cp .env.example .env
+# Edit DATABASE_URL, AUTH_SECRET, ENCRYPTION_KEY, ADMIN_EMAIL, ADMIN_PASSWORD
+```
+
+Push schema and seed:
+
+```bash
+pnpm db:push
+pnpm db:seed
+```
+
 ## Scripts
 
 | Command | Description |
@@ -20,7 +36,12 @@ Open [http://localhost:3000](http://localhost:3000).
 | `pnpm start` | Start production server |
 | `pnpm lint` | Run ESLint |
 | `pnpm type-check` | TypeScript type checking |
-| `pnpm verify` | Full verification (install + type-check + lint + build) |
+| `pnpm verify` | Full verification (env + type-check + lint + build) |
+| `pnpm db:generate` | Generate Prisma client |
+| `pnpm db:push` | Push schema to database |
+| `pnpm db:seed` | Seed database with defaults |
+| `pnpm db:studio` | Open Prisma Studio |
+| `pnpm env:check` | Verify environment variables |
 
 ## Docker
 
@@ -34,7 +55,9 @@ DOCKER_BUILD=1 pnpm build
 - [React](https://react.dev) 19
 - [TypeScript](https://www.typescriptlang.org) (strict)
 - [Tailwind CSS](https://tailwindcss.com) v4
-- [Framer Motion](https://www.framer.com/motion/)
+- [Motion](https://motion.dev)
+- [Prisma](https://prisma.io) 7 + PostgreSQL
+- [Auth.js](https://authjs.dev) (Prisma adapter)
 - [Zod](https://zod.dev)
 
 ## License

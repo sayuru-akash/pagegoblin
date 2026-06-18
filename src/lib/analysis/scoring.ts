@@ -1,4 +1,9 @@
-import type { PageSignals, CategoryScores, GoblinComplaint, UsefulFix } from "./types";
+import type {
+  PageSignals,
+  CategoryScores,
+  GoblinComplaint,
+  UsefulFix,
+} from "./types";
 
 // ─── Buzzword list ───────────────────────────────────────────────────────────
 
@@ -121,13 +126,13 @@ export function scoreCTACorpse(signals: PageSignals): number {
 
   // Check for strong CTAs
   const strongCount = ctaTexts.filter((cta) =>
-    STRONG_CTAS.some((s) => cta.includes(s))
+    STRONG_CTAS.some((s) => cta.includes(s)),
   ).length;
   score += Math.min(strongCount * 15, 30);
 
   // Check for weak CTAs
   const weakCount = ctaTexts.filter((cta) =>
-    WEAK_CTAS.some((w) => cta === w || cta.startsWith(w))
+    WEAK_CTAS.some((w) => cta === w || cta.startsWith(w)),
   ).length;
 
   // If ALL CTAs are weak, big penalty
@@ -203,7 +208,9 @@ export function scoreBuyerConfusion(signals: PageSignals): number {
     const hasWhoFor =
       /\b(for|help|teams|businesses|people|developers|companies)\b/.test(lower);
     const hasOutcome =
-      /\b(close|save|reduce|increase|grow|build|track|manage|automate|faster|better|more)\b/.test(lower);
+      /\b(close|save|reduce|increase|grow|build|track|manage|automate|faster|better|more)\b/.test(
+        lower,
+      );
     const hasWhat =
       /\b(crm|platform|tool|software|app|dashboard|extension)\b/.test(lower);
 
@@ -296,7 +303,7 @@ export function computeGoblinScore(categories: CategoryScores): number {
 
 export function generateComplaints(
   signals: PageSignals,
-  categories: CategoryScores
+  categories: CategoryScores,
 ): GoblinComplaint[] {
   const complaints: GoblinComplaint[] = [];
   const allText = [
@@ -319,9 +326,9 @@ export function generateComplaints(
 
     complaints.push({
       id: "trust-missing-proof",
-      title: "Missing Trust Signals",
+      title: "Trust Signals? Never Met Her.",
       severity: categories.trustTax < 25 ? "critical" : "high",
-      detail: `Your page is screaming "trust me" without showing any proof. ${trustCount === 0 ? "Zero trust indicators detected." : `Only ${trustCount} trust signal(s) found.`}`,
+      detail: `Your page is screaming "trust me" without showing any proof. ${trustCount === 0 ? "Zero trust indicators detected. Did you forget your own street cred?" : `Only ${trustCount} trust signal(s) found. Pathetic.`}`,
       evidence: missing.length > 0 ? missing : undefined,
     });
   }
@@ -330,30 +337,33 @@ export function generateComplaints(
   if (categories.ctaCorpse < 70) {
     const ctas = signals.ctaTexts ?? [];
     const weakCTAs = ctas.filter((c) =>
-      WEAK_CTAS.some((w) => c.toLowerCase() === w || c.toLowerCase().startsWith(w))
+      WEAK_CTAS.some(
+        (w) => c.toLowerCase() === w || c.toLowerCase().startsWith(w),
+      ),
     );
 
     if (ctas.length === 0) {
       complaints.push({
         id: "cta-none",
-        title: "CTA Corpse: No Call-to-Action Found",
+        title: "CTA Corpse: Zero Calls-to-Action",
         severity: "critical",
-        detail: "Your page has zero calls-to-action. Visitors have no idea what to do next. It's a dead end.",
+        detail:
+          "Your page has zero calls-to-action. Visitors land and immediately leave. It's a cemetery for conversions.",
       });
     } else if (weakCTAs.length === ctas.length) {
       complaints.push({
         id: "cta-all-weak",
-        title: "CTA Corpse: Only Weak CTAs",
+        title: "CTA Corpse: Weak Sauce Buttons Only",
         severity: "high",
-        detail: `Every CTA on your page is weak: ${weakCTAs.map((w) => `"${w}"`).join(", ")}. "Learn More" doesn't sell anything.`,
+        detail: `Every CTA is weak: ${weakCTAs.map((w) => `"${w}"`).join(", ")}. These are ghost town buttons that nobody clicks. Give them fangs.`,
         evidence: weakCTAs,
       });
     } else if (ctas.length > 5) {
       complaints.push({
         id: "cta-too-many",
-        title: "CTA Corpse: Too Many Competing CTAs",
+        title: "CTA Corpse: Attention Whore",
         severity: "medium",
-        detail: `You have ${ctas.length} different CTAs fighting for attention. Pick one primary action.`,
+        detail: `You have ${ctas.length} different CTAs fighting for attention. Pick one path and stick to it, or watch conversions die alone.`,
         evidence: ctas,
       });
     }
@@ -364,9 +374,10 @@ export function generateComplaints(
   if (buzzCount >= 1) {
     complaints.push({
       id: "fluff-buzzwords",
-      title: "Fluff Damage: Buzzword Overload",
-      severity: buzzCount >= 5 ? "critical" : buzzCount >= 3 ? "high" : "medium",
-      detail: `Detected ${buzzCount} buzzword(s) in your copy. These words mean nothing to buyers: ${buzzwords.map((b) => `"${b}"`).join(", ")}.`,
+      title: "Fluff Damage: Corporate Kool-Aid Spillage",
+      severity:
+        buzzCount >= 5 ? "critical" : buzzCount >= 3 ? "high" : "medium",
+      detail: `Detected ${buzzCount} buzzword(s) in your copy. ${buzzCount >= 3 ? "You're swimming in jargon soup." : "Your thesaurus called, it wants its words back."} These mean nothing to actual buyers: ${buzzwords.map((b) => `"${b}"`).join(", ")}.`,
       evidence: buzzwords,
     });
   }
@@ -379,9 +390,9 @@ export function generateComplaints(
     if (isVague) {
       complaints.push({
         id: "clarity-vague-h1",
-        title: "Vague Headline",
+        title: "Vague Headline: Speaks in Riddles",
         severity: "high",
-        detail: `Your H1 "${h1Text}" tells visitors nothing. What do you do? Who is it for? Why should they care?`,
+        detail: `Your H1 "${h1Text}" is corporate nonsense. Tell visitors what you do, who you do it for, and why they should care. Right. Now.`,
         evidence: [h1Text],
       });
     }
@@ -390,9 +401,10 @@ export function generateComplaints(
   if (h1s.length === 0) {
     complaints.push({
       id: "clarity-no-h1",
-      title: "No H1 Headline",
+      title: "No H1 Headline: Welcome to the Void",
       severity: "high",
-      detail: "Your page has no H1 headline. Visitors can't figure out what this page is about in 3 seconds.",
+      detail:
+        "Your page has no H1 headline. Visitors bounce confused because you couldn't be bothered to say what this page is FOR.",
     });
   }
 
@@ -400,9 +412,10 @@ export function generateComplaints(
   if (categories.buyerConfusionLevel < 60) {
     complaints.push({
       id: "confusion-offer",
-      title: "Buyer Confusion: Unclear Offer",
+      title: "Buyer Confusion: What Even Is This?",
       severity: "high",
-      detail: "It's hard to tell what you're selling, who it's for, or what outcome to expect. Buyers need clarity in under 5 seconds.",
+      detail:
+        "It takes a detective to figure out what you sell. Buyers need clarity in 3 seconds, not 3 minutes of squinting.",
     });
   }
 
@@ -415,9 +428,9 @@ export function generateComplaints(
 
     complaints.push({
       id: "friction-path",
-      title: "Conversion Friction: Unclear Path Forward",
+      title: "Conversion Friction: Obstacle Course",
       severity: "medium",
-      detail: `Buyers face friction: ${issues.join(", ")}. Make the next step obvious.`,
+      detail: `Buyers hit walls: ${issues.join(", ")}. Remove the landmines.`,
       evidence: issues,
     });
   }
@@ -426,9 +439,10 @@ export function generateComplaints(
   if (!signals.metaDescription || signals.metaDescription.length < 30) {
     complaints.push({
       id: "missing-meta-description",
-      title: "Invisible to Search: Missing Meta Description",
+      title: "SEO Suicide: Missing Meta Description",
       severity: "medium",
-      detail: "Your page has no meta description (or a very short one). Search engines show garbage instead of your pitch. Write 150-160 chars that sell the click.",
+      detail:
+        "Your page has no meta description (or a pathetic stub). Google shows garbage instead of your pitch. Write 150-160 chars or watch CTR die.",
     });
   }
 
@@ -436,9 +450,9 @@ export function generateComplaints(
   if ((signals.linkCount ?? 0) > 50) {
     complaints.push({
       id: "link-overload",
-      title: "Navigation Soup: Too Many Links",
+      title: "Navigation Soup: Link Diarrhea",
       severity: "low",
-      detail: `Your page has ${signals.linkCount} links. Visitors drown in options. Reduce to the essential paths.`,
+      detail: `Your page has ${signals.linkCount} links. Visitors are drowning in choices. Ruthlessly delete.`,
     });
   }
 
@@ -446,19 +460,23 @@ export function generateComplaints(
   if ((signals.h2?.length ?? 0) < 2) {
     complaints.push({
       id: "poor-structure",
-      title: "Wall of Text: Poor Content Structure",
+      title: "Wall of Text: Lazy Formatting",
       severity: "low",
-      detail: "Your page has almost no H2 subheadings. Visitors skim, they don't read. Break content into scannable sections.",
+      detail:
+        "Your page has almost no H2 subheadings. Visitors skim, not read. Respect their time.",
     });
   }
 
   // IMAGE-HEAVY, TEXT-LIGHT
-  if ((signals.imageCount ?? 0) > 10 && (signals.bodyTextSample?.length ?? 9999) < 500) {
+  if (
+    (signals.imageCount ?? 0) > 10 &&
+    (signals.bodyTextSample?.length ?? 9999) < 500
+  ) {
     complaints.push({
       id: "image-heavy",
-      title: "All Pictures, No Words",
+      title: "All Pictures, No Substance",
       severity: "medium",
-      detail: `Your page has ${signals.imageCount} images but barely any text. Search engines and buyers both need words to understand your value.`,
+      detail: `Your page has ${signals.imageCount} images but barely any text. Both Google and buyers need words. This isn't Instagram.`,
     });
   }
 
@@ -466,9 +484,9 @@ export function generateComplaints(
   if ((signals.formCount ?? 0) > 3) {
     complaints.push({
       id: "form-overload",
-      title: "Form Fatigue: Too Many Forms",
+      title: "Form Fatigue: Type Until You Die",
       severity: "low",
-      detail: `Your page has ${signals.formCount} forms. Each form is friction. Consolidate or remove unnecessary ones.`,
+      detail: `Your page has ${signals.formCount} forms. Each field is friction. Kill the extras.`,
     });
   }
 
@@ -476,9 +494,10 @@ export function generateComplaints(
   if (!signals.hasTeam && (signals.trustIndicators?.length ?? 0) < 2) {
     complaints.push({
       id: "anonymous-brand",
-      title: "Who Are You? No Team or About Info",
+      title: "Ghost Brand: Where Are the Humans?",
       severity: "medium",
-      detail: "There's no team page, no 'about us', no human faces. Anonymous pages feel sketchy. Show the people behind the product.",
+      detail:
+        "No team page, no 'about us', no faces. Anonymous = sketchy. Show the people or get ignored.",
     });
   }
 
@@ -489,7 +508,7 @@ export function generateComplaints(
 
 export function generateFixes(
   signals: PageSignals,
-  categories: CategoryScores
+  categories: CategoryScores,
 ): UsefulFix[] {
   const fixes: UsefulFix[] = [];
 
@@ -498,7 +517,8 @@ export function generateFixes(
   if (h1s.length === 0) {
     fixes.push({
       title: "Add a Specific H1 Headline",
-      detail: "Your page needs a clear H1 that answers: what is it, who is it for, and what's the outcome. Example: 'Close More Deals with Acme CRM — Built for Small Sales Teams'",
+      detail:
+        "Your page needs a clear H1 that answers: what is it, who is it for, and what's the outcome. Example: 'Close More Deals with Acme CRM — Built for Small Sales Teams'",
       priority: "urgent",
       effort: "low",
     });
@@ -519,7 +539,8 @@ export function generateFixes(
     if (!signals.hasTestimonials) {
       fixes.push({
         title: "Add Testimonials or Reviews",
-        detail: "Include real customer quotes with names and photos. Even 2-3 testimonials dramatically increase trust.",
+        detail:
+          "Include real customer quotes with names and photos. Even 2-3 testimonials dramatically increase trust.",
         priority: "high",
         effort: "low",
       });
@@ -527,7 +548,8 @@ export function generateFixes(
     if (!signals.hasClientLogos && !signals.hasCaseStudies) {
       fixes.push({
         title: "Show Social Proof",
-        detail: "Add client logos, case studies, or 'trusted by X companies' to prove you're legit.",
+        detail:
+          "Add client logos, case studies, or 'trusted by X companies' to prove you're legit.",
         priority: "high",
         effort: "medium",
       });
@@ -535,7 +557,8 @@ export function generateFixes(
     if (!signals.hasSecurityBadges) {
       fixes.push({
         title: "Add Security/Credibility Badges",
-        detail: "SOC 2, SSL, money-back guarantee, or industry certifications reduce buyer anxiety.",
+        detail:
+          "SOC 2, SSL, money-back guarantee, or industry certifications reduce buyer anxiety.",
         priority: "medium",
         effort: "low",
       });
@@ -548,13 +571,16 @@ export function generateFixes(
     if (ctas.length === 0) {
       fixes.push({
         title: "Add a Primary Call-to-Action",
-        detail: "Every page needs one clear CTA. Use action-oriented text like 'Start Free Trial', 'Book a Demo', or 'Get Quote'.",
+        detail:
+          "Every page needs one clear CTA. Use action-oriented text like 'Start Free Trial', 'Book a Demo', or 'Get Quote'.",
         priority: "urgent",
         effort: "low",
       });
     } else {
       const allWeak = ctas.every((c) =>
-        WEAK_CTAS.some((w) => c.toLowerCase() === w || c.toLowerCase().startsWith(w))
+        WEAK_CTAS.some(
+          (w) => c.toLowerCase() === w || c.toLowerCase().startsWith(w),
+        ),
       );
       if (allWeak) {
         fixes.push({
@@ -568,12 +594,15 @@ export function generateFixes(
   }
 
   // Fluff fix
-  const allText = [signals.heroText ?? "", signals.bodyTextSample ?? ""].join(" ");
+  const allText = [signals.heroText ?? "", signals.bodyTextSample ?? ""].join(
+    " ",
+  );
   const { count: buzzCount } = countBuzzwords(allText);
   if (buzzCount >= 1) {
     fixes.push({
       title: "Cut the Buzzwords",
-      detail: "Replace vague terms like 'innovative', 'cutting-edge', and 'world-class' with specific claims. '99.9% uptime' beats 'world-class reliability' every time.",
+      detail:
+        "Replace vague terms like 'innovative', 'cutting-edge', and 'world-class' with specific claims. '99.9% uptime' beats 'world-class reliability' every time.",
       priority: "high",
       effort: "medium",
     });
@@ -583,7 +612,8 @@ export function generateFixes(
   if (!signals.hasContact) {
     fixes.push({
       title: "Add Contact Information",
-      detail: "A contact page, email, or chat widget builds trust. Buyers want to know they can reach a human.",
+      detail:
+        "A contact page, email, or chat widget builds trust. Buyers want to know they can reach a human.",
       priority: "medium",
       effort: "low",
     });
@@ -593,7 +623,8 @@ export function generateFixes(
   if (!signals.hasPricing && (signals.ctaTexts?.length ?? 0) > 0) {
     fixes.push({
       title: "Show Pricing or Pricing Context",
-      detail: "Even a 'Starting at $X' or 'Free tier available' reduces friction. Hidden pricing creates suspicion.",
+      detail:
+        "Even a 'Starting at $X' or 'Free tier available' reduces friction. Hidden pricing creates suspicion.",
       priority: "medium",
       effort: "low",
     });
@@ -603,7 +634,8 @@ export function generateFixes(
   if (signals.hasMobileViewport === false) {
     fixes.push({
       title: "Mobile Suspicion Warning: Add Mobile Viewport Meta Tag",
-      detail: "Your page may not be mobile-friendly. Add <meta name='viewport'> for mobile users.",
+      detail:
+        "Your page may not be mobile-friendly. Add <meta name='viewport'> for mobile users.",
       priority: "high",
       effort: "low",
     });
@@ -613,7 +645,8 @@ export function generateFixes(
   if (!signals.metaDescription || signals.metaDescription.length < 30) {
     fixes.push({
       title: "Write a Compelling Meta Description",
-      detail: "Add a 150-160 character description that appears in search results. Think of it as a mini sales pitch: what you do + who it's for + why click.",
+      detail:
+        "Add a 150-160 character description that appears in search results. Think of it as a mini sales pitch: what you do + who it's for + why click.",
       priority: "medium",
       effort: "low",
     });
@@ -623,7 +656,8 @@ export function generateFixes(
   if ((signals.h2?.length ?? 0) < 2) {
     fixes.push({
       title: "Add Subheadings (H2s) to Break Up Content",
-      detail: "Most visitors skim. Use 3-5 H2 subheadings to create a visual hierarchy. Each section should have a clear topic.",
+      detail:
+        "Most visitors skim. Use 3-5 H2 subheadings to create a visual hierarchy. Each section should have a clear topic.",
       priority: "medium",
       effort: "low",
     });
@@ -643,7 +677,8 @@ export function generateFixes(
   if (!signals.hasTeam) {
     fixes.push({
       title: "Add Team or About Section",
-      detail: "Show the humans behind the brand. Names, photos, short bios. People buy from people, not anonymous pages.",
+      detail:
+        "Show the humans behind the brand. Names, photos, short bios. People buy from people, not anonymous pages.",
       priority: "medium",
       effort: "medium",
     });
@@ -652,7 +687,10 @@ export function generateFixes(
   // HERO COPY FIX (if hero is vague)
   if (signals.heroText && signals.heroText.length > 0) {
     const heroLower = signals.heroText.toLowerCase();
-    const hasBenefit = /\b(save|faster|grow|increase|reduce|automate|simplify|boost|improve|cut|eliminate)\b/.test(heroLower);
+    const hasBenefit =
+      /\b(save|faster|grow|increase|reduce|automate|simplify|boost|improve|cut|eliminate)\b/.test(
+        heroLower,
+      );
     const hasSpecificNumber = /\b\d+/.test(heroLower);
     if (!hasBenefit && !hasSpecificNumber && signals.heroText.length > 20) {
       fixes.push({
@@ -672,7 +710,8 @@ export function generateFixes(
     if (!existingTitles.has("Make the Primary Next Step Impossible to Miss")) {
       fixes.push({
         title: "Make the Primary Next Step Impossible to Miss",
-        detail: "Pick one primary action and make it visually dominant above the fold. The goblin should not need a treasure map to find the conversion path.",
+        detail:
+          "Pick ONE action and make it stupid obvious above the fold. Visitors shouldn't need a map to find your CTA.",
         priority: "high",
         effort: "low",
       });
@@ -681,17 +720,22 @@ export function generateFixes(
     if (fixes.length < 3 && !existingTitles.has("Put Proof Next to the CTA")) {
       fixes.push({
         title: "Put Proof Next to the CTA",
-        detail: "Place a testimonial, customer count, rating, logo strip, or guarantee near the main CTA. Buyers need reassurance at the moment you ask them to act.",
-        priority: "medium",
+        detail:
+          "Place testimonials, customer count, ratings, or logos near your CTA. Buyers need social proof when you ask them to commit.",
+        priority: "high",
         effort: "low",
       });
     }
 
-    if (fixes.length < 3 && !existingTitles.has("Tighten the Above-the-Fold Pitch")) {
+    if (
+      fixes.length < 3 &&
+      !existingTitles.has("Tighten the Above-the-Fold Pitch")
+    ) {
       fixes.push({
         title: "Tighten the Above-the-Fold Pitch",
-        detail: "Your first screen should answer: what is this, who is it for, why should I care, and what do I do next? Remove anything that does not support those answers.",
-        priority: "medium",
+        detail:
+          "Your first screen must answer: What is this? Who is it for? Why care? What do I do? Kill anything that doesn't serve those.",
+        priority: "high",
         effort: "medium",
       });
     }

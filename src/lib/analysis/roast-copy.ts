@@ -1,34 +1,42 @@
 import type { AnalysisResult, GoblinComplaint } from "./types";
 
 function pickBiggestCrime(complaints: GoblinComplaint[]): string {
-  if (complaints.length === 0) return "No crimes detected — suspiciously clean.";
+  if (complaints.length === 0)
+    return "No crimes detected — this page smells fake. Did you write it yourself?";
 
   // Prioritize critical, then high, then medium, then low
   const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
   const sorted = [...complaints].sort(
-    (a, b) => severityOrder[a.severity] - severityOrder[b.severity]
+    (a, b) => severityOrder[a.severity] - severityOrder[b.severity],
   );
   return sorted[0].title;
 }
 
 function pickVerdict(score: number): string {
-  if (score >= 85) return "Your page is dangerously competent. The goblin has nothing to roast. Suspicious.";
-  if (score >= 70) return "Solid page. A few goblin grumbles, but you clearly tried. Respect.";
-  if (score >= 55) return "Mediocre. Like a sandwich with no filling — structurally there, but disappointing.";
-  if (score >= 40) return "Oof. Your page is confusing, vague, and desperately needs a CTA intervention.";
-  if (score >= 25) return "This page is a conversion crime scene. The goblin is filing a police report.";
-  return "The goblin has fainted. Revive it by adding literally any trust signals, a headline, or a purpose.";
+  if (score >= 85)
+    return "Your page is dangerously competent. The goblin has nothing to roast except its own envy. Suspicious.";
+  if (score >= 70)
+    return "Solid page. A few goblin grumbles, but you clearly tried. Barely passing inspection.";
+  if (score >= 55)
+    return "Mediocre. Like a sandwich with no filling — structurally there, but disappointing. Visitors bounce faster than a rubber ball.";
+  if (score >= 40)
+    return "Oof. Your page is confusing, vague, and desperately needs a CTA intervention. It's a miracle anyone stays.";
+  if (score >= 25)
+    return "This page is a conversion crime scene. The goblin is filing a police report and suing for damages.";
+  return "The goblin has fainted. Revive it by adding literally any trust signals, a headline, or a purpose. This is embarrassing.";
 }
 
 function formatComplaints(complaints: GoblinComplaint[]): string {
-  if (complaints.length === 0) return "_No complaints. The goblin is suspicious._";
+  if (complaints.length === 0)
+    return "_No complaints. This feels like cheating._";
   return complaints
     .map((c) => `- **${c.title}** (${c.severity}): ${c.detail}`)
     .join("\n");
 }
 
 function formatFixes(fixes: AnalysisResult["actuallyUsefulFixes"]): string {
-  if (fixes.length === 0) return "_Nothing to fix. Are you sure this is your page?_";
+  if (fixes.length === 0)
+    return "_Nothing to fix. Either you're a genius or the goblin gave up._";
   return fixes
     .map((f) => `- **${f.title}** [${f.priority}/${f.effort}]: ${f.detail}`)
     .join("\n");
@@ -54,10 +62,10 @@ function buildHeroSectionPanic(result: AnalysisResult): string {
       c.title.toLowerCase().includes("headline") ||
       c.title.toLowerCase().includes("h1") ||
       c.title.toLowerCase().includes("vague") ||
-      c.title.toLowerCase().includes("buyer confusion")
+      c.title.toLowerCase().includes("buyer confusion"),
   );
   if (heroComplaints.length === 0) {
-    return "Your hero section passed inspection. The goblin is mildly impressed.";
+    return "Your hero section passed inspection. Don't get cocky, it's not that hard.";
   }
   return heroComplaints.map((c) => `- ${c.title}: ${c.detail}`).join("\n");
 }
@@ -67,10 +75,10 @@ function buildProofCredibilityCheck(result: AnalysisResult): string {
     (c) =>
       c.title.toLowerCase().includes("trust") ||
       c.title.toLowerCase().includes("proof") ||
-      c.title.toLowerCase().includes("credibility")
+      c.title.toLowerCase().includes("credibility"),
   );
   if (trustComplaints.length === 0) {
-    return "Your page has adequate trust signals. The goblin nods approvingly.";
+    return "Your page has adequate trust signals. Don't get comfortable.";
   }
   return trustComplaints.map((c) => `- ${c.title}: ${c.detail}`).join("\n");
 }

@@ -36,7 +36,7 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
             No fixes needed.
           </p>
           <p className="text-sm text-muted">
-            Either this page is perfect, or the goblin is off its game.
+            Your page is either perfect, or the goblin gave up in disgust.
           </p>
         </CardContent>
       </Card>
@@ -58,7 +58,10 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
                     <Badge variant={priorityVariant[fix.priority]}>
                       {priorityLabel[fix.priority]}
                     </Badge>
-                    <div className="flex items-center gap-1" title={`Effort: ${fix.effort}`}>
+                    <div
+                      className="flex items-center gap-1"
+                      title={`Effort: ${fix.effort}`}
+                    >
                       {[1, 2, 3].map((dot) => (
                         <span
                           key={dot}

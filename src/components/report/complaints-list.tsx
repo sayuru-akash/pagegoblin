@@ -33,7 +33,7 @@ export function ComplaintsList({
           <p className="font-display text-lg font-bold text-ink">
             The goblin found nothing to complain about.
           </p>
-          <p className="text-sm text-muted">Suspicious.</p>
+          <p className="text-sm text-muted">This feels like cheating.</p>
         </CardContent>
       </Card>
     );

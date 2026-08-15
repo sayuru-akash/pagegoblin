@@ -21,12 +21,12 @@ export function HomeHeader() {
             </Link>
           ))}
           <Link href="/analyze" className={styles.headerCta}>
-            Roast a page
+            Roast my page
           </Link>
         </nav>
 
         <details className={styles.mobileMenu}>
-          <summary aria-label="Open navigation menu">
+          <summary aria-label="Toggle navigation menu">
             <span />
             <span />
             <span />
@@ -37,7 +37,7 @@ export function HomeHeader() {
                 {link.label}
               </Link>
             ))}
-            <Link href="/analyze">Roast a page</Link>
+            <Link href="/analyze">Roast my page</Link>
           </nav>
         </details>
       </div>

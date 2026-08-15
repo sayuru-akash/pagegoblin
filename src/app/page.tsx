@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { HomePage } from "@/components/home/home-page";
 
 export const metadata: Metadata = {
-  title: "Website Roast & Conversion Teardown Tool",
+  title: "A Clear, Honest Website Roast",
   description:
-    "Drop a URL and get a brutally honest PageGoblin teardown covering trust, CTA clarity, copy quality, buyer confusion, and conversion friction.",
+    "Give PageGoblin a URL. It will point out what feels unclear, what is hard to trust, and what to fix first.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "PageGoblin - Website Roast & Conversion Teardown Tool",
+    title: "PageGoblin: A Clear, Honest Website Roast",
     description:
-      "Drop a URL. Watch the goblin tear apart the conversion problems holding your page back.",
+      "Hand over a URL and the goblin will show you what is confusing visitors and what to fix first.",
     url: "/",
   },
 };

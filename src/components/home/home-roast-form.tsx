@@ -11,7 +11,7 @@ interface HomeRoastFormProps {
 }
 
 export function HomeRoastForm({
-  buttonLabel = "Unleash the goblin",
+  buttonLabel = "Roast my page",
 }: HomeRoastFormProps) {
   const router = useRouter();
   const fieldId = useId();
@@ -42,7 +42,7 @@ export function HomeRoastForm({
 
       normalizedUrl = normalized.url;
     } catch {
-      setError("Enter a valid public website, such as example.com.");
+      setError("That link looks wonky. Try something like example.com.");
       return;
     }
 
@@ -58,20 +58,16 @@ export function HomeRoastForm({
 
       if (!response.ok || !data.report || !data.links?.report) {
         if (response.status === 429) {
-          setError("The goblin is overwhelmed. Try again in a minute.");
+          setError("Easy, easy. I’m still chewing on the last batch. Try again in a minute.");
         } else {
-          setError(
-            data.error?.message ??
-              data.error ??
-              "The goblin could not inspect that page. Try another public URL.",
-          );
+          setError("I couldn’t get into that page. Try another public link.");
         }
         return;
       }
 
       router.push(data.links.report);
     } catch {
-      setError("The goblin cannot reach the server. Please try again.");
+      setError("I can’t reach the server right now. Give me another go in a moment.");
     } finally {
       setIsSubmitting(false);
     }
@@ -79,9 +75,15 @@ export function HomeRoastForm({
 
   return (
     <div className={styles.formShell}>
-      <form className={styles.roastForm} onSubmit={handleSubmit} noValidate>
+      <form
+        className={styles.roastForm}
+        onSubmit={handleSubmit}
+        noValidate
+        aria-busy={isSubmitting}
+        data-loading={isSubmitting ? "true" : "false"}
+      >
         <label className={styles.srOnly} htmlFor={fieldId}>
-          Enter a URL to roast
+          Website address for the goblin to check
         </label>
         <div className={styles.urlField}>
           <Globe2 aria-hidden="true" />
@@ -105,7 +107,7 @@ export function HomeRoastForm({
           {isSubmitting ? (
             <>
               <LoaderCircle aria-hidden="true" className={styles.spinner} />
-              Inspecting...
+              Having a look...
             </>
           ) : (
             buttonLabel

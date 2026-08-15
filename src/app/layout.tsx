@@ -6,6 +6,7 @@ const bricolageGrotesque = Bricolage_Grotesque({
   variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const dmSans = DM_Sans({
@@ -18,6 +19,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: false,
 });
 
 const baseUrl = process.env.APP_URL || "https://pagegoblin.org";

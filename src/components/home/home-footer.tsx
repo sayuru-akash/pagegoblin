@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { FaGithub } from "react-icons/fa6";
 import { HomeLogo } from "./home-logo";
 import styles from "./home-page.module.css";
 
 const footerLinks = [
-  { href: "/analyze", label: "Analyze" },
+  { href: "/analyze", label: "Roast a page" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/examples", label: "Examples" },
   { href: "/privacy", label: "Privacy" },
@@ -29,6 +30,7 @@ export function HomeFooter() {
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
             >
+              {link.external ? <FaGithub aria-hidden="true" /> : null}
               {link.label}
             </Link>
           ))}

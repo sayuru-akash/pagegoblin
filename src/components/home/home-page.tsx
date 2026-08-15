@@ -1,5 +1,6 @@
 import Image from "next/image";
 import {
+  ChevronDown,
   CircleGauge,
   Crosshair,
   FileWarning,
@@ -24,6 +25,7 @@ const anton = Anton({
 const cinzel = Cinzel({
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-home-serif",
 });
 
@@ -33,28 +35,28 @@ const roastCategories = [
     icon: ShieldCheck,
     title: "Trust Tax",
     description:
-      "Missing testimonials, weak social proof, zero credibility signals. Your page screams ‘we might be a scam’ and the goblin will absolutely say it to your face.",
+      "I’m looking for real proof: customer names, honest quotes, and clear contact details. If I can’t find any, your visitors probably can’t either.",
   },
   {
     number: "02",
     icon: Crosshair,
     title: "CTA Corpse",
     description:
-      "Your call-to-action is buried, vague, or dead on arrival. The goblin will perform the autopsy and tell you exactly where it flatlined.",
+      "Your button should say what happens next. If it makes me stop and guess, it is hiding instead of helping.",
   },
   {
     number: "03",
     icon: FileWarning,
     title: "Fluff Damage",
     description:
-      "Jargon. Filler. Words saying nothing with maximum syllables. The goblin cuts through your corporate nonsense with a rusty, blood-stained knife.",
+      "Big words do not make a clear promise. I’ll point out the bits that sound fancy but say very little.",
   },
   {
     number: "04",
     icon: UsersRound,
     title: "Buyer Confusion",
     description:
-      "If visitors cannot figure out what you do in five seconds, the goblin will not sugarcoat it. Clarity is not optional. It is survival.",
+      "Give me five seconds. If I still do not know what you sell or who it is for, your visitors are already wandering off.",
   },
 ];
 
@@ -65,7 +67,7 @@ const floatingScores = [
     label: "Trust Tax",
     score: "20/100",
     level: "Low",
-    description: "How much trust the page loses",
+    description: "Do people believe you?",
   },
   {
     className: styles.scoreFluff,
@@ -73,7 +75,7 @@ const floatingScores = [
     label: "Fluff Damage",
     score: "90/100",
     level: "High",
-    description: "Vague copy and buzzword damage",
+    description: "How much copy says nothing",
   },
   {
     className: styles.scoreConversion,
@@ -81,7 +83,7 @@ const floatingScores = [
     label: "Conversion",
     score: "20/100",
     level: "Medium",
-    description: "How much trust the page loses",
+    description: "Can people follow the page?",
   },
   {
     className: styles.scoreCta,
@@ -89,24 +91,24 @@ const floatingScores = [
     label: "CTA Corpse",
     score: "20/100",
     level: "Low",
-    description: "Weak or dead CTA problem",
+    description: "Is the next step easy to spot?",
   },
 ];
 
 const fixes = [
   {
-    crime: '“We leverage synergistic solutions”',
+    crime: '“We deliver synergistic solutions for modern teams”',
     fix: '“We fix your broken checkout in 48 hours”',
     score: "+12",
   },
   {
-    crime: 'CTA button says “Submit”',
-    fix: 'CTA button says “Get my free audit”',
+    crime: 'The button only says “Submit”',
+    fix: '“Send me my free audit”',
     score: "+34",
   },
   {
-    crime: "No testimonials visible",
-    fix: "3 testimonials above the fold",
+    crime: "No customer proof near the top",
+    fix: "Add three short customer quotes where people can see them",
     score: "+58",
   },
 ];
@@ -123,21 +125,20 @@ const audiences = [
 const steps = [
   {
     number: "01",
-    title: "Drop a URL",
-    description:
-      "Paste any live webpage. No account required for your first audit.",
+    title: "Give me the link",
+    description: "Any public page will do. Paste it in and I’ll take a look.",
   },
   {
     number: "02",
-    title: "Goblin audits it",
+    title: "I have a sniff around",
     description:
-      "Scores every conversion-critical element against 40+ criteria in seconds.",
+      "I check the words, proof, buttons, and the path your visitors are meant to follow.",
   },
   {
     number: "03",
-    title: "Fix it or feel it",
+    title: "You get the fixes",
     description:
-      "Get a prioritised action list. Or ignore it and let your bounce rate prove us right.",
+      "I put the useful changes first, so you know exactly where to start.",
   },
 ];
 
@@ -204,12 +205,12 @@ export function HomePage() {
 
           <div className={styles.heroContent}>
             <h1 id="home-heading">
-              Your site
+              Hand me your site.{" "}
               <span>
-                <em>deserves</em> a beating.
+                I’ll <em>sniff out</em> trouble.
               </span>
             </h1>
-            <p>Drop a URL. Watch the goblin drag your page behind the shed.</p>
+            <p>Drop the link here. I’ll nose around and tell you what to fix first.</p>
             <HomeRoastForm />
           </div>
 
@@ -231,18 +232,20 @@ export function HomePage() {
           </div>
 
           <a className={styles.scrollCue} href="#execution-list">
-            See what the goblin will tear apart
-            <span aria-hidden="true">↓</span>
+            See what I sniff out
+            <span aria-hidden="true">
+              <ChevronDown />
+            </span>
           </a>
         </section>
 
         <section id="execution-list" className={styles.executionSection}>
           <div className={styles.container}>
             <SectionHeading
-              eyebrow="The execution list"
-              title="What gets"
-              accent="roasted"
-              description="Every page is judged against the four horsemen of conversion death. No fluff. No vanity metrics. Just what actually kills your revenue."
+              eyebrow="What I sniff out"
+              title="Four things I check"
+              accent="every time"
+              description="I’m checking whether people trust you, understand you, and know what to do next. That’s the whole game."
             />
 
             <div className={styles.categoryGrid}>
@@ -277,9 +280,9 @@ export function HomePage() {
         <section className={styles.comparisonSection}>
           <div className={`${styles.container} ${styles.comparisonLayout}`}>
             <SectionHeading
-              eyebrow="Not another audit tool"
-              title="A roast, not a report"
-              description="Other tools give you a 47-page PDF you will never read. PageGoblin tells you what is broken and how to fix it, in language that does not require a computer science degree."
+              eyebrow="No homework"
+              title="A useful roast. That’s it."
+              description="I’m not handing you a giant report full of charts. I’ll tell you what feels wrong, why it matters, and what I’d change first."
               align="left"
             />
 
@@ -292,10 +295,10 @@ export function HomePage() {
                   height={408}
                   sizes="90px"
                 />
-                <h3>Boring audit</h3>
+                <h3>What most tools say</h3>
                 <p>
-                  “Your LCP metric is suboptimal across viewport breakpoints
-                  affecting Core Web Vitals performance thresholds.”
+                  “Your page may benefit from improved clarity and performance
+                  across several key areas.”
                 </p>
               </article>
 
@@ -315,11 +318,10 @@ export function HomePage() {
                   height={408}
                   sizes="100px"
                 />
-                <h3>PageGoblin roast</h3>
+                <h3>What I’d say</h3>
                 <p>
-                  “Your hero image is 4MB. That is not a hero, that is a hostage
-                  situation. Compress it or watch visitors bounce harder than a
-                  basketball.”
+                  “This hero image is 4MB. Pretty, yes. Quick, no. Squash it
+                  before your visitors get bored and wander off.”
                 </p>
               </article>
             </div>
@@ -329,23 +331,23 @@ export function HomePage() {
         <section className={styles.fixesSection}>
           <div className={styles.container}>
             <SectionHeading
-              eyebrow="Real fixes"
-              title="Before and after the carnage"
-              description="No vague suggestions. No ‘consider improving user experience.’ Concrete before-and-after fixes that actually move the needle."
+              eyebrow="Let me show you"
+              title="Small changes, clearer page"
+              description="Nothing mysterious. I show you the muddy bit, then give you a cleaner version you can actually use."
             />
 
             <div className={styles.fixesGrid}>
               {fixes.map((fix) => (
                 <article key={fix.score} className={styles.fixCard}>
                   <div className={styles.fixCopy}>
-                    <p className={styles.crimeLabel}>The crime</p>
+                    <p className={styles.crimeLabel}>What I found</p>
                     <p>{fix.crime}</p>
-                    <p className={styles.fixLabel}>The fix</p>
+                    <p className={styles.fixLabel}>Try this</p>
                     <p>{fix.fix}</p>
                   </div>
                   <div className={styles.fixScore}>
                     <strong>{fix.score}</strong>
-                    <span>Score improvement</span>
+                    <span>Score lift</span>
                   </div>
                 </article>
               ))}
@@ -356,9 +358,9 @@ export function HomePage() {
         <section className={styles.buildersSection}>
           <div className={styles.container}>
             <SectionHeading
-              title="Built for the"
-              accent="builders"
-              description="Whether you are shipping a side project or managing fifty client sites, PageGoblin gives you the conversion confidence check you actually need. Not the one you want."
+              title="Made for people"
+              accent="doing the work"
+              description="One landing page or fifty client sites, it makes no difference to me. Give me a link and I’ll tell you where people are getting stuck."
             />
 
             <ul className={styles.audienceList} aria-label="Who PageGoblin is for">
@@ -383,9 +385,9 @@ export function HomePage() {
         <section className={styles.finalCtaSection}>
           <div className={`${styles.container} ${styles.finalCta}`}>
             <SectionHeading
-              title="Ready for your"
-              accent="ego funeral?"
-              description="Your website has problems. The goblin will find all of them."
+              title="Go on. Let me"
+              accent="see the page."
+              description="I’ll be honest with you. I’ll also tell you what to do next."
             />
             <HomeRoastForm />
             <Image

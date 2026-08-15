@@ -27,11 +27,11 @@ const baseUrl = process.env.APP_URL || "https://pagegoblin.org";
 export const metadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "PageGoblin — The tiny goblin that judges your website",
-    template: "%s — PageGoblin",
+    default: "PageGoblin: Throw Me a Website and Let Me Loose",
+    template: "%s | PageGoblin",
   },
   description:
-    "PageGoblin roasts trust, clarity, CTAs, copy, and conversion confidence before your buyers silently leave. The tiny goblin that judges your website.",
+    "Throw PageGoblin a URL. The wild little beast will sniff out muddy words, hidden buttons, thin proof, and the fixes that matter first.",
   applicationName: "PageGoblin",
   authors: [{ name: "Sayuru", url: "https://github.com/sayuru-akash" }],
   creator: "Sayuru",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     canonical: baseUrl,
   },
   openGraph: {
-    title: "PageGoblin — The tiny goblin that judges your website",
-    description: "Drop a URL. Watch the goblin drag your page behind the shed. Brutally honest conversion teardowns.",
+    title: "PageGoblin: Throw Me a Website and Let Me Loose",
+    description: "Give the goblin a URL. It will crawl inside, drag out the mess, and show you how to fix it.",
     type: "website",
     url: baseUrl,
     siteName: "PageGoblin",
@@ -63,14 +63,14 @@ export const metadata: Metadata = {
         url: "/og-default.svg",
         width: 1200,
         height: 630,
-        alt: "PageGoblin — The tiny goblin that judges your website",
+        alt: "PageGoblin crawling through a website roast",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "PageGoblin — The tiny goblin that judges your website",
-    description: "Drop a URL. Watch the goblin drag your page behind the shed.",
+    title: "PageGoblin: Throw Me a Website and Let Me Loose",
+    description: "Give the goblin a URL. It will crawl inside and drag out the mess.",
     images: ["/og-default.svg"],
   },
   icons: {

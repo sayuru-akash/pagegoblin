@@ -12,20 +12,20 @@ const reportLines = [
   {
     verdict: "no",
     icon: XCircle,
-    label: "CTA above the fold",
-    text: "Buried three scrolls deep like it's hiding from its problems.",
+    label: "Where is the button?",
+    text: "I dug three screens down and found it hiding in the roots.",
   },
   {
     verdict: "no",
     icon: XCircle,
-    label: "Trust signals",
-    text: "One testimonial from 2019. That's not proof, that's archaeology.",
+    label: "Where is the proof?",
+    text: "One old quote. I sniffed it twice. Still not enough.",
   },
   {
     verdict: "maybe",
     icon: AlertTriangle,
-    label: "Headline clarity",
-    text: "Speaks in corporate riddles. Buzzword bingo champion.",
+    label: "What are you selling?",
+    text: "This headline fed me fog. I bit down and found nothing.",
   },
 ];
 
@@ -97,7 +97,7 @@ export function SampleReportCard({ className }: SampleReportCardProps) {
             <span className="font-mono text-sm text-muted">/100</span>
           </div>
           <div className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-muted">
-            The goblin says
+            My cave score
           </div>
         </div>
         <div className="flex flex-col items-end">
@@ -158,10 +158,10 @@ export function SampleReportCard({ className }: SampleReportCardProps) {
       {/* Footer verdict */}
       <div className="mt-4 flex items-center justify-between border-t border-border pt-3">
         <span className="font-mono text-[10px] text-muted">
-          3 of 5 issues roasted
+          3 of 5 weak spots bitten
         </span>
         <span className="font-mono text-[10px] text-goblin">
-          see full report →
+          open the whole mess →
         </span>
       </div>
     </motion.div>

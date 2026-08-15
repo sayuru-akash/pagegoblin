@@ -33,10 +33,10 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
                 {report.roastMode === "AI_ASSISTED" && (
                   <span
                     className="inline-flex items-center gap-1.5 rounded-full border border-goblin/30 bg-goblin/10 px-3 py-1 text-xs font-medium text-goblin-dark"
-                    title="This roast was sharpened by AI. The score is still computed objectively from page signals."
+                    title="AI helped me shape the words. The score still comes from the page clues I found."
                   >
                     <Sparkles className="h-3 w-3" />
-                    AI-Enhanced Roast
+                    Extra wild AI roast
                   </span>
                 )}
               </div>
@@ -48,9 +48,9 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
         <section aria-labelledby="category-scores">
           <Reveal>
             <SectionHeading
-              eyebrow="Score Breakdown"
-              title="Where the goblin found problems"
-              description="Each category is a penalty score — higher means worse."
+              eyebrow="I sniffed five trails"
+              title="Here is where the page fought back"
+              description="Higher is better. A low score means I found plenty to bite."
               align="left"
               className="mb-8"
             />
@@ -62,8 +62,8 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
           <section aria-labelledby="warnings">
             <Reveal>
               <SectionHeading
-                eyebrow="Heads Up"
-                title="Warnings"
+                eyebrow="Wait. My nose caught something."
+                title="Read this before the roast"
                 align="left"
                 className="mb-6"
               />
@@ -75,9 +75,9 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
         <section aria-labelledby="complaints">
           <Reveal>
             <SectionHeading
-              eyebrow="The Problem"
-              title="The Goblin's Complaints"
-              description="Every issue the goblin found, ranked by severity."
+              eyebrow="I found the mess"
+              title="Here is what made me howl"
+              description="The loudest problems come first. I left the tiny scratches for later."
               align="left"
               className="mb-8"
             />
@@ -88,9 +88,9 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
         <section aria-labelledby="fixes">
           <Reveal>
             <SectionHeading
-              eyebrow="The Fix"
-              title="Actually Useful Fixes"
-              description="Prioritized fixes the goblin recommends."
+              eyebrow="Now clean it up"
+              title="Fix these before I come back"
+              description="Start at the top. Each step tells you what to change and where."
               align="left"
               className="mb-8"
             />
@@ -109,13 +109,13 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
         <Reveal>
           <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-bone/30 px-6 py-10 text-center">
             <p className="font-display text-xl font-bold text-ink">
-              Want the goblin to judge your page?
+              Got another page hiding in the woods?
             </p>
             <Link
               href="/"
               className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
             >
-              Roast another page
+              Let me at another page
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>

@@ -18,44 +18,44 @@ export const metadata: Metadata = {
 
 const sections = [
   {
-    title: "What we collect",
+    title: "What I carry back to the cave",
     content:
-      "The URL you submit for roasting, along with extracted page signals — title, headings, CTA text, trust indicators, and other structural elements. We do not store the full HTML of your page.",
+      "I take the URL you give me and the page clues needed for the roast: the title, headings, button words, proof, and a few page details. I do not keep the full HTML of your page.",
   },
   {
-    title: "What we don't collect",
+    title: "What my claws never touch",
     content:
-      "Passwords, form data, cookies, authentication tokens, local storage contents, or any personal account data from scanned pages. The Chrome extension only sends data after you explicitly click to trigger a roast. No background monitoring. No auto-scanning. No silent data grabs.",
+      "I do not take passwords, form entries, cookies, login tokens, browser storage, or private account data from a page. The Chrome extension sends page clues only after you click the roast button. I do not watch in the background or scan by myself.",
   },
   {
-    title: "How we use your data",
+    title: "What I do with those clues",
     content:
-      "Your data is used for three things: generating roast reports, creating shareable links so you can send your roast to others, and improving our analysis accuracy over time. That's it. The goblin is too busy roasting websites to build advertising profiles.",
+      "I use the clues to make your roast, keep its share link working, and help make later reports better. That is all. I do not build ad profiles from your pages.",
   },
   {
-    title: "Data retention",
+    title: "How long the roast stays in the cave",
     content:
-      "Roast reports are stored so shareable links keep working. Private reports are not indexed by search engines. You can request deletion of any report by contacting us.",
+      "Reports stay stored so their share links keep working. Search engines are told not to list private reports. You can ask us to delete a report at any time.",
   },
   {
-    title: "Extension permissions",
+    title: "Why the extension needs its tiny keys",
     content:
-      "The Chrome extension requests three permissions: activeTab (temporary access only after you click), scripting (reads the DOM after your explicit action), and storage (saves your local preferences). There is no background monitoring. There is no auto-scanning. The extension does nothing until you tell it to.",
+      "The Chrome extension asks for activeTab so it can read the page after you click, scripting so it can gather the page clues, and storage so it can remember your choices. It does nothing until you let me loose.",
   },
   {
-    title: "Third parties",
+    title: "When another cave is involved",
     content:
-      "We do not sell your data. Ever. If you enable AI-powered features, page signals may be sent to the configured AI provider — this is clearly disclosed in the interface when those features are active.",
+      "We do not sell your data. If you turn on the bigger AI roast, the page clues may go to the AI service picked by the site owner. The switch tells you this before anything is sent.",
   },
   {
-    title: "Your choices",
+    title: "The keys stay in your hand",
     content:
-      "Don't share your roast link if you don't want others to see it. Contact us at the email below to delete any report. The goblin respects your autonomy.",
+      "Do not share the roast link if you want it kept quiet. Use the email below if you want a report deleted. You choose what leaves the cave.",
   },
   {
     title: "Contact",
     content:
-      "Questions about this policy? Reach out at info@codezela.com. The goblin will respond. Eventually.",
+      "Questions about this policy? Email info@codezela.com. A real human will answer, even if I growl first.",
   },
 ];
 
@@ -78,8 +78,7 @@ export default function PrivacyPage() {
             </Reveal>
             <Reveal delay={0.15}>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
-                The goblin respects your privacy. Mostly because it&apos;s too
-                busy roasting websites to snoop.
+                I tear pages apart. I do not rummage through your private things.
               </p>
             </Reveal>
           </div>

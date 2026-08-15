@@ -38,7 +38,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
     setError(null);
 
     if (!isValidUrl(url)) {
-      setError("That is not a URL. Try something like example.com before the goblin gets angry.");
+      setError("That link has no scent. Give me something like example.com.");
       return;
     }
 
@@ -60,11 +60,11 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
       if (!res.ok || !data.report) {
         const status = data.error?.status ?? res.status;
         if (status === 400) {
-          setError(data.error?.message ?? "That URL does not look right. The goblin is suspicious.");
+          setError(data.error?.message ?? "That link smells wrong. Check it and throw it back.");
         } else if (status === 429) {
-          setError("The goblin is overwhelmed. Too many victims. Try again in a minute.");
+          setError("Back off for one tiny minute. I am still chewing the last pile.");
         } else {
-          setError("The goblin choked on your page. It might be that bad. Try again.");
+          setError("I bit the page and it bit back. Make sure it is public, then throw it at me again.");
         }
         return;
       }
@@ -72,7 +72,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
       const slug = data.links.report.replace("/roasts/", "");
       router.push(`/roasts/${slug}`);
     } catch {
-      setError("The goblin cannot reach the server. Check your connection or run.");
+      setError("I cannot reach the cave door. Check your connection and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -90,7 +90,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
       <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
         <div className="relative">
           <label htmlFor="url-roast-input" className="sr-only">
-            Enter a URL to roast
+            Give PageGoblin a website URL to roast
           </label>
           <div className={cn(
             "relative rounded-xl transition-all duration-300",
@@ -135,11 +135,11 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
           {isLoading ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" />
-              Gutting your page...
+              Clawing through your page...
             </>
           ) : (
             <>
-              Unleash the goblin
+              Let me loose
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </>
           )}
@@ -180,8 +180,8 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
                 />
               </div>
               <Sparkles className={cn("h-3.5 w-3.5", aiMode ? "text-goblin" : "text-muted/60")} />
-              <span className="font-medium">Goblin AI mode</span>
-              <span className="text-muted/60">(sharper roast)</span>
+              <span className="font-medium">Unchain the bigger goblin</span>
+              <span className="text-muted/60">(full roar)</span>
               <Info className="h-3 w-3 text-muted/40" />
             </button>
 
@@ -193,7 +193,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
                   exit={{ opacity: 0, height: 0 }}
                   className="text-xs text-muted/70 leading-relaxed overflow-hidden"
                 >
-                  AI mode sends page signals to the configured AI provider for a sharper, funnier roast. Your URL and page content leave our servers.
+                  I send the page clues to the AI service picked by the cave keeper. That gives me a much wilder roast. Your URL and page words leave this server when you turn it on.
                 </motion.p>
               )}
             </AnimatePresence>

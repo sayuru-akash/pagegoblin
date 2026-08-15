@@ -51,7 +51,7 @@ export function detectPageRisk(signals: PageSignals): PageRisk[] {
     if (pattern.test(url)) {
       risks.push({
         type: "PRIVATE_PAGE",
-        message: "This URL appears to be a local/private address. The analysis may not represent a public-facing page.",
+        message: "This link points into a private cave. I may not see the same page that public visitors see.",
         severity: "warning",
       });
       break;
@@ -63,7 +63,7 @@ export function detectPageRisk(signals: PageSignals): PageRisk[] {
     if (pattern.test(url)) {
       risks.push({
         type: "PRIVATE_PAGE",
-        message: "This URL appears to be a private/internal page (dashboard, admin, login, etc.). Analysis results may not be meaningful.",
+        message: "This looks like a dashboard, login, or other private room. My roast may miss what a signed-in visitor can see.",
         severity: "warning",
       });
       break;
@@ -75,7 +75,7 @@ export function detectPageRisk(signals: PageSignals): PageRisk[] {
     if (title.includes(keyword)) {
       risks.push({
         type: "PRIVATE_PAGE",
-        message: `The page title contains "${keyword}" which suggests this is a private/internal page.`,
+        message: `The title contains "${keyword}," so my nose says this may be a private room rather than a public page.`,
         severity: "warning",
       });
       break;
@@ -96,7 +96,7 @@ export function detectPageRisk(signals: PageSignals): PageRisk[] {
       if (bodyText.includes(keyword)) {
         risks.push({
           type: "PRIVATE_PAGE",
-          message: `The page body text contains "${keyword}" which suggests this is a private/internal page.`,
+          message: `I found "${keyword}" in the page words. This may be a private room, so take the roast with a pinch of cave dust.`,
           severity: "warning",
         });
         break;

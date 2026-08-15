@@ -61,7 +61,7 @@ export default function RoastLoading() {
                 animate={{ opacity: [0.5, 1, 0.5] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                The goblin is sharpening its criticism...
+                I&apos;m dragging the roast out of the cave...
               </motion.p>
             </div>
 

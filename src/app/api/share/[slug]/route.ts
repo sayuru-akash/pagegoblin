@@ -43,7 +43,7 @@ export async function POST(
   } catch (err) {
     console.error("Failed to create share link", err);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      { error: "The share link slipped out of my claws. Try again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }

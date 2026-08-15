@@ -97,15 +97,15 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
 
           if (!res.ok) {
             const data = await res.json();
-            setError(data.error || "Something went wrong");
+            setError(data.error || "The cave spat that change back out.");
             return;
           }
 
-          setSuccess(editingId ? "Config updated!" : "Config created!");
+          setSuccess(editingId ? "The key has new claw marks." : "The new key is locked in the cave.");
           resetForm();
           await fetchConfigs();
         } catch {
-          setError("Network error");
+          setError("The wire out of the cave went dead.");
         }
       });
     },
@@ -114,11 +114,11 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
 
   const handleDelete = useCallback(
     (id: string) => {
-      if (!confirm("Delete this API config?")) return;
+      if (!confirm("Throw this API key out of the cave?")) return;
       startTransition(async () => {
         const res = await fetch(`/api/admin/api-config/${id}`, { method: "DELETE" });
         if (res.ok) {
-          setSuccess("Config deleted");
+          setSuccess("The key is gone from the cave.");
           await fetchConfigs();
         }
       });
@@ -158,7 +158,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
       } catch {
         setTestResults((prev) => ({
           ...prev,
-          [id]: { success: false, message: "Network error" },
+          [id]: { success: false, message: "The wire out of the cave went dead." },
         }));
       } finally {
         setTestingIds((prev) => {
@@ -197,14 +197,14 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
       {!showForm && (
         <Button onClick={() => { setShowForm(true); setEditingId(null); setForm({ name: "", providerType: "OPENAI_COMPATIBLE", baseUrl: "https://api.openai.com/v1", apiKey: "", model: "gpt-4o-mini", enabled: false }); }}>
           <Plus className="h-4 w-4" />
-          Add API Config
+          Lock up a new AI key
         </Button>
       )}
 
       {showForm && (
         <Card>
           <CardHeader>
-            <CardTitle>{editingId ? "Edit API Config" : "New API Config"}</CardTitle>
+            <CardTitle>{editingId ? "Change this cave key" : "Bring in a new cave key"}</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -335,7 +335,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
                     <p className="text-xs text-muted">
                       Last tested:{" "}
                       {new Date(config.lastTestedAt).toLocaleString()}{" "}
-                      — {config.lastTestStatus}
+                      · {config.lastTestStatus}
                     </p>
                   )}
                 </div>
@@ -370,7 +370,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
                     ) : (
                       <Zap className="h-3.5 w-3.5" />
                     )}
-                    Test
+                    Shake the wire
                   </Button>
 
                   <Button
@@ -410,7 +410,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
 
         {configs.length === 0 && (
           <p className="py-8 text-center text-muted">
-            No API configs yet. The goblin needs keys to work its magic.
+            No AI keys in the cave yet. The bigger goblin stays chained.
           </p>
         )}
       </div>

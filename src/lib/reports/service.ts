@@ -27,7 +27,7 @@ export async function createRoastReport(
   if (!parsed.success) {
     return {
       ok: false,
-      error: { status: 400, message: "Invalid request body." },
+      error: { status: 400, message: "That bundle of page clues is shaped wrong." },
     };
   }
 
@@ -38,7 +38,7 @@ export async function createRoastReport(
       ok: false,
       error: {
         status: 400,
-        message: "Provide either url or signals, not both.",
+        message: "One meal at a time. Give me a URL or page clues, not both.",
       },
     };
   }
@@ -48,7 +48,7 @@ export async function createRoastReport(
       ok: false,
       error: {
         status: 400,
-        message: "Provide either url or signals.",
+        message: "Feed me a URL or a bundle of page clues.",
       },
     };
   }

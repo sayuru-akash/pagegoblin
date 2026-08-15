@@ -8,16 +8,17 @@ import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { getAppSettings } from "@/lib/admin/service";
+import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 
 export const metadata: Metadata = {
-  title: "Analyze a Website — Free Landing Page Roast",
+  title: "Throw Me a Website and Let Me Loose",
   description:
-    "Paste any public URL and get a PageGoblin website roast covering trust signals, CTA clarity, copy quality, buyer confusion, and conversion friction.",
+    "Give PageGoblin a public URL and get a wild, useful roast of the words, proof, buttons, and hard-to-use parts.",
   alternates: { canonical: "/analyze" },
   openGraph: {
-    title: "Analyze a Website with PageGoblin",
+    title: "Let PageGoblin Tear Into Your Website",
     description:
-      "Get a fast, practical landing page roast with a Goblin Score, biggest crime, complaints, and useful fixes.",
+      "Throw in a URL. PageGoblin will sniff out what is broken and tell you how to fix it.",
     url: "/analyze",
   },
 };
@@ -26,23 +27,23 @@ export const metadata: Metadata = {
 const criteria = [
   {
     icon: Shield,
-    title: "Trust signals",
-    description: "Testimonials, social proof, credibility markers.",
+    title: CATEGORY_COPY.trustTax.label,
+    description: CATEGORY_COPY.trustTax.description,
   },
   {
     icon: Crosshair,
-    title: "CTA clarity",
-    description: "Is your call-to-action visible and compelling?",
+    title: CATEGORY_COPY.ctaCorpse.label,
+    description: CATEGORY_COPY.ctaCorpse.description,
   },
   {
     icon: FileWarning,
-    title: "Copy quality",
-    description: "Jargon, fluff, filler words — all get flagged.",
+    title: CATEGORY_COPY.fluffDamage.label,
+    description: CATEGORY_COPY.fluffDamage.description,
   },
   {
     icon: Users,
-    title: "Visitor confusion",
-    description: "Can someone understand your page in 5 seconds?",
+    title: CATEGORY_COPY.buyerConfusionLevel.label,
+    description: CATEGORY_COPY.buyerConfusionLevel.description,
   },
 ];
 
@@ -62,14 +63,14 @@ export default async function AnalyzePage() {
 
             <Reveal delay={0.1}>
               <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                Feed the goblin a URL
+                Throw me a URL
               </h1>
             </Reveal>
 
             <Reveal delay={0.15}>
               <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-muted">
-                Paste any public webpage URL. The goblin will tear it apart in
-                seconds.
+                Give me any public page. I&apos;ll crawl inside, sniff out the weak
+                bits, and drag the fixes back to you.
               </p>
             </Reveal>
 
@@ -79,7 +80,7 @@ export default async function AnalyzePage() {
 
             <Reveal delay={0.25}>
               <p className="mt-6 text-xs text-muted">
-                No signup needed • Results in seconds • Private by default
+                No signup. No waiting. Your report stays private unless you share it.
               </p>
             </Reveal>
           </div>
@@ -89,7 +90,7 @@ export default async function AnalyzePage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h2 className="text-center font-display text-2xl font-bold text-ink">
-                What the goblin checks
+                What I sink my teeth into
               </h2>
             </Reveal>
 

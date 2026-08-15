@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
   } catch (err) {
     console.error("Failed to create roast report", err);
     return NextResponse.json(
-      { error: "Something went wrong while creating the roast." },
+      { error: "The cave shook and dropped your roast. Throw the page at me again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }

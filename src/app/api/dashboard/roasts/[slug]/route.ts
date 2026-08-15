@@ -40,7 +40,7 @@ export async function DELETE(
   } catch (err) {
     console.error("Failed to delete report", err);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      { error: "The cave dropped that change. Try again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }
@@ -103,7 +103,7 @@ export async function PATCH(
   } catch (err) {
     console.error("Failed to update visibility", err);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      { error: "I could not throw that roast out of the cave. Try again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }

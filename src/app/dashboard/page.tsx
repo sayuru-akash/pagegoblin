@@ -36,10 +36,10 @@ export default async function DashboardPage({
                 <GoblinMascot className="shrink-0" />
                 <div>
                   <h1 className="font-display text-3xl font-bold tracking-tight text-ink">
-                    Welcome, {session.user.name || "goblin friend"}
+                    Back in the cave, {session.user.name || "stray creature"}
                   </h1>
                   <p className="text-sm text-muted">
-                    Your roast collection awaits.
+                    Your old roasts are still scratching at the walls.
                   </p>
                 </div>
               </div>
@@ -52,7 +52,7 @@ export default async function DashboardPage({
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-muted">
-                    Total Roasts
+                    Pages I bit
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -65,12 +65,12 @@ export default async function DashboardPage({
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-muted">
-                    Avg Score
+                    Average score
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="font-display text-3xl font-bold text-ink">
-                    {stats.averageScore > 0 ? stats.averageScore : "—"}
+                    {stats.averageScore > 0 ? stats.averageScore : "None yet"}
                   </p>
                 </CardContent>
               </Card>
@@ -78,12 +78,12 @@ export default async function DashboardPage({
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-muted">
-                    Most Roasted
+                    Page I chewed most
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="font-display text-lg font-bold text-ink truncate">
-                    {stats.mostRoastedDomain || "—"}
+                    {stats.mostRoastedDomain || "Nothing yet"}
                   </p>
                 </CardContent>
               </Card>
@@ -93,12 +93,12 @@ export default async function DashboardPage({
           <Reveal delay={0.15}>
             <div className="mb-6 flex items-center justify-between">
               <h2 className="font-display text-xl font-bold text-ink">
-                The goblin&apos;s greatest hits
+                The pile I dragged home
               </h2>
               <Link href="/analyze">
                 <Button variant="primary" size="sm">
                   <Flame className="h-4 w-4" />
-                  New roast
+                  Feed me a page
                 </Button>
               </Link>
             </div>

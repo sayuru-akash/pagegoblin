@@ -5,6 +5,7 @@ import { Shield, Crosshair, FileWarning, Users, Zap } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import type { CategoryScores } from "@/lib/analysis";
+import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 
 interface CategoryMeta {
   key: keyof CategoryScores;
@@ -16,52 +17,47 @@ interface CategoryMeta {
 const categories: CategoryMeta[] = [
   {
     key: "trustTax",
-    label: "Trust Tax",
-    description: "How much trust the page loses",
+    ...CATEGORY_COPY.trustTax,
     icon: Shield,
   },
   {
     key: "ctaCorpse",
-    label: "CTA Corpse",
-    description: "Weak or dead CTA problem",
+    ...CATEGORY_COPY.ctaCorpse,
     icon: Crosshair,
   },
   {
     key: "fluffDamage",
-    label: "Fluff Damage",
-    description: "Vague copy and buzzword damage",
+    ...CATEGORY_COPY.fluffDamage,
     icon: FileWarning,
   },
   {
     key: "buyerConfusionLevel",
-    label: "Buyer Confusion",
-    description: "Clarity issue for visitors",
+    ...CATEGORY_COPY.buyerConfusionLevel,
     icon: Users,
   },
   {
     key: "conversionFriction",
-    label: "Conversion Friction",
-    description: "Friction in the conversion path",
+    ...CATEGORY_COPY.conversionFriction,
     icon: Zap,
   },
 ];
 
 function getScoreColor(score: number): string {
-  if (score <= 30) return "var(--color-goblin)";
-  if (score <= 60) return "var(--color-amber)";
+  if (score >= 70) return "var(--color-goblin)";
+  if (score >= 40) return "var(--color-amber)";
   return "var(--color-rose)";
 }
 
 function getScoreBg(score: number): string {
-  if (score <= 30) return "bg-goblin/10";
-  if (score <= 60) return "bg-amber/10";
+  if (score >= 70) return "bg-goblin/10";
+  if (score >= 40) return "bg-amber/10";
   return "bg-rose/10";
 }
 
 function getScoreLabel(score: number): string {
-  if (score <= 30) return "Low";
-  if (score <= 60) return "Medium";
-  return "High";
+  if (score >= 70) return "Hard to bite";
+  if (score >= 40) return "Still chewing";
+  return "Big mess";
 }
 
 export function CategoryScoresGrid({ scores }: { scores: CategoryScores }) {

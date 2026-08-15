@@ -13,6 +13,7 @@ import { Anton, Cinzel } from "next/font/google";
 import { HomeFooter } from "./home-footer";
 import { HomeHeader } from "./home-header";
 import { HomeRoastForm } from "./home-roast-form";
+import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import styles from "./home-page.module.css";
 
 const anton = Anton({
@@ -33,30 +34,26 @@ const roastCategories = [
   {
     number: "01",
     icon: ShieldCheck,
-    title: "Trust Tax",
-    description:
-      "I’m looking for real proof: customer names, honest quotes, and clear contact details. If I can’t find any, your visitors probably can’t either.",
+    title: CATEGORY_COPY.trustTax.label,
+    description: CATEGORY_COPY.trustTax.description,
   },
   {
     number: "02",
     icon: Crosshair,
-    title: "CTA Corpse",
-    description:
-      "Your button should say what happens next. If it makes me stop and guess, it is hiding instead of helping.",
+    title: CATEGORY_COPY.ctaCorpse.label,
+    description: CATEGORY_COPY.ctaCorpse.description,
   },
   {
     number: "03",
     icon: FileWarning,
-    title: "Fluff Damage",
-    description:
-      "Big words do not make a clear promise. I’ll point out the bits that sound fancy but say very little.",
+    title: CATEGORY_COPY.fluffDamage.label,
+    description: CATEGORY_COPY.fluffDamage.description,
   },
   {
     number: "04",
     icon: UsersRound,
-    title: "Buyer Confusion",
-    description:
-      "Give me five seconds. If I still do not know what you sell or who it is for, your visitors are already wandering off.",
+    title: CATEGORY_COPY.buyerConfusionLevel.label,
+    description: CATEGORY_COPY.buyerConfusionLevel.description,
   },
 ];
 
@@ -64,34 +61,34 @@ const floatingScores = [
   {
     className: styles.scoreTrust,
     icon: ShieldCheck,
-    label: "Trust Tax",
+    label: "Where's the proof?",
     score: "20/100",
     level: "Low",
-    description: "Do people believe you?",
+    description: "I need more real proof.",
   },
   {
     className: styles.scoreFluff,
     icon: FileWarning,
-    label: "Fluff Damage",
+    label: "Do these words mean anything?",
     score: "90/100",
     level: "High",
-    description: "How much copy says nothing",
+    description: "Some lines say very little.",
   },
   {
     className: styles.scoreConversion,
     icon: Zap,
-    label: "Conversion",
+    label: "What are you selling?",
     score: "20/100",
     level: "Medium",
-    description: "Can people follow the page?",
+    description: "I am still piecing it together.",
   },
   {
     className: styles.scoreCta,
     icon: Crosshair,
-    label: "CTA Corpse",
+    label: "What am I meant to click?",
     score: "20/100",
     level: "Low",
-    description: "Is the next step easy to spot?",
+    description: "The main button is hard to spot.",
   },
 ];
 
@@ -125,20 +122,20 @@ const audiences = [
 const steps = [
   {
     number: "01",
-    title: "Give me the link",
-    description: "Any public page will do. Paste it in and I’ll take a look.",
+    title: "Throw me the link",
+    description: "Any public page will do. Drop it in the cave and stand back.",
   },
   {
     number: "02",
-    title: "I have a sniff around",
+    title: "I crawl inside",
     description:
-      "I check the words, proof, buttons, and the path your visitors are meant to follow.",
+      "I bite the words, sniff for proof, and drag every hiding button into the light.",
   },
   {
     number: "03",
-    title: "You get the fixes",
+    title: "I drag back the bones",
     description:
-      "I put the useful changes first, so you know exactly where to start.",
+      "You get the loudest problems first and a clear fix for every bite mark.",
   },
 ];
 
@@ -205,12 +202,12 @@ export function HomePage() {
 
           <div className={styles.heroContent}>
             <h1 id="home-heading">
-              Hand me your site.{" "}
+              Throw me your site.{" "}
               <span>
-                I’ll <em>sniff out</em> trouble.
+                I’ll <em>drag out</em> the rot.
               </span>
             </h1>
-            <p>Drop the link here. I’ll nose around and tell you what to fix first.</p>
+            <p>Drop the link here. I’ll crawl inside and come back with teeth full of bad copy.</p>
             <HomeRoastForm />
           </div>
 
@@ -232,7 +229,7 @@ export function HomePage() {
           </div>
 
           <a className={styles.scrollCue} href="#execution-list">
-            See what I sniff out
+            See where I bite first
             <span aria-hidden="true">
               <ChevronDown />
             </span>
@@ -242,10 +239,10 @@ export function HomePage() {
         <section id="execution-list" className={styles.executionSection}>
           <div className={styles.container}>
             <SectionHeading
-              eyebrow="What I sniff out"
-              title="Four things I check"
-              accent="every time"
-              description="I’m checking whether people trust you, understand you, and know what to do next. That’s the whole game."
+              eyebrow="Where I sink my teeth"
+              title="Nothing gets to"
+              accent="hide"
+              description="I sniff for proof, bite into the words, and hunt down the next step. If the page makes me guess, I howl."
             />
 
             <div className={styles.categoryGrid}>
@@ -280,9 +277,10 @@ export function HomePage() {
         <section className={styles.comparisonSection}>
           <div className={`${styles.container} ${styles.comparisonLayout}`}>
             <SectionHeading
-              eyebrow="No homework"
-              title="A useful roast. That’s it."
-              description="I’m not handing you a giant report full of charts. I’ll tell you what feels wrong, why it matters, and what I’d change first."
+              eyebrow="I came back with teeth marks"
+              title="I do not"
+              accent="whisper"
+              description="I tell you what made me howl, why people may get stuck, and what you fix before I crawl back in."
               align="left"
             />
 
@@ -295,10 +293,9 @@ export function HomePage() {
                   height={408}
                   sizes="90px"
                 />
-                <h3>What most tools say</h3>
+                <h3>What the polite little tools mumble</h3>
                 <p>
-                  “Your page may benefit from improved clarity and performance
-                  across several key areas.”
+                  “A few things could be better. Somewhere.”
                 </p>
               </article>
 
@@ -318,10 +315,10 @@ export function HomePage() {
                   height={408}
                   sizes="100px"
                 />
-                <h3>What I’d say</h3>
+                <h3>What I drag out of the cave</h3>
                 <p>
-                  “This hero image is 4MB. Pretty, yes. Quick, no. Squash it
-                  before your visitors get bored and wander off.”
+                  “This hero image is 4MB. I could build a nest before it loads.
+                  Crush the file size before your visitors crawl away.”
                 </p>
               </article>
             </div>
@@ -331,9 +328,10 @@ export function HomePage() {
         <section className={styles.fixesSection}>
           <div className={styles.container}>
             <SectionHeading
-              eyebrow="Let me show you"
-              title="Small changes, clearer page"
-              description="Nothing mysterious. I show you the muddy bit, then give you a cleaner version you can actually use."
+              eyebrow="I do more than scream"
+              title="I show you the"
+              accent="way out"
+              description="First I drag out the bad bit. Then I give you a clean line you can use before the dust settles."
             />
 
             <div className={styles.fixesGrid}>
@@ -358,9 +356,9 @@ export function HomePage() {
         <section className={styles.buildersSection}>
           <div className={styles.container}>
             <SectionHeading
-              title="Made for people"
-              accent="doing the work"
-              description="One landing page or fifty client sites, it makes no difference to me. Give me a link and I’ll tell you where people are getting stuck."
+              title="One page or fifty"
+              accent="I stay hungry"
+              description="Founders, teams, freelancers, whole agencies. I do not care who owns the cave. Throw me the link and I bite."
             />
 
             <ul className={styles.audienceList} aria-label="Who PageGoblin is for">
@@ -385,9 +383,9 @@ export function HomePage() {
         <section className={styles.finalCtaSection}>
           <div className={`${styles.container} ${styles.finalCta}`}>
             <SectionHeading
-              title="Go on. Let me"
-              accent="see the page."
-              description="I’ll be honest with you. I’ll also tell you what to do next."
+              title="Go on. Feed me"
+              accent="the page."
+              description="I can already smell a weak button. Let me loose."
             />
             <HomeRoastForm />
             <Image

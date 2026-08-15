@@ -37,7 +37,7 @@ export default function SignUpPage() {
       const data = await response.json();
 
       if (!data.ok) {
-        setError(data.error?.message || "Something went wrong");
+        setError(data.error?.message || "The cave would not open. Try again.");
         setLoading(false);
         return;
       }
@@ -49,12 +49,12 @@ export default function SignUpPage() {
       });
 
       if (result?.error) {
-        setError("Account created but sign-in failed. Try signing in manually.");
+        setError("Your cave exists, but the door stuck. Try signing in again.");
       } else {
         router.push("/dashboard");
       }
     } catch {
-      setError("Something went wrong. The goblin tripped.");
+      setError("The cave wall shook and dropped your request. Try again.");
     } finally {
       setLoading(false);
     }
@@ -68,10 +68,10 @@ export default function SignUpPage() {
           <div className="flex flex-col items-center mb-8">
             <GoblinMascot className="mb-4" />
             <h1 className="font-display text-3xl font-bold tracking-tight text-ink text-center">
-              Join the goblin cave
+              Dig out your own cave
             </h1>
             <p className="mt-2 text-sm text-muted text-center">
-              Create an account to save your roasts and track improvements.
+              Keep every page I bite and come back to see what got better.
             </p>
           </div>
         </Reveal>
@@ -79,9 +79,9 @@ export default function SignUpPage() {
         <Reveal delay={0.1}>
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-              <CardTitle>Create your account</CardTitle>
+              <CardTitle>Mark this cave as yours</CardTitle>
               <CardDescription>
-                The goblin welcomes new victims... er, members
+                Give me three things and I will guard your roast pile.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -146,7 +146,7 @@ export default function SignUpPage() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      The goblin is preparing your cave...
+                      Digging out your cave...
                     </>
                   ) : (
                     "Create account"

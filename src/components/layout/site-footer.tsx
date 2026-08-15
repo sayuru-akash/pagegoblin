@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const footerLinks = [
-  { href: "/analyze", label: "Analyze" },
+  { href: "/analyze", label: "Let me at a page" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/examples", label: "Examples" },
   { href: "/privacy", label: "Privacy" },
@@ -18,7 +18,7 @@ export function SiteFooter() {
         <div className="flex flex-col items-center gap-3 md:items-start">
           <GoblinLogo />
           <p className="text-sm text-muted">
-            Conversion judgment, delivered instantly.
+            Throw me a page. I will drag the mess into the light.
           </p>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
@@ -40,7 +40,7 @@ export function SiteFooter() {
           <p className="text-sm text-muted">
             &copy; 2026 Sayuru Amarasinghe. MIT License.
           </p>
-          <p className="font-mono text-xs text-muted">goblin.exe v1.0.0</p>
+          <p className="font-mono text-xs text-muted">the cave is awake</p>
         </div>
       </div>
     </footer>

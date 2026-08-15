@@ -10,7 +10,7 @@ export function ScoreHero({ report }: { report: ReportPayload["report"] }) {
     <Stagger staggerDelay={0.15}>
       <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
         <StaggerItem>
-          <ScoreOrb score={report.score} size="lg" label="Goblin Score" />
+          <ScoreOrb score={report.score} size="lg" label="My score" />
         </StaggerItem>
 
         <div className="flex flex-1 flex-col gap-6">
@@ -18,7 +18,7 @@ export function ScoreHero({ report }: { report: ReportPayload["report"] }) {
             <Card className="border-rose/20 bg-rose/5">
               <CardContent>
                 <p className="mb-1 font-mono text-xs font-medium uppercase tracking-widest text-rose">
-                  Biggest Crime
+                  First thing I bit
                 </p>
                 <p className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
                   {report.biggestCrime}
@@ -33,7 +33,7 @@ export function ScoreHero({ report }: { report: ReportPayload["report"] }) {
                 &ldquo;{report.verdict}&rdquo;
               </p>
               <cite className="mt-2 block text-sm font-medium text-muted not-italic">
-                — The PageGoblin
+                The PageGoblin, still growling
               </cite>
             </blockquote>
           </StaggerItem>

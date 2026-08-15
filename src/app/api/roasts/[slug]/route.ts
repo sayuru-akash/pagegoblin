@@ -23,7 +23,7 @@ export async function GET(
   } catch (err) {
     console.error("Failed to fetch roast report", err);
     return NextResponse.json(
-      { error: "Something went wrong while fetching the report." },
+      { error: "The report slipped deeper into the cave. Try again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }

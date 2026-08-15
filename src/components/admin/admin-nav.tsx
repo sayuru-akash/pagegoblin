@@ -2,14 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, KeyRound, Settings, FileText } from "lucide-react";
+import { LayoutDashboard, KeyRound, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/admin", label: "Overview", icon: LayoutDashboard },
-  { href: "/admin/api-config", label: "API Config", icon: KeyRound },
-  { href: "/admin/settings", label: "Settings", icon: Settings },
-  { href: "/admin/reports", label: "Reports", icon: FileText },
+  { href: "/admin", label: "Watch the cave", icon: LayoutDashboard },
+  { href: "/admin/api-config", label: "Guard the AI keys", icon: KeyRound },
+  { href: "/admin/settings", label: "Change the rules", icon: Settings },
 ];
 
 export function AdminNav() {

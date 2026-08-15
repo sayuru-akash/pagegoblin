@@ -42,7 +42,7 @@ export function HomeRoastForm({
 
       normalizedUrl = normalized.url;
     } catch {
-      setError("That link looks wonky. Try something like example.com.");
+      setError("That link has no scent. Give me something like example.com.");
       return;
     }
 
@@ -58,16 +58,16 @@ export function HomeRoastForm({
 
       if (!response.ok || !data.report || !data.links?.report) {
         if (response.status === 429) {
-          setError("Easy, easy. I’m still chewing on the last batch. Try again in a minute.");
+          setError("Back off for one tiny minute. I’m still chewing the last pile.");
         } else {
-          setError("I couldn’t get into that page. Try another public link.");
+          setError("I bit that page and it bit back. Make sure it is public, then throw it at me again.");
         }
         return;
       }
 
       router.push(data.links.report);
     } catch {
-      setError("I can’t reach the server right now. Give me another go in a moment.");
+      setError("I can’t reach the cave door. Check your connection and try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -107,7 +107,7 @@ export function HomeRoastForm({
           {isSubmitting ? (
             <>
               <LoaderCircle aria-hidden="true" className={styles.spinner} />
-              Having a look...
+            Clawing through it...
             </>
           ) : (
             buttonLabel

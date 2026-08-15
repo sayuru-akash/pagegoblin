@@ -7,17 +7,17 @@ export default function NotFound() {
       <div className="flex flex-col items-center gap-6 text-center">
         <GoblinMascot className="h-28 w-28 opacity-80" />
         <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
-          This roast got eaten.
+          I ate this roast. Maybe.
         </h1>
         <p className="max-w-md text-muted">
-          The goblin searched everywhere but couldn&apos;t find this report.
-          Maybe it was never roasted, or maybe the goblin got hungry.
+          I sniffed the shelf, clawed through the pile, and found nothing. The
+          report may be gone, private, or never made.
         </p>
         <Link
           href="/"
           className="mt-4 inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
         >
-          Roast another page
+          Give me another page
         </Link>
       </div>
     </div>

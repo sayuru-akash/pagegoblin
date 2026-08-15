@@ -107,7 +107,7 @@ export async function upsertApiConfig(input: {
 
 export async function testApiConfig(id: string) {
   const config = await prisma.apiConfig.findUnique({ where: { id } });
-  if (!config) return { success: false, message: "Config not found" };
+  if (!config) return { success: false, message: "I sniffed the key shelf. That key is not there." };
 
   const encryptionKey = process.env.ENCRYPTION_KEY!;
   let apiKey: string;
@@ -118,7 +118,7 @@ export async function testApiConfig(id: string) {
       where: { id },
       data: { lastTestedAt: new Date(), lastTestStatus: "DECRYPT_FAILED" },
     });
-    return { success: false, message: "Failed to decrypt API key" };
+    return { success: false, message: "I could not unlock that API key." };
   }
 
   const baseUrl = (config.baseUrl || "https://api.openai.com/v1").replace(/\/$/, "");
@@ -146,7 +146,7 @@ export async function testApiConfig(id: string) {
       where: { id },
       data: { lastTestedAt: new Date(), lastTestStatus: "OK" },
     });
-    return { success: true, message: "Connection successful", latencyMs };
+    return { success: true, message: "The wire is alive. I heard it growl back.", latencyMs };
   } catch (err) {
     const latencyMs = Date.now() - start;
     const message = err instanceof Error ? err.message : "Unknown error";

@@ -1,8 +1,28 @@
 import type { AnalysisResult, GoblinComplaint } from "./types";
 
+const severityCopy = {
+  critical: "fix this first",
+  high: "big bite",
+  medium: "sharp scratch",
+  low: "small nibble",
+} as const;
+
+const priorityCopy = {
+  urgent: "do this now",
+  high: "do this next",
+  medium: "worth doing",
+  low: "small polish",
+} as const;
+
+const effortCopy = {
+  low: "quick",
+  medium: "some work",
+  high: "big job",
+} as const;
+
 function pickBiggestCrime(complaints: GoblinComplaint[]): string {
   if (complaints.length === 0)
-    return "No crimes detected — this page smells fake. Did you write it yourself?";
+    return "I sniffed every corner and found nothing big enough to bite.";
 
   // Prioritize critical, then high, then medium, then low
   const severityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
@@ -14,38 +34,38 @@ function pickBiggestCrime(complaints: GoblinComplaint[]): string {
 
 function pickVerdict(score: number): string {
   if (score >= 85)
-    return "Your page is dangerously competent. The goblin has nothing to roast except its own envy. Suspicious.";
+    return "Hmph. I came hungry and this page gave me little to chew. The offer is clear, the button is easy to find, and the proof has real bones.";
   if (score >= 70)
-    return "Solid page. A few goblin grumbles, but you clearly tried. Barely passing inspection.";
+    return "This page has good bones. I still found a few loose bits to gnaw on, but I know where I am and what to do next.";
   if (score >= 55)
-    return "Mediocre. Like a sandwich with no filling — structurally there, but disappointing. Visitors bounce faster than a rubber ball.";
+    return "I can follow the trail, but you keep dragging me through mud. Cut the fog from the main promise and pull the next step into the light.";
   if (score >= 40)
-    return "Oof. Your page is confusing, vague, and desperately needs a CTA intervention. It's a miracle anyone stays.";
+    return "I crawled into the first screen and got lost in the roots. Give me one clear headline, real proof, and a button I do not have to dig up.";
   if (score >= 25)
-    return "This page is a conversion crime scene. The goblin is filing a police report and suing for damages.";
-  return "The goblin has fainted. Revive it by adding literally any trust signals, a headline, or a purpose. This is embarrassing.";
+    return "I tore through this page and still had to guess what you want from me. Fix the first screen before you polish one more thing below it.";
+  return "I bit the headline, clawed at the buttons, and sniffed every corner. I still do not know what you sell, who wants it, or where I should go.";
 }
 
 function formatComplaints(complaints: GoblinComplaint[]): string {
   if (complaints.length === 0)
-    return "_No complaints. This feels like cheating._";
+    return "_I sniffed every corner. Nothing big enough to bite._";
   return complaints
-    .map((c) => `- **${c.title}** (${c.severity}): ${c.detail}`)
+    .map((c) => `- **${c.title}** (${severityCopy[c.severity]}): ${c.detail}`)
     .join("\n");
 }
 
 function formatFixes(fixes: AnalysisResult["actuallyUsefulFixes"]): string {
   if (fixes.length === 0)
-    return "_Nothing to fix. Either you're a genius or the goblin gave up._";
+    return "_No big fixes today. I leave hungry._";
   return fixes
-    .map((f) => `- **${f.title}** [${f.priority}/${f.effort}]: ${f.detail}`)
+    .map((f) => `- **${f.title}** [${priorityCopy[f.priority]}, ${effortCopy[f.effort]}]: ${f.detail}`)
     .join("\n");
 }
 
 function formatWarnings(warnings: AnalysisResult["warnings"]): string {
   if (warnings.length === 0) return "";
   return (
-    "\n\n---\n\n⚠️ **Warnings**\n\n" +
+    "\n\n---\n\n⚠️ **A quick note before you use this report**\n\n" +
     warnings.map((w) => `- ${w.message}`).join("\n")
   );
 }
@@ -65,7 +85,7 @@ function buildHeroSectionPanic(result: AnalysisResult): string {
       c.title.toLowerCase().includes("buyer confusion"),
   );
   if (heroComplaints.length === 0) {
-    return "Your hero section passed inspection. Don't get cocky, it's not that hard.";
+    return "I sniffed the first screen and got the point. No digging needed.";
   }
   return heroComplaints.map((c) => `- ${c.title}: ${c.detail}`).join("\n");
 }
@@ -78,52 +98,52 @@ function buildProofCredibilityCheck(result: AnalysisResult): string {
       c.title.toLowerCase().includes("credibility"),
   );
   if (trustComplaints.length === 0) {
-    return "Your page has adequate trust signals. Don't get comfortable.";
+    return "I found names, proof, and real details. Good. My nose is calm.";
   }
   return trustComplaints.map((c) => `- ${c.title}: ${c.detail}`).join("\n");
 }
 
 function buildMobileSuspicionWarning(result: AnalysisResult): string {
   if (result.metrics.hasMobileViewport === false) {
-    return "⚠️ **Mobile Suspicion Warning:** This page appears to be missing a mobile viewport meta tag. Mobile visitors may have a poor experience.";
+    return "⚠️ **Your phone setup smells wrong:** I couldn't find a mobile viewport tag, so this page may spill off a small screen.";
   }
-  return "No mobile suspicion detected. Your page declares a mobile viewport.";
+  return "I found the mobile viewport tag. The tiny screen cave has a door.";
 }
 
 export function buildSummaryMarkdown(result: AnalysisResult): string {
   const sections = [
-    `# 🧌 PageGoblin Report`,
+    `# 🧌 What I dragged out of ${result.domain}`,
     ``,
-    `**Goblin Score:** ${scoreBar(result.goblinScore)}`,
+    `**My score after the sniffing:** ${scoreBar(result.goblinScore)}`,
     ``,
-    `## Category Scores`,
+    `## Where the page fought back`,
     `| Category | Score |`,
     `|----------|-------|`,
-    `| Trust Tax | ${result.categoryScores.trustTax}/100 |`,
-    `| CTA Corpse | ${result.categoryScores.ctaCorpse}/100 |`,
-    `| Fluff Damage | ${result.categoryScores.fluffDamage}/100 |`,
-    `| Buyer Confusion Level | ${result.categoryScores.buyerConfusionLevel}/100 |`,
-    `| Conversion Friction | ${result.categoryScores.conversionFriction}/100 |`,
+    `| Where's the proof? | ${result.categoryScores.trustTax}/100 |`,
+    `| What am I meant to click? | ${result.categoryScores.ctaCorpse}/100 |`,
+    `| Do these words mean anything? | ${result.categoryScores.fluffDamage}/100 |`,
+    `| What are you selling? | ${result.categoryScores.buyerConfusionLevel}/100 |`,
+    `| Why is this so hard? | ${result.categoryScores.conversionFriction}/100 |`,
     ``,
-    `## Biggest Crime`,
+    `## The first thing I'd bite`,
     `**${result.biggestCrime}**`,
     ``,
-    `## Hero Section Panic`,
+    `## What I sniffed out up top`,
     buildHeroSectionPanic(result),
     ``,
-    `## Proof/Credibility Check`,
+    `## The proof hiding in the cave`,
     buildProofCredibilityCheck(result),
     ``,
-    `## Mobile Suspicion Warning`,
+    `## My crawl through the phone-sized hole`,
     buildMobileSuspicionWarning(result),
     ``,
-    `## Goblin Complaints`,
+    `## What made me howl`,
     formatComplaints(result.goblinComplaints),
     ``,
-    `## Actually Useful Fixes`,
+    `## What you fix before I come back`,
     formatFixes(result.actuallyUsefulFixes),
     ``,
-    `## The Goblin Verdict`,
+    `## My final growl`,
     result.verdict,
     formatWarnings(result.warnings),
   ];

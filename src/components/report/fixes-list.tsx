@@ -14,10 +14,16 @@ const priorityVariant: Record<Priority, "danger" | "warning" | "default"> = {
 };
 
 const priorityLabel: Record<Priority, string> = {
-  urgent: "Urgent",
-  high: "High",
-  medium: "Medium",
-  low: "Low",
+  urgent: "Do this now",
+  high: "Do this next",
+  medium: "Worth doing",
+  low: "Small polish",
+};
+
+const effortLabel: Record<Effort, string> = {
+  low: "Quick",
+  medium: "Some work",
+  high: "Big job",
 };
 
 const effortDots: Record<Effort, number> = {
@@ -33,10 +39,10 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
         <CardContent className="flex flex-col items-center gap-3 py-8 text-center">
           <Wrench className="h-8 w-8 text-goblin" />
           <p className="font-display text-lg font-bold text-ink">
-            No fixes needed.
+            No big fixes. You escaped my teeth.
           </p>
           <p className="text-sm text-muted">
-            Your page is either perfect, or the goblin gave up in disgust.
+            Keep watching the page as it grows. I may find a loose bone next time.
           </p>
         </CardContent>
       </Card>
@@ -60,7 +66,7 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
                     </Badge>
                     <div
                       className="flex items-center gap-1"
-                      title={`Effort: ${fix.effort}`}
+                      title={`How much work: ${effortLabel[fix.effort]}`}
                     >
                       {[1, 2, 3].map((dot) => (
                         <span
@@ -73,7 +79,7 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
                         />
                       ))}
                       <span className="ml-1 text-xs capitalize text-muted">
-                        {fix.effort}
+                        {effortLabel[fix.effort]}
                       </span>
                     </div>
                   </div>

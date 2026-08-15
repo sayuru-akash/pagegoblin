@@ -68,7 +68,7 @@ export function ShareSection({
       <Card>
         <CardContent>
           <p className="mb-4 font-mono text-xs font-medium uppercase tracking-widest text-goblin">
-            Steal this roast
+            Drag this roast out of the cave
           </p>
 
           <div className="flex flex-wrap gap-3">
@@ -87,7 +87,7 @@ export function ShareSection({
                     className="flex items-center gap-1.5"
                   >
                     <Check className="h-3.5 w-3.5" />
-                    Copied!
+                    Snatched!
                   </motion.span>
                 ) : (
                   <motion.span
@@ -98,7 +98,7 @@ export function ShareSection({
                     className="flex items-center gap-1.5"
                   >
                     <Link2 className="h-3.5 w-3.5" />
-                    Copy Link
+                    Copy the link
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -122,12 +122,12 @@ export function ShareSection({
                   >
                     <Download className="h-3.5 w-3.5" />
                   </motion.span>
-                  Downloading...
+                  Tying up the file...
                 </motion.span>
               ) : (
                 <span className="flex items-center gap-1.5">
                   <Download className="h-3.5 w-3.5" />
-                  Download Markdown
+                  Keep the report file
                 </span>
               )}
             </Button>
@@ -147,7 +147,7 @@ export function ShareSection({
                     className="flex items-center gap-1.5"
                   >
                     <Check className="h-3.5 w-3.5" />
-                    Copied!
+                    Snatched!
                   </motion.span>
                 ) : (
                   <motion.span
@@ -158,7 +158,7 @@ export function ShareSection({
                     className="flex items-center gap-1.5"
                   >
                     <Copy className="h-3.5 w-3.5" />
-                    Copy Summary
+                    Copy the short roast
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -175,7 +175,7 @@ export function ShareSection({
             >
               <ChevronDown className="h-3.5 w-3.5" />
             </motion.span>
-            {showPreview ? "Hide" : "Preview"} markdown
+            {showPreview ? "Hide" : "Peek at"} the report file
           </button>
 
           <AnimatePresence>

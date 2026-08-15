@@ -14,10 +14,10 @@ const severityVariant: Record<Severity, "danger" | "warning" | "default"> = {
 };
 
 const severityLabel: Record<Severity, string> = {
-  critical: "Critical",
-  high: "High",
-  medium: "Medium",
-  low: "Low",
+  critical: "Fix this first",
+  high: "Big bite",
+  medium: "Sharp scratch",
+  low: "Small nibble",
 };
 
 export function ComplaintsList({
@@ -31,9 +31,9 @@ export function ComplaintsList({
         <CardContent className="flex flex-col items-center gap-3 py-8 text-center">
           <AlertTriangle className="h-8 w-8 text-goblin" />
           <p className="font-display text-lg font-bold text-ink">
-            The goblin found nothing to complain about.
+            I sniffed every corner. Nothing big enough to bite.
           </p>
-          <p className="text-sm text-muted">This feels like cheating.</p>
+          <p className="text-sm text-muted">Hmph. I leave hungry.</p>
         </CardContent>
       </Card>
     );

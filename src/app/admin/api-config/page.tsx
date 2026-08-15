@@ -8,10 +8,10 @@ export default async function ApiConfigPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-3xl font-bold tracking-tight">
-          API Configuration
+          Keys to the bigger goblin
         </h1>
         <p className="mt-1 text-muted">
-          Manage the API keys the goblin uses to generate AI-enhanced roasts.
+          Lock up the AI keys and pick which beast writes the full roar.
         </p>
       </div>
       <ApiConfigForm initialConfigs={configs} />

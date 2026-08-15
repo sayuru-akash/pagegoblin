@@ -19,11 +19,11 @@ export default function RoastError({
       >
         <GoblinMascot className="h-28 w-28 opacity-80" />
         <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
-          The goblin tripped.
+          I dropped the whole roast.
         </h1>
         <p className="max-w-md text-muted">
-          Something went wrong while loading this roast. Even goblins stumble
-          sometimes.
+          The report slipped out of my claws and fell into the dark. Hit the
+          button and I will drag it back up.
         </p>
         <motion.button
           whileHover={{ scale: 1.02 }}
@@ -31,7 +31,7 @@ export default function RoastError({
           onClick={reset}
           className="mt-4 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
         >
-          Try again
+          Drag it back
         </motion.button>
       </motion.div>
     </div>

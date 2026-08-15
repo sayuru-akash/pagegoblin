@@ -8,10 +8,10 @@ export default async function SettingsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="font-display text-3xl font-bold tracking-tight">
-          App Settings
+          Rules carved into the cave
         </h1>
         <p className="mt-1 text-muted">
-          Configure how the goblin behaves across the platform.
+          Choose what I may eat, where reports may roam, and how wild I get.
         </p>
       </div>
       <SettingsForm initialSettings={settings as Record<string, unknown>} />

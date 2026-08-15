@@ -36,12 +36,12 @@ function SignInForm() {
       });
 
       if (result?.error) {
-        setError("Invalid email or password. The goblin is not impressed.");
+        setError("That email and password do not open the cave. Check them and try again.");
       } else {
         router.push(callbackUrl);
       }
     } catch {
-      setError("Something went wrong. The goblin tripped.");
+      setError("The cave door jammed. Give it one more shove in a moment.");
     } finally {
       setLoading(false);
     }
@@ -55,10 +55,10 @@ function SignInForm() {
           <div className="flex flex-col items-center mb-8">
             <GoblinMascot className="mb-4" />
             <h1 className="font-display text-3xl font-bold tracking-tight text-ink text-center">
-              Welcome back, goblin friend
+              Back to the cave, are you?
             </h1>
             <p className="mt-2 text-sm text-muted text-center">
-              The cave has been waiting for you.
+              Good. Your old roasts are still scratching at the walls.
             </p>
           </div>
         </Reveal>
@@ -66,9 +66,9 @@ function SignInForm() {
         <Reveal delay={0.1}>
           <Card className="w-full max-w-md">
             <CardHeader className="text-center">
-              <CardTitle>Sign in to PageGoblin</CardTitle>
+              <CardTitle>Open your roast stash</CardTitle>
               <CardDescription>
-                Enter your credentials to access your roasts
+                Give me the email and password tied to your cave.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -101,7 +101,7 @@ function SignInForm() {
                   <Input
                     id="password"
                     type="password"
-                    placeholder="Your secret goblin password"
+                    placeholder="Your cave password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -117,7 +117,7 @@ function SignInForm() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      The goblin is checking...
+                      Sniffing the key...
                     </>
                   ) : (
                     "Sign in"
@@ -128,7 +128,7 @@ function SignInForm() {
               <div className="mt-6 text-center text-sm text-muted">
                 Don&apos;t have an account?{" "}
                 <Link href="/signup" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
-                  Join the goblin cave
+                  Dig out a new cave
                 </Link>
               </div>
             </CardContent>
@@ -138,7 +138,7 @@ function SignInForm() {
         <Reveal delay={0.2}>
           <div className="mt-6 text-center">
             <Link href="/analyze" className="text-sm text-muted hover:text-ink transition-colors">
-              Try PageGoblin free →
+              Skip the cave and roast a page →
             </Link>
           </div>
         </Reveal>

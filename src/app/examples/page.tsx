@@ -11,14 +11,14 @@ import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
 export const metadata: Metadata = {
-  title: "Website Roast Examples — Landing Page Audit Samples",
+  title: "Website Roasts PageGoblin Dragged Out",
   description:
-    "See PageGoblin website roast examples with Goblin Scores, conversion complaints, biggest crimes, and practical landing page fixes.",
+    "See PageGoblin tear into muddy headlines, hidden buttons, thin proof, and pages that make people guess.",
   alternates: { canonical: "/examples" },
   openGraph: {
     title: "PageGoblin Website Roast Examples",
     description:
-      "Sample website roasts showing how PageGoblin turns vague landing page problems into specific conversion fixes.",
+      "Real examples of the goblin finding the mess, howling about it, and showing the way out.",
     url: "/examples",
   },
 };
@@ -36,30 +36,30 @@ const mockRoasts: MockRoast[] = [
   {
     domain: "vague-saas-startup.com",
     score: 23,
-    crime: "Hero section says nothing",
-    complaints: ["Fluff copy that could apply to any product", "No visible CTA above the fold", "Zero social proof or trust signals"],
-    verdict: "This page is a Rorschach test. Everyone sees something different. Nobody buys.",
+    crime: "The hero fed me fog",
+    complaints: ["The first lines could fit any product", "The main button is hiding below the first screen", "I sniffed for customer proof and found dust"],
+    verdict: "I crawled through the hero twice and still found no trail. Tell me what you sell before I chew through the menu.",
   },
   {
     domain: "enterprise-buzzword.io",
     score: 15,
-    crime: "Maximum syllables, minimum meaning",
-    complaints: ["Buzzword soup throughout the entire page", "Pricing hidden behind a sales call", "No human face or team section"],
-    verdict: "The goblin read this page three times and still doesn't know what you sell.",
+    crime: "Big words with no meat",
+    complaints: ["Every section feeds me another empty claim", "The price is locked behind a call", "The brand has no face, name, or story"],
+    verdict: "I bit every big word on this page. Not one of them told me what you sell. Feed me facts.",
   },
   {
     domain: "local-restaurant.com",
     score: 52,
-    crime: "Missing the basics",
-    complaints: ["No menu link anywhere on the page", "No business hours listed", "No phone number or contact info"],
-    verdict: "A restaurant website without a menu is like a restaurant without food.",
+    crime: "The menu ran away",
+    complaints: ["I cannot find the food menu", "The opening hours are missing", "There is no clear phone number or contact link"],
+    verdict: "You showed me a restaurant and hid the food. Put the menu, hours, and phone number where my nose can find them.",
   },
   {
     domain: "portfolio-with-no-cta.com",
     score: 38,
-    crime: "Beautiful but purposeless",
-    complaints: ["Stunning visuals but zero direction", "No contact form or email link", "No clear ask for the visitor"],
-    verdict: "This portfolio is a museum exhibit. Admire it, then leave without hiring anyone.",
+    crime: "Pretty cave, no way forward",
+    complaints: ["The pictures are strong but the path stops", "I cannot find a contact form or email", "The page never asks the visitor to do anything"],
+    verdict: "I stared at the pretty work, then hit a wall. Give me one clear way to hire you before I wander back into the woods.",
   },
 ];
 
@@ -70,9 +70,9 @@ function getScoreBadgeVariant(score: number): "goblin" | "warning" | "danger" {
 }
 
 function getScoreLabel(score: number): string {
-  if (score >= 80) return "Good";
-  if (score >= 50) return "Needs work";
-  return "Brutal";
+  if (score >= 80) return "Hard to bite";
+  if (score >= 50) return "Still chewing";
+  return "A proper mess";
 }
 
 const sampleFixes = [
@@ -103,12 +103,12 @@ export default function ExamplesPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                Roasts so good <span className="text-rose">they hurt</span>
+                See what I <span className="text-rose">dragged out</span>
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-                Real examples of PageGoblin tearing apart common website mistakes.
+                I crawled into these pages and came back with teeth full of bad copy.
               </p>
             </Reveal>
           </div>
@@ -136,7 +136,7 @@ export default function ExamplesPage() {
                         <ScoreOrb score={roast.score} size="sm" />
                         <div className="flex-1">
                           <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                            Biggest crime
+                            First thing I bit
                           </p>
                           <p className="mt-1 font-display text-lg font-bold text-ink">
                             {roast.crime}
@@ -146,7 +146,7 @@ export default function ExamplesPage() {
 
                       <div>
                         <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                          Goblin complaints
+                          What made me howl
                         </p>
                         <ul className="mt-2 space-y-1.5">
                           {roast.complaints.map((c, i) => (
@@ -163,7 +163,7 @@ export default function ExamplesPage() {
 
                       <div className="mt-auto border-t border-border pt-4">
                         <p className="font-mono text-xs uppercase tracking-widest text-muted">
-                          The verdict
+                          My final growl
                         </p>
                         <p className="mt-1 text-sm font-medium italic text-ink">
                           &ldquo;{roast.verdict}&rdquo;
@@ -174,7 +174,7 @@ export default function ExamplesPage() {
                         href="/analyze"
                         className="inline-flex items-center gap-1.5 text-sm font-medium text-goblin transition-colors hover:text-goblin-dark"
                       >
-                        View full roast
+                        Open the whole mess
                         <ArrowRight className="h-3.5 w-3.5" />
                       </Link>
                     </CardContent>
@@ -190,9 +190,9 @@ export default function ExamplesPage() {
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Real fixes"
-                title="Before and after the goblin"
-                description="No vague suggestions. The goblin gives you concrete before-and-after fixes."
+                eyebrow="I do more than scream"
+                title="Here is the way out"
+                description="I show you the muddy words, then give you a cleaner line to use."
               />
             </Reveal>
 
@@ -211,7 +211,7 @@ export default function ExamplesPage() {
                       </div>
                       <div className="flex items-center gap-3">
                         <span className="font-mono text-xs text-muted">
-                          Score improved by +{fix.score}
+                          My score went up +{fix.score}
                         </span>
                         <ArrowRight className="h-4 w-4 text-muted" />
                       </div>
@@ -228,12 +228,12 @@ export default function ExamplesPage() {
           <div className="mx-auto max-w-2xl">
             <Reveal>
               <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Want to see your page here?
+                Want me crawling through your page?
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-4 max-w-lg text-muted">
-                Feed the goblin a URL and find out how your page stacks up.
+                Throw me the URL. I will bring back every loose bone.
               </p>
             </Reveal>
             <Reveal delay={0.2}>

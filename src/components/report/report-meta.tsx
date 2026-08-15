@@ -5,9 +5,9 @@ import { Badge } from "@/components/ui/badge";
 import type { ReportPayload } from "@/lib/reports/types";
 
 const sourceLabels: Record<string, string> = {
-  WEB_URL: "Web URL",
-  EXTENSION: "Extension",
-  MANUAL_SIGNALS: "Manual",
+  WEB_URL: "Page link",
+  EXTENSION: "Browser claw",
+  MANUAL_SIGNALS: "Hand-fed clues",
 };
 
 export function ReportMeta({ report }: { report: ReportPayload["report"] }) {

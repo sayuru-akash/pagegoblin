@@ -37,7 +37,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
 
         if (res.ok) {
           setSettings((prev) => ({ ...prev, [key]: value }));
-          setSuccess(`Saved ${key}`);
+          setSuccess("The cave kept that change.");
         }
       });
     },
@@ -55,11 +55,11 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
 
       <Card>
         <CardHeader>
-          <CardTitle>Default Roast Visibility</CardTitle>
+          <CardTitle>Where new roasts may roam</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted">
-            Default visibility for new roasts created by users.
+            Pick who can see a fresh roast before its owner changes the rule.
           </p>
           <select
             value={settings.defaultVisibility || "UNLISTED"}
@@ -75,11 +75,11 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
 
       <Card>
         <CardHeader>
-          <CardTitle>Rate Limiting</CardTitle>
+          <CardTitle>How much the beast may eat</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted">
-            Maximum roasts per user per hour.
+            Set how many pages one person can throw into the cave each hour.
           </p>
           <Input
             type="number"
@@ -101,11 +101,11 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
 
       <Card>
         <CardHeader>
-          <CardTitle>AI Mode</CardTitle>
+          <CardTitle>Unchain the bigger goblin</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted">
-            Enable AI-assisted roasts using the configured API.
+            Let the AI service write the full wild roast after the score is made.
           </p>
           <label className="flex items-center gap-3">
             <input
@@ -115,7 +115,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
               className="h-4 w-4 rounded border-border accent-goblin"
             />
             <span className="text-sm font-medium text-ink">
-              AI-assisted roasts enabled
+              The bigger goblin is loose
             </span>
           </label>
         </CardContent>
@@ -156,7 +156,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
       {isPending && (
         <div className="flex items-center gap-2 text-sm text-muted">
           <Loader2 className="h-4 w-4 animate-spin" />
-          Saving...
+          Carving that into the cave wall...
         </div>
       )}
     </div>

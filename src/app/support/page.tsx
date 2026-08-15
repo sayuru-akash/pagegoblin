@@ -9,7 +9,7 @@ import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 
 export const metadata: Metadata = {
-  title: "Support — PageGoblin Help",
+  title: "Help From the PageGoblin Cave",
   description:
     "Get help with PageGoblin website roasts, report sharing, Chrome extension behavior, privacy questions, and support requests.",
   alternates: { canonical: "/support" },
@@ -23,20 +23,20 @@ export const metadata: Metadata = {
 
 const quickFaqs = [
   {
-    q: "My roast report is missing or broken",
-    a: "Try submitting the URL again. If the issue persists, the page might be behind authentication or blocking automated access.",
+    q: "My roast ran away or broke",
+    a: "Throw the URL at me again. If I still cannot get in, the page may sit behind a login or block crawlers like me.",
   },
   {
-    q: "The goblin gave my page a low score but I disagree",
-    a: "The goblin doesn't negotiate. But seriously — check the specific complaints. Even if the score feels harsh, the individual fixes are usually valid.",
+    q: "You bit my page too hard. I disagree.",
+    a: "Good. Growl back. Then check the proof under each bite. The score is only a signpost, but the page clues and fixes should still make sense.",
   },
   {
     q: "Can I use PageGoblin on private staging sites?",
-    a: "Only public URLs work. The goblin can't access pages behind login walls or VPNs.",
+    a: "Only if I can reach them from the open web. Logins and VPN walls keep my claws out.",
   },
   {
     q: "How do I share my roast report?",
-    a: "Every roast gets a unique shareable link. Copy it from the report page and send it to whoever needs to see it.",
+    a: "Every roast gets its own link. Copy it from the report and toss it to whoever needs to see the mess.",
   },
 ];
 
@@ -50,14 +50,13 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                Need help? The goblin{" "}
-                <span className="text-goblin">listens.</span>
+                Something broke? <span className="text-goblin">Howl this way.</span>
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted">
-                Common questions, quick answers. If the goblin can&apos;t help,
-                a human will.
+                I have answers for the usual cave trouble. If I cannot fix it,
+                a real human will crawl over.
               </p>
             </Reveal>
           </div>
@@ -68,8 +67,8 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Quick answers"
-                title="Common questions"
+                eyebrow="Sniff here first"
+                title="The usual cave trouble"
               />
             </Reveal>
 
@@ -95,9 +94,9 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Get in touch"
-                title="Contact the goblin"
-                description="Found a bug? Have a feature request? Just want to say hi?"
+                eyebrow="Still stuck?"
+                title="Rattle the cave door"
+                description="Found a bug, want a new trick, or need a real answer? Make some noise."
               />
             </Reveal>
 
@@ -110,7 +109,7 @@ export default function SupportPage() {
                     </div>
                     <CardTitle>Email</CardTitle>
                     <CardDescription>
-                      For general questions, bug reports, and feature requests.
+                      Send questions, bug reports, and ideas here. A human reads them.
                     </CardDescription>
                     <Link
                       href="mailto:info@codezela.com"
@@ -131,7 +130,7 @@ export default function SupportPage() {
                     </div>
                     <CardTitle>GitHub</CardTitle>
                     <CardDescription>
-                      Report bugs, request features, or browse open issues.
+                      Drop a bug into the issue pit, ask for a new trick, or see what is already loose.
                     </CardDescription>
                     <Link
                       href="https://github.com/sayuru-akash/pagegoblin/issues"
@@ -152,9 +151,9 @@ export default function SupportPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Reporting bugs"
-                title="Help the goblin help you"
-                description="When reporting a bug, include these details for the fastest resolution."
+                eyebrow="Bring useful tracks"
+                title="Show us where it broke"
+                description="Give us these four clues so we can find the bug before it crawls away."
               />
             </Reveal>
 

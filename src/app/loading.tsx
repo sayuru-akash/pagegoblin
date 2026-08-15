@@ -9,7 +9,7 @@ export default function GlobalLoading() {
           </div>
         </div>
         <p className="text-sm font-medium text-muted animate-pulse">
-          The goblin is sharpening its knives...
+          I&apos;m crawling through the wires...
         </p>
       </div>
     </div>

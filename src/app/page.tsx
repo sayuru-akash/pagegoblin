@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import { HomePage } from "@/components/home/home-page";
 
 export const metadata: Metadata = {
-  title: "A Clear, Honest Website Roast",
+  title: "Throw Me Your Website. I'll Tear Into It.",
   description:
-    "Give PageGoblin a URL. It will point out what feels unclear, what is hard to trust, and what to fix first.",
+    "Throw PageGoblin a URL. The wild little beast will crawl inside, roast the mess, and drag back the fixes.",
   alternates: { canonical: "/" },
   openGraph: {
-    title: "PageGoblin: A Clear, Honest Website Roast",
+    title: "PageGoblin: Throw Me Your Website",
     description:
-      "Hand over a URL and the goblin will show you what is confusing visitors and what to fix first.",
+      "Let the goblin loose on your page. It will bite the weak words, find the hidden buttons, and show you what to fix.",
     url: "/",
   },
 };

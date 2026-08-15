@@ -18,7 +18,7 @@ export default async function AdminLayout({
         </div>
         <div className="px-4 py-6">
           <p className="mb-4 px-3 text-xs font-semibold uppercase tracking-wider text-muted">
-            The Goblin&apos;s Control Room
+            Cave controls
           </p>
           <AdminNav />
         </div>
@@ -31,7 +31,7 @@ export default async function AdminLayout({
             href="/dashboard"
             className="mt-3 inline-block text-xs font-medium text-goblin-dark hover:underline"
           >
-            &larr; Back to dashboard
+            &larr; Back to my roast pile
           </Link>
         </div>
       </aside>

@@ -47,8 +47,8 @@ export function WarningsPanel({ warnings }: { warnings: PageRisk[] }) {
                     }`}
                   >
                     {warning.type === "PRIVATE_PAGE"
-                      ? "Private Page Detected"
-                      : "Sensitive Content Warning"}
+                      ? "This looks like a private cave"
+                      : "I found something that needs care"}
                   </p>
                   <p className="mt-1 text-sm text-muted">{warning.message}</p>
                 </div>

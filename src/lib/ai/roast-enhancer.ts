@@ -101,5 +101,5 @@ export async function enhanceRoastWithAI(input: AiEnhancementInput): Promise<AiE
 }
 
 function buildEnhancedSummary(verdict: string, biggestCrime: string, score: number, domain: string): string {
-  return `## The Goblin Verdict: ${domain}\n\n**Goblin Score: ${score}/100**\n\n${verdict}\n\n### Biggest Crime\n${biggestCrime}\n`;
+  return `## What I dragged out of ${domain}\n\n**My score after the sniffing: ${score}/100**\n\n${verdict}\n\n### The first thing I bit\n${biggestCrime}\n`;
 }

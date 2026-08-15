@@ -10,20 +10,20 @@ export default async function AdminOverviewPage() {
   ]);
 
   const statCards = [
-    { label: "Total Roasts", value: stats.totalReports, icon: Flame, color: "text-amber" },
-    { label: "Total Users", value: stats.totalUsers, icon: Users, color: "text-goblin-dark" },
-    { label: "Avg Score", value: stats.avgScore, icon: TrendingUp, color: "text-rose" },
-    { label: "This Week", value: stats.reportsThisWeek, icon: Flame, color: "text-goblin" },
+    { label: "Pages bitten", value: stats.totalReports, icon: Flame, color: "text-amber" },
+    { label: "Cave keepers", value: stats.totalUsers, icon: Users, color: "text-goblin-dark" },
+    { label: "Average score", value: stats.avgScore, icon: TrendingUp, color: "text-rose" },
+    { label: "Fresh bites this week", value: stats.reportsThisWeek, icon: Flame, color: "text-goblin" },
   ];
 
   return (
     <div className="space-y-8">
       <div>
         <h1 className="font-display text-3xl font-bold tracking-tight">
-          The Goblin&apos;s Control Room
+          The cave&apos;s control pit
         </h1>
         <p className="mt-1 text-muted">
-          Platform overview and quick actions.
+          Watch the beast, guard the keys, and keep the walls standing.
         </p>
       </div>
 
@@ -49,19 +49,19 @@ export default async function AdminOverviewPage() {
           className="goblin-card flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors hover:bg-bone"
         >
           <KeyRound className="h-4 w-4 text-goblin-dark" />
-          Configure API Keys
+          Guard the AI keys
         </Link>
         <Link
           href="/admin/settings"
           className="goblin-card flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors hover:bg-bone"
         >
-          App Settings
+          Change the cave rules
         </Link>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Recent Roasts</CardTitle>
+          <CardTitle>Fresh things I dragged home</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
@@ -85,7 +85,7 @@ export default async function AdminOverviewPage() {
                       </span>
                     </td>
                     <td className="py-3 text-muted">
-                      {report.user?.email ?? "—"}
+                      {report.user?.email ?? "No owner"}
                     </td>
                     <td className="py-3">
                       <span className="inline-flex items-center rounded-full bg-bone px-2.5 py-0.5 text-xs font-medium text-ink border border-border">
@@ -100,7 +100,7 @@ export default async function AdminOverviewPage() {
                 {recentReports.length === 0 && (
                   <tr>
                     <td colSpan={5} className="py-6 text-center text-muted">
-                      No roasts yet. The goblin is waiting...
+                      Nothing here yet. The beast is pacing.
                     </td>
                   </tr>
                 )}

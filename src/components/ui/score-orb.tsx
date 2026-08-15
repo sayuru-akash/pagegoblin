@@ -22,7 +22,7 @@ function getScoreColor(score: number): string {
   return "var(--color-rose)";
 }
 
-export function ScoreOrb({ score, label = "Goblin Score", size = "md", className }: ScoreOrbProps) {
+export function ScoreOrb({ score, label = "My score", size = "md", className }: ScoreOrbProps) {
   const config = sizeMap[size];
   const radius = 50 - config.stroke;
   const circumference = 2 * Math.PI * radius;

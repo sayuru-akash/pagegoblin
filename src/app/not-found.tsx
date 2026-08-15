@@ -6,18 +6,18 @@ export default function NotFound() {
       <div className="mb-8 text-7xl">🧌</div>
       <h1 className="mb-3 text-4xl font-bold tracking-tight text-ink sm:text-5xl"
           style={{ fontFamily: "var(--font-bricolage-grotesque)" }}>
-        The goblin can&apos;t find this page.
+        I sniffed. This page is gone.
       </h1>
       <p className="mb-8 max-w-md text-lg text-muted">
-        It wandered off somewhere. Maybe it followed a dead CTA. Maybe it got lost in fluff copy.
-        Either way — this page does not exist.
+        I dug under every root and bit every loose link. Nothing. This page
+        either ran away or was never here.
       </p>
       <div className="flex gap-3">
         <Link
           href="/"
           className="rounded-xl bg-goblin px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
         >
-          Back to safety
+          Crawl back home
         </Link>
         <Link
           href="/analyze"

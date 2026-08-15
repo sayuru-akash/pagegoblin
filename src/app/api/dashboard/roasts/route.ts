@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
   } catch (err) {
     console.error("Failed to fetch user roasts", err);
     return NextResponse.json(
-      { error: "Something went wrong." },
+      { error: "I could not drag your roast pile out. Try again." },
       { status: 500, headers: { "Cache-Control": "no-store" } }
     );
   }

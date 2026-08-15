@@ -74,14 +74,14 @@ export function RoastList({ roasts, onUpdateVisibility, onDelete }: RoastListPro
     return (
       <div className="flex flex-col items-center justify-center py-16 text-center">
         <p className="text-lg font-display font-bold text-ink">
-          The goblin hasn&apos;t roasted anything for you yet.
+          This cave is empty. I have bitten nothing for you.
         </p>
         <p className="mt-2 text-sm text-muted">
-          Feed it a URL and watch it work.
+          Throw me a URL and I will fill the shelf.
         </p>
         <Link href="/analyze">
           <Button className="mt-6" variant="primary" size="md">
-            Roast a page
+            Let me at a page
           </Button>
         </Link>
       </div>
@@ -102,7 +102,7 @@ export function RoastList({ roasts, onUpdateVisibility, onDelete }: RoastListPro
                 Score
               </th>
               <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                Crime
+                First thing I bit
               </th>
               <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
                 Visibility

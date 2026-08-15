@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 
     if (existingUser) {
       return NextResponse.json(
-        { ok: false, error: { message: "An account with this email already exists" } },
+        { ok: false, error: { message: "That email already owns a cave. Try signing in." } },
         { status: 409 }
       );
     }
@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json(
-      { ok: false, error: { message: "Something went wrong. Please try again." } },
+      { ok: false, error: { message: "The cave wall shook and dropped your request. Try again." } },
       { status: 500 }
     );
   }

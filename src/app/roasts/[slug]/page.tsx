@@ -14,10 +14,10 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const payload = await getReportBySlug(slug);
-  if (!payload) return { title: "Roast Not Found — PageGoblin" };
+  if (!payload) return { title: "That Roast Ran Away | PageGoblin" };
 
   const { report } = payload;
-  const title = `PageGoblin roasted ${report.domain} — Score: ${report.score}/100`;
+  const title = `PageGoblin Bit ${report.domain} | Score ${report.score}/100`;
   const description = report.biggestCrime;
 
   return {

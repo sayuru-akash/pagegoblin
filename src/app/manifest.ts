@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "PageGoblin — The tiny goblin that judges your website",
+    name: "PageGoblin: Throw Me a Website and Let Me Loose",
     short_name: "PageGoblin",
     description:
-      "A tiny goblin that brutally but usefully reviews your webpage's trust, clarity, CTAs, copy, and conversion confidence.",
+      "A wild little goblin that crawls through your webpage, roasts the mess, and drags back useful fixes.",
     start_url: "/",
     display: "standalone",
     background_color: "#faf8f3",

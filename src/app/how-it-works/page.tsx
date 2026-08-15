@@ -17,16 +17,17 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { UrlRoastForm } from "@/components/roast/url-roast-form";
+import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 
 export const metadata: Metadata = {
-  title: "How PageGoblin Works — Website Roast Methodology",
+  title: "How PageGoblin Hunts Through a Website",
   description:
-    "Learn how PageGoblin analyzes landing pages for trust, CTA clarity, copy, buyer confusion, and conversion friction before producing a practical roast report.",
+    "See how PageGoblin crawls through a website, sniffs out weak words and hidden buttons, and brings back fixes you can use.",
   alternates: { canonical: "/how-it-works" },
   openGraph: {
     title: "How PageGoblin Works",
     description:
-      "A transparent breakdown of PageGoblin's website roast scoring and conversion teardown methodology.",
+      "See what the goblin checks, what the score means, and what comes back in a website roast.",
     url: "/how-it-works",
   },
 };
@@ -36,79 +37,74 @@ const steps = [
   {
     number: "01",
     icon: LinkIcon,
-    title: "Feed the goblin a URL",
+    title: "Throw me a URL",
     description:
-      "Paste any public webpage URL. The goblin grabs the page and starts sniffing around for problems.",
+      "Give me any public page. I grab the link, crawl inside, and start sniffing under every heading and button.",
   },
   {
     number: "02",
     icon: Search,
-    title: "The goblin inspects everything",
+    title: "I tear through the page",
     description:
-      "Trust signals, CTA clarity, copy quality, conversion friction. The goblin checks what buyers actually care about — and roasts what's broken.",
+      "I hunt for proof, clear words, useful buttons, and every muddy bit that makes people stop. Nothing gets to hide in the roots.",
   },
   {
     number: "03",
     icon: FileCheck,
-    title: "Get your roast report",
+    title: "I drag back the fixes",
     description:
-      "A full teardown with a Goblin Score, the Biggest Crime, specific complaints, and actually useful fixes. No 47-page PDF. No vague suggestions.",
+      "You get my score, what made me howl, and the fixes I would make first. No giant report. No fog. Just the mess and the way out.",
   },
 ];
 
 const categories = [
   {
     icon: Shield,
-    title: "Trust Tax",
-    description:
-      "Missing testimonials, weak social proof, zero credibility signals? The goblin sees through your facade.",
+    title: CATEGORY_COPY.trustTax.label,
+    description: CATEGORY_COPY.trustTax.description,
   },
   {
     icon: Crosshair,
-    title: "CTA Corpse",
-    description:
-      "Your call-to-action is buried, vague, or dead on arrival. The goblin will tell you exactly where it flatlined.",
+    title: CATEGORY_COPY.ctaCorpse.label,
+    description: CATEGORY_COPY.ctaCorpse.description,
   },
   {
     icon: FileWarning,
-    title: "Fluff Damage",
-    description:
-      "Jargon, filler words, saying nothing with maximum syllables. The goblin cuts through the noise with a rusty knife.",
+    title: CATEGORY_COPY.fluffDamage.label,
+    description: CATEGORY_COPY.fluffDamage.description,
   },
   {
     icon: Users,
-    title: "Buyer Confusion",
-    description:
-      "If visitors cannot figure out what you do in 5 seconds, the goblin will not sugarcoat it.",
+    title: CATEGORY_COPY.buyerConfusionLevel.label,
+    description: CATEGORY_COPY.buyerConfusionLevel.description,
   },
   {
     icon: Zap,
-    title: "Conversion Friction",
-    description:
-      "Slow loads, broken flows, dead ends. Every point of friction is a point of failure. The goblin finds them all.",
+    title: CATEGORY_COPY.conversionFriction.label,
+    description: CATEGORY_COPY.conversionFriction.description,
   },
 ];
 
 const faqs = [
   {
     q: "Is PageGoblin free?",
-    a: "Yes. Roast as many pages as you want.",
+    a: "Yes. Keep throwing me pages. I stay hungry.",
   },
   {
     q: "Does the goblin store my page data?",
-    a: "Only the extracted signals needed for the report. Full HTML is never stored.",
+    a: "I keep only the page clues needed for the report. I do not keep the full page HTML.",
   },
   {
     q: "Can I share my roast?",
-    a: "Every roast gets a shareable link. Copy it, send it, tweet it.",
+    a: "Yes. Every roast gets a link you can copy and send.",
   },
   {
     q: "Will the goblin roast my competitors?",
-    a: "The goblin doesn't play favorites. It roasts everyone equally.",
+    a: "Yes. I do not care whose page it is. Bad buttons all smell the same.",
   },
   {
     q: "Is this an SEO tool?",
-    a: "No. PageGoblin is a conversion and trust teardown, not an SEO checker.",
+    a: "Not really. I care most about clear words, real proof, and whether people know what to do next.",
   },
 ];
 
@@ -122,12 +118,12 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
-                How the goblin <span className="text-goblin">works</span>
+                How I hunt through your <span className="text-goblin">page</span>
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-                Three steps from URL to brutal honesty.
+                You throw me the link. I crawl in. The page starts screaming.
               </p>
             </Reveal>
           </div>
@@ -166,9 +162,9 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Inspection criteria"
-                title="What gets roasted"
-                description="Every page gets judged on these five categories. No exceptions."
+                eyebrow="Where I dig"
+                title="Nothing gets to hide"
+                description="These are the five trails I follow through every page."
               />
             </Reveal>
 
@@ -198,9 +194,9 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-5xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Two ways to roast"
-                title="Extension vs Web App"
-                description="Pick the workflow that fits. Same goblin, different entry points."
+                eyebrow="Two holes into the cave"
+                title="Browser button or full website"
+                description="Pick where you want to let me loose. I bite the same either way."
               />
             </Reveal>
 
@@ -211,10 +207,10 @@ export default function HowItWorksPage() {
                     <Badge variant="goblin" className="w-fit">
                       Chrome Extension
                     </Badge>
-                    <CardTitle className="mt-3">Instant roast</CardTitle>
+                    <CardTitle className="mt-3">Let me loose on this tab</CardTitle>
                     <CardDescription className="text-base">
-                      Instant roast of the active tab. Quick score, biggest crime,
-                      top fixes. One click.
+                      One click and I crawl through the page you have open. You get
+                      the score and the first fixes fast.
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -223,10 +219,10 @@ export default function HowItWorksPage() {
                     <Badge variant="warning" className="w-fit">
                       Web App
                     </Badge>
-                    <CardTitle className="mt-3">Full report</CardTitle>
+                    <CardTitle className="mt-3">Drag back the full report</CardTitle>
                     <CardDescription className="text-base">
-                      Full report with shareable link, downloadable markdown,
-                      complete breakdown. Paste any URL.
+                      Paste any public URL and get the whole pile: every howl,
+                      every fix, a share link, and a file you can keep.
                     </CardDescription>
                   </CardHeader>
                 </Card>
@@ -240,8 +236,8 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-3xl">
             <Reveal>
               <SectionHeading
-                eyebrow="Questions"
-                title="Frequently asked"
+                eyebrow="You have questions"
+                title="I have answers. Probably."
               />
             </Reveal>
 
@@ -267,12 +263,12 @@ export default function HowItWorksPage() {
           <div className="mx-auto max-w-2xl">
             <Reveal>
               <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Ready to get roasted?
+                Ready to let the beast loose?
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-4 max-w-lg text-muted">
-                Paste a URL and let the goblin do what it does best.
+                Throw me the link. I already smell a weak button.
               </p>
             </Reveal>
             <Reveal delay={0.2}>

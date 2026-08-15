@@ -1,0 +1,290 @@
+.shell {
+  --loader-lime: #b9d63b;
+  --loader-white: #f5f5ed;
+  --loader-muted: rgba(245, 245, 237, 0.68);
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(160, 193, 41, 0.13), transparent 25%),
+    radial-gradient(circle at 50% 100%, rgba(112, 137, 29, 0.16), transparent 38%),
+    #020402;
+  padding: 4rem 1.5rem;
+  color: var(--loader-white);
+  isolation: isolate;
+}
+
+.compact {
+  min-height: 520px;
+}
+
+.grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.055'/%3E%3C/svg%3E");
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  width: min(520px, 100%);
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.creatureWindow {
+  position: relative;
+  width: 184px;
+  height: 154px;
+  overflow: hidden;
+  border: 1px solid rgba(199, 227, 75, 0.38);
+  border-radius: 48% 48% 38% 38% / 58% 58% 32% 32%;
+  background: #000;
+  box-shadow:
+    0 0 0 7px rgba(151, 180, 39, 0.05),
+    0 0 42px rgba(174, 207, 48, 0.22),
+    inset 0 -22px 30px rgba(0, 0, 0, 0.46);
+}
+
+.creature {
+  object-fit: cover;
+  object-position: 50% 59%;
+  transform: scale(1.33);
+  animation: creatureCreep 2.8s cubic-bezier(0.42, 0, 0.35, 1) infinite;
+}
+
+.scanLine {
+  position: absolute;
+  right: 12%;
+  left: 12%;
+  z-index: 2;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--loader-lime), transparent);
+  box-shadow: 0 0 13px rgba(190, 224, 55, 0.8);
+  animation: scanClaws 2.2s ease-in-out infinite;
+}
+
+.clawMark {
+  position: absolute;
+  z-index: 3;
+  width: 3px;
+  height: 31px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, transparent, rgba(227, 243, 151, 0.92), transparent);
+  opacity: 0;
+  transform: rotate(18deg);
+  animation: clawFlash 2.2s ease-out infinite;
+}
+
+.clawMark:nth-of-type(2) {
+  right: 40px;
+  bottom: 17px;
+}
+
+.clawMark:nth-of-type(3) {
+  right: 31px;
+  bottom: 20px;
+  animation-delay: 80ms;
+}
+
+.clawMark:nth-of-type(4) {
+  right: 22px;
+  bottom: 23px;
+  animation-delay: 160ms;
+}
+
+.eyebrow {
+  margin: 1.45rem 0 0.5rem;
+  color: var(--loader-lime);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(2rem, 8vw, 3.15rem);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.detail {
+  max-width: 430px;
+  margin: 0.85rem 0 0;
+  color: var(--loader-muted);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+.biteTrail {
+  display: flex;
+  height: 20px;
+  margin-top: 1.3rem;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.biteTrail span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50% 45% 50% 38%;
+  background: var(--loader-lime);
+  box-shadow: 0 0 10px rgba(188, 221, 57, 0.42);
+  opacity: 0.22;
+  transform: scale(0.72);
+  animation: biteWake 1.35s ease-in-out infinite;
+}
+
+.biteTrail span:nth-child(2) {
+  width: 9px;
+  height: 9px;
+  animation-delay: 110ms;
+}
+
+.biteTrail span:nth-child(3) {
+  width: 11px;
+  height: 11px;
+  animation-delay: 220ms;
+}
+
+.biteTrail span:nth-child(4) {
+  width: 9px;
+  height: 9px;
+  animation-delay: 330ms;
+}
+
+.biteTrail span:nth-child(5) {
+  animation-delay: 440ms;
+}
+
+.tracks {
+  display: grid;
+  width: min(620px, calc(100vw - 48px));
+  margin-top: 2.5rem;
+  gap: 0.7rem;
+}
+
+.tracks span {
+  height: 54px;
+  overflow: hidden;
+  border: 1px solid rgba(190, 216, 53, 0.12);
+  border-radius: 0.55rem;
+  background:
+    linear-gradient(100deg, transparent 25%, rgba(190, 216, 53, 0.1) 43%, transparent 62%),
+    rgba(245, 245, 237, 0.035);
+  background-size: 230% 100%;
+  animation: trackScratch 1.8s ease-in-out infinite;
+}
+
+.tracks span:nth-child(2) {
+  width: 87%;
+  animation-delay: 130ms;
+}
+
+.tracks span:nth-child(3) {
+  width: 72%;
+  animation-delay: 260ms;
+}
+
+@keyframes creatureCreep {
+  0%,
+  100% {
+    transform: scale(1.29) translateY(3px);
+  }
+  48% {
+    transform: scale(1.36) translateY(-2px);
+  }
+}
+
+@keyframes scanClaws {
+  0% {
+    top: 24%;
+    opacity: 0;
+  }
+  15%,
+  78% {
+    opacity: 0.9;
+  }
+  100% {
+    top: 83%;
+    opacity: 0;
+  }
+}
+
+@keyframes clawFlash {
+  0%,
+  64% {
+    opacity: 0;
+    transform: translateY(8px) rotate(18deg);
+  }
+  74% {
+    opacity: 0.9;
+  }
+  92%,
+  100% {
+    opacity: 0;
+    transform: translateY(-5px) rotate(18deg);
+  }
+}
+
+@keyframes biteWake {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+  42% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes trackScratch {
+  from {
+    background-position: 120% 0;
+  }
+  to {
+    background-position: -120% 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .shell {
+    min-height: 100svh;
+    padding-inline: 1rem;
+  }
+
+  .compact {
+    min-height: 480px;
+  }
+
+  .creatureWindow {
+    width: 164px;
+    height: 142px;
+  }
+
+  .detail {
+    font-size: 0.82rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .creature,
+  .scanLine,
+  .clawMark,
+  .biteTrail span,
+  .tracks span {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

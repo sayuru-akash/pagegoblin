@@ -2,7 +2,7 @@
 
 import { useId, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { Globe2, LoaderCircle } from "lucide-react";
+import { Globe2 } from "lucide-react";
 import { normalizePageUrl } from "@/lib/analysis/url";
 import styles from "./home-page.module.css";
 
@@ -106,8 +106,12 @@ export function HomeRoastForm({
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? (
             <>
-              <LoaderCircle aria-hidden="true" className={styles.spinner} />
-            Clawing through it...
+              <span className={styles.buttonClaws} aria-hidden="true">
+                <span />
+                <span />
+                <span />
+              </span>
+              I’m in. Claws out.
             </>
           ) : (
             buttonLabel

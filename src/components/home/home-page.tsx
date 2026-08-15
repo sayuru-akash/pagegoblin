@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import {
   ChevronDown,
   CircleGauge,
@@ -168,6 +168,23 @@ function SectionHeading({
 }
 
 export function HomePage() {
+  const { props: desktopHeroProps } = getImageProps({
+    src: "/images/home/hero-goblin-v2.webp",
+    alt: "",
+    width: 1672,
+    height: 941,
+    sizes: "100vw",
+    quality: 75,
+  });
+  const { props: mobileHeroProps } = getImageProps({
+    src: "/images/home/hero-goblin-mobile-v2.webp",
+    alt: "",
+    width: 1024,
+    height: 1536,
+    sizes: "100vw",
+    quality: 75,
+  });
+
   return (
     <div className={`${styles.page} ${anton.variable} ${cinzel.variable}`}>
       <a className={styles.skipLink} href="#main-content">
@@ -188,16 +205,22 @@ export function HomePage() {
 
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="home-heading">
-          <Image
-            src="/images/home/hero-goblin.png"
-            alt=""
-            fill
-            preload
-            fetchPriority="high"
-            sizes="100vw"
-            quality={65}
-            className={styles.heroImage}
-          />
+          <picture>
+            <source
+              media="(max-width: 767px)"
+              srcSet={mobileHeroProps.srcSet}
+              sizes="100vw"
+            />
+            <img
+              {...desktopHeroProps}
+              alt=""
+              aria-hidden="true"
+              decoding="async"
+              fetchPriority="high"
+              loading="eager"
+              className={styles.heroImage}
+            />
+          </picture>
           <div className={styles.heroShade} aria-hidden="true" />
 
           <div className={styles.heroContent}>

@@ -45,7 +45,7 @@
 
 .pageTexture {
   position: absolute;
-  inset: 760px 0 0;
+  inset: 820px 0 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -292,8 +292,17 @@
   border-bottom: 1px solid rgba(171, 194, 47, 0.18);
 }
 
-.heroImage {
+.hero > picture {
+  position: absolute;
+  inset: 0;
   z-index: -3;
+}
+
+.heroImage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
@@ -469,15 +478,42 @@
   animation: errorIn 180ms ease-out both;
 }
 
-.spinner {
-  width: 1rem;
-  height: 1rem;
-  animation: spin 800ms linear infinite;
+.buttonClaws {
+  display: inline-flex;
+  width: 18px;
+  height: 18px;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transform: rotate(18deg);
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.buttonClaws span {
+  width: 2px;
+  height: 12px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: buttonClaw 780ms ease-in-out infinite;
+}
+
+.buttonClaws span:nth-child(2) {
+  height: 16px;
+  animation-delay: 90ms;
+}
+
+.buttonClaws span:nth-child(3) {
+  animation-delay: 180ms;
+}
+
+@keyframes buttonClaw {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: translateY(3px) scaleY(0.65);
+  }
+  48% {
+    opacity: 1;
+    transform: translateY(-1px) scaleY(1);
   }
 }
 
@@ -1324,6 +1360,10 @@
 }
 
 @media (max-width: 767px) {
+  .pageTexture {
+    inset: 1230px 0 0;
+  }
+
   .container {
     width: min(100% - 32px, 560px);
   }
@@ -1373,11 +1413,11 @@
   }
 
   .hero {
-    min-height: max(890px, 100svh);
+    min-height: max(1230px, 100svh);
   }
 
   .heroImage {
-    object-position: 52% center;
+    object-position: center;
   }
 
   .heroShade {
@@ -1422,7 +1462,7 @@
   }
 
   .floatingScores {
-    top: 455px;
+    top: 820px;
     right: auto;
     bottom: auto;
     left: 50%;

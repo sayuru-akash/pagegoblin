@@ -1,17 +1,10 @@
+import { CaveLoader } from "@/components/feedback/cave-loader";
+
 export default function GlobalLoading() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative h-16 w-16">
-          <div className="absolute inset-0 animate-ping rounded-full bg-goblin/20" />
-          <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-goblin text-3xl">
-            🧌
-          </div>
-        </div>
-        <p className="text-sm font-medium text-muted animate-pulse">
-          I&apos;m crawling through the wires...
-        </p>
-      </div>
-    </div>
+    <CaveLoader
+      title="I’m in the walls."
+      detail="Claws out. Nose down. I’m hunting for the next thing to bite."
+    />
   );
 }

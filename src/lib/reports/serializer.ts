@@ -1,4 +1,9 @@
 import type { ReportPayload, ReportMetrics } from "./types";
+import { analyzePage, sanitizePageSignals } from "@/lib/analysis";
+import { buildSummaryMarkdown } from "@/lib/analysis/roast-copy";
+
+const LEGACY_COPY_PATTERN =
+  /\b(?:Trust Tax|CTA Corpse|Fluff Damage|Buyer Confusion|Conversion Friction|SEO Suicide|Ghost Brand|Wall of Text|CTA intervention|trust signals|street cred|pathetic stub|landmines|miracle anyone stays)\b/i;
 
 interface PrismaReportLike {
   id: string;
@@ -23,6 +28,41 @@ interface PrismaReportLike {
 
 export function serializeReport(report: PrismaReportLike): ReportPayload {
   const metrics = (report.metrics ?? {}) as ReportMetrics;
+  const storedComplaints = metrics.goblinComplaints ?? [];
+  const storedFixes = metrics.actuallyUsefulFixes ?? [];
+
+  let biggestCrime = report.biggestCrime;
+  let verdict = report.verdict;
+  let summaryMarkdown = report.summaryMarkdown;
+  let goblinComplaints = storedComplaints;
+  let actuallyUsefulFixes = storedFixes;
+
+  const storedReaderCopy = JSON.stringify({
+    biggestCrime,
+    verdict,
+    summaryMarkdown,
+    goblinComplaints,
+    actuallyUsefulFixes,
+  });
+
+  if (LEGACY_COPY_PATTERN.test(storedReaderCopy)) {
+    try {
+      const refreshed = analyzePage(sanitizePageSignals(report.signals));
+      const presentationResult = {
+        ...refreshed,
+        goblinScore: report.score,
+        categoryScores: metrics.categoryScores ?? refreshed.categoryScores,
+      };
+
+      biggestCrime = presentationResult.biggestCrime;
+      verdict = presentationResult.verdict;
+      goblinComplaints = presentationResult.goblinComplaints;
+      actuallyUsefulFixes = presentationResult.actuallyUsefulFixes;
+      summaryMarkdown = buildSummaryMarkdown(presentationResult);
+    } catch {
+      // Keep the stored report if its historical signal bundle cannot be read.
+    }
+  }
 
   return {
     report: {
@@ -44,12 +84,12 @@ export function serializeReport(report: PrismaReportLike): ReportPayload {
         buyerConfusionLevel: 0,
         conversionFriction: 0,
       },
-      biggestCrime: report.biggestCrime,
-      goblinComplaints: metrics.goblinComplaints ?? [],
-      actuallyUsefulFixes: metrics.actuallyUsefulFixes ?? [],
+      biggestCrime,
+      goblinComplaints,
+      actuallyUsefulFixes,
       warnings: metrics.warnings ?? [],
-      verdict: report.verdict,
-      summaryMarkdown: report.summaryMarkdown,
+      verdict,
+      summaryMarkdown,
       metrics: (metrics.analysisMetrics ?? {}) as Record<string, unknown>,
       createdAt: report.createdAt.toISOString(),
       updatedAt: report.updatedAt.toISOString(),

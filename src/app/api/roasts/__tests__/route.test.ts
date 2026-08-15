@@ -157,7 +157,9 @@ describe("POST /api/roasts", () => {
 
     expect(response.status).toBe(500);
     const json = await response.json();
-    expect(json.error).toBe("Something went wrong while creating the roast.");
+    expect(json.error).toBe(
+      "The cave shook and dropped your roast. Throw the page at me again."
+    );
     expect(json.error).not.toContain("password");
     expect(json.error).not.toContain("leaked");
     expect(response.headers.get("cache-control")).toBe("no-store");
@@ -213,7 +215,7 @@ describe("GET /api/roasts/[slug]", () => {
 
     expect(response.status).toBe(500);
     const json = await response.json();
-    expect(json.error).toBe("Something went wrong while fetching the report.");
+    expect(json.error).toBe("The report slipped deeper into the cave. Try again.");
     expect(json.error).not.toContain("database");
     expect(json.error).not.toContain("connection");
     expect(response.headers.get("cache-control")).toBe("no-store");

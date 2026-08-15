@@ -98,16 +98,19 @@ describe("buildSystemPrompt", () => {
 
   it("contains hard constraints", () => {
     const prompt = buildSystemPrompt();
-    expect(prompt).toContain("NEVER the people");
-    expect(prompt).toContain("NO slurs");
-    expect(prompt).toContain("NO extreme profanity");
-    expect(prompt).toContain("actionable fix");
+    expect(prompt).toContain("You attack the webpage, never the person who made it.");
+    expect(prompt).toContain("Never use slurs, hate speech");
+    expect(prompt).toContain("Do not use profanity");
+    expect(prompt).toContain("words a twelve-year-old");
+    expect(prompt).toContain("must never feel like");
+    expect(prompt).toContain("text made by an AI");
   });
 
   it("contains example goblin lines", () => {
     const prompt = buildSystemPrompt();
-    expect(prompt).toContain("interpretive dance");
-    expect(prompt).toContain("hiding like it owes someone money");
+    expect(prompt).toContain("I sniffed through the whole hero");
+    expect(prompt).toContain("I bit it and nothing fell out");
+    expect(prompt).toContain("I went digging for proof");
   });
 
   it("specifies JSON output format", () => {
@@ -131,8 +134,9 @@ describe("buildUserPrompt", () => {
     const prompt = buildUserPrompt(mockSignals, mockAnalysis);
     expect(prompt).toContain("42/100");
     expect(prompt).toContain("Generic fluff everywhere");
-    expect(prompt).toContain("trustTax=10");
-    expect(prompt).toContain("ctaCorpse=20");
+    expect(prompt).toContain("higher is better");
+    expect(prompt).toContain("believability=10");
+    expect(prompt).toContain("next-step clarity=20");
   });
 
   it("includes existing complaints and fixes", () => {
@@ -156,7 +160,7 @@ describe("buildUserPrompt", () => {
 
   it("ends with instruction to generate JSON", () => {
     const prompt = buildUserPrompt(mockSignals, mockAnalysis);
-    expect(prompt).toContain("ONLY the JSON object");
+    expect(prompt).toContain("ONLY the valid JSON object");
   });
 });
 

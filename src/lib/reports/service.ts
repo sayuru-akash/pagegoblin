@@ -48,7 +48,7 @@ export async function createRoastReport(
       ok: false,
       error: {
         status: 400,
-        message: "Feed me a URL or a bundle of page clues.",
+        message: "Feed me either a URL or a bundle of page clues.",
       },
     };
   }

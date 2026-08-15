@@ -307,7 +307,7 @@ describe("analyzePage — empty/generic page", () => {
     expect(result.goblinScore).toBeLessThanOrEqual(45);
   });
 
-  it("has biggest crime about vague offer or fluff", () => {
+  it("puts a real clarity, proof, or next-step problem first", () => {
     const crime = result.biggestCrime.toLowerCase();
     const hasRelevantCrime =
       crime.includes("vague") ||
@@ -317,7 +317,11 @@ describe("analyzePage — empty/generic page", () => {
       crime.includes("buzzword") ||
       crime.includes("trust") ||
       crime.includes("cta") ||
-      crime.includes("offer");
+      crime.includes("offer") ||
+      crime.includes("proof") ||
+      crime.includes("headline") ||
+      crime.includes("words") ||
+      crime.includes("selling");
     expect(hasRelevantCrime).toBe(true);
   });
 
@@ -379,13 +383,9 @@ describe("analyzePage — buzzword-heavy page", () => {
     result = analyzePage(buzzwordHeavyPage);
   });
 
-  it("triggers Fluff Damage complaint with buzzword evidence", () => {
+  it("finds empty buzzwords and keeps the evidence", () => {
     const fluffComplaints = result.goblinComplaints.filter(
-      (c) =>
-        c.title.toLowerCase().includes("fluff") ||
-        c.title.toLowerCase().includes("buzzword") ||
-        c.detail.toLowerCase().includes("fluff") ||
-        c.detail.toLowerCase().includes("buzzword")
+      (c) => c.id === "fluff-buzzwords"
     );
     expect(fluffComplaints.length).toBeGreaterThan(0);
 
@@ -508,35 +508,35 @@ describe("detectPageRisk — private-page keywords in visible/hero/body text", (
 
 // ─── Phase 1D: summary Markdown SPEC sections ────────────────────────────────
 
-describe("summaryMarkdown — SPEC section coverage", () => {
-  it("includes Hero Section Panic section", () => {
+describe("summaryMarkdown section coverage", () => {
+  it("includes the top-of-page sniff section", () => {
     const result = analyzePage(emptyGenericPage);
-    expect(result.summaryMarkdown).toContain("Hero Section Panic");
+    expect(result.summaryMarkdown).toContain("What I sniffed out up top");
   });
 
-  it("includes Proof/Credibility Check section", () => {
+  it("includes the proof section", () => {
     const result = analyzePage(emptyGenericPage);
-    expect(result.summaryMarkdown).toContain("Proof/Credibility Check");
+    expect(result.summaryMarkdown).toContain("The proof hiding in the cave");
   });
 
-  it("includes Mobile Suspicion Warning section when hasMobileViewport is false", () => {
+  it("includes the small-screen section when the viewport tag is missing", () => {
     const noMobile: PageSignals = { ...emptyGenericPage, hasMobileViewport: false };
     const result = analyzePage(noMobile);
-    expect(result.summaryMarkdown).toContain("Mobile Suspicion Warning");
+    expect(result.summaryMarkdown).toContain("My crawl through the phone-sized hole");
   });
 
-  it("includes all existing SPEC terms in summary", () => {
+  it("keeps the full goblin report structure", () => {
     const result = analyzePage(strongSaaSPage);
     const md = result.summaryMarkdown;
-    expect(md).toContain("Goblin Score");
-    expect(md).toContain("Biggest Crime");
-    expect(md).toContain("Goblin Complaints");
-    expect(md).toContain("Actually Useful Fixes");
-    expect(md).toContain("The Goblin Verdict");
+    expect(md).toContain("My score after the sniffing");
+    expect(md).toContain("The first thing I'd bite");
+    expect(md).toContain("What made me howl");
+    expect(md).toContain("What you fix before I come back");
+    expect(md).toContain("My final growl");
   });
 });
 
-// ─── Phase 1D: Mobile Suspicion Warning complaint/fix ────────────────────────
+// ─── Phase 1D: missing mobile viewport complaint/fix ─────────────────────────
 
 describe("analyzePage — mobile viewport missing", () => {
   let result: AnalysisResult;
@@ -546,15 +546,15 @@ describe("analyzePage — mobile viewport missing", () => {
     result = analyzePage(noMobile);
   });
 
-  it("includes a complaint or fix labeled 'Mobile Suspicion Warning'", () => {
+  it("includes a fix for the tiny-screen cave", () => {
     const complaintTitles = result.goblinComplaints.map((c) => c.title);
     const fixTitles = result.actuallyUsefulFixes.map((f) => f.title);
     const allTitles = [...complaintTitles, ...fixTitles];
-    expect(allTitles.some((t) => t.includes("Mobile Suspicion Warning"))).toBe(true);
+    expect(allTitles.some((t) => t.includes("Fix the tiny-screen cave"))).toBe(true);
   });
 
-  it("includes Mobile Suspicion Warning in summary markdown", () => {
-    expect(result.summaryMarkdown).toContain("Mobile Suspicion Warning");
+  it("includes the phone-sized cave in summary markdown", () => {
+    expect(result.summaryMarkdown).toContain("My crawl through the phone-sized hole");
   });
 });
 
@@ -563,34 +563,20 @@ describe("summaryMarkdown", () => {
     const result = analyzePage(strongSaaSPage);
     const md = result.summaryMarkdown;
 
-    // Should include goblin branding terms
+    // The report should keep the goblin character without old framework labels.
     const hasGoblinTerm =
-      md.includes("Goblin Score") ||
-      md.includes("goblin score") ||
-      md.includes("Biggest Crime") ||
-      md.includes("biggest crime") ||
-      md.includes("Goblin Complaints") ||
-      md.includes("goblin complaints") ||
-      md.includes("Trust Tax") ||
-      md.includes("trust tax") ||
-      md.includes("CTA Corpse") ||
-      md.includes("cta corpse") ||
-      md.includes("Fluff Damage") ||
-      md.includes("fluff damage") ||
-      md.includes("Buyer Confusion") ||
-      md.includes("buyer confusion") ||
-      md.includes("Goblin Verdict") ||
-      md.includes("goblin verdict") ||
-      md.includes("Actually Useful Fixes") ||
-      md.includes("actually useful fixes") ||
+      md.includes("sniff") ||
+      md.includes("cave") ||
+      md.includes("bite") ||
+      md.includes("howl") ||
+      md.includes("growl") ||
       md.includes("PageGoblin") ||
       md.includes("pagegoblin");
     expect(hasGoblinTerm).toBe(true);
 
-    // Should include useful fixes section
+    // The action section should still be present and useful.
     const hasFixes =
-      md.includes("Fix") ||
-      md.includes("fix") ||
+      md.includes("What you fix") ||
       md.includes("improve") ||
       md.includes("Improve") ||
       md.includes("recommendation") ||

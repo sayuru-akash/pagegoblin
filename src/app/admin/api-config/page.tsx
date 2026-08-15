@@ -7,7 +7,7 @@ export default async function ApiConfigPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-3xl font-bold tracking-tight">
+        <h1 className="font-display text-5xl uppercase leading-none tracking-tight sm:text-6xl">
           Keys to the bigger goblin
         </h1>
         <p className="mt-1 text-muted">

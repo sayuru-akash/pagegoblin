@@ -6,8 +6,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { GoblinMascot } from "@/components/brand/goblin-mascot";
-import { Reveal } from "@/components/motion/reveal";
+import { AuthFrame } from "@/components/auth/auth-frame";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -50,22 +49,12 @@ function SignInForm() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center justify-center bg-grain px-6 py-16">
-        <Reveal>
-          <div className="flex flex-col items-center mb-8">
-            <GoblinMascot className="mb-4" />
-            <h1 className="font-display text-3xl font-bold tracking-tight text-ink text-center">
-              Back to the cave, are you?
-            </h1>
-            <p className="mt-2 text-sm text-muted text-center">
-              Good. Your old roasts are still scratching at the walls.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <Card className="w-full max-w-md">
-            <CardHeader className="text-center">
+      <AuthFrame
+        title={<>Back to the cave, <span className="text-goblin-dark">are you?</span></>}
+        description="Good. Your old roasts are still scratching at the walls. Open the stash and see what survived."
+      >
+          <Card className="w-full bg-transparent shadow-none hover:translate-y-0 hover:shadow-none">
+            <CardHeader>
               <CardTitle>Open your roast stash</CardTitle>
               <CardDescription>
                 Give me the email and password tied to your cave.
@@ -125,7 +114,7 @@ function SignInForm() {
                 </Button>
               </form>
 
-              <div className="mt-6 text-center text-sm text-muted">
+              <div className="mt-6 border-t border-border pt-5 text-center text-sm text-muted">
                 Don&apos;t have an account?{" "}
                 <Link href="/signup" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
                   Dig out a new cave
@@ -133,16 +122,12 @@ function SignInForm() {
               </div>
             </CardContent>
           </Card>
-        </Reveal>
-
-        <Reveal delay={0.2}>
-          <div className="mt-6 text-center">
-            <Link href="/analyze" className="text-sm text-muted hover:text-ink transition-colors">
+          <div className="mt-5 text-center">
+            <Link href="/analyze" className="text-sm text-muted transition-colors hover:text-goblin-light">
               Skip the cave and roast a page →
             </Link>
           </div>
-        </Reveal>
-      </main>
+      </AuthFrame>
       <SiteFooter />
     </>
   );

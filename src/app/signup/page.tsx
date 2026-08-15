@@ -6,8 +6,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { GoblinMascot } from "@/components/brand/goblin-mascot";
-import { Reveal } from "@/components/motion/reveal";
+import { AuthFrame } from "@/components/auth/auth-frame";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -63,22 +62,12 @@ export default function SignUpPage() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center justify-center bg-grain px-6 py-16">
-        <Reveal>
-          <div className="flex flex-col items-center mb-8">
-            <GoblinMascot className="mb-4" />
-            <h1 className="font-display text-3xl font-bold tracking-tight text-ink text-center">
-              Dig out your own cave
-            </h1>
-            <p className="mt-2 text-sm text-muted text-center">
-              Keep every page I bite and come back to see what got better.
-            </p>
-          </div>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          <Card className="w-full max-w-md">
-            <CardHeader className="text-center">
+      <AuthFrame
+        title={<>Dig out your <span className="text-goblin-dark">own cave.</span></>}
+        description="Keep every page I bite. Come back later, compare the damage, and see whether your fixes shut me up."
+      >
+          <Card className="w-full bg-transparent shadow-none hover:translate-y-0 hover:shadow-none">
+            <CardHeader>
               <CardTitle>Mark this cave as yours</CardTitle>
               <CardDescription>
                 Give me three things and I will guard your roast pile.
@@ -154,7 +143,7 @@ export default function SignUpPage() {
                 </Button>
               </form>
 
-              <div className="mt-6 text-center text-sm text-muted">
+              <div className="mt-6 border-t border-border pt-5 text-center text-sm text-muted">
                 Already have an account?{" "}
                 <Link href="/signin" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
                   Sign in
@@ -162,8 +151,7 @@ export default function SignUpPage() {
               </div>
             </CardContent>
           </Card>
-        </Reveal>
-      </main>
+      </AuthFrame>
       <SiteFooter />
     </>
   );

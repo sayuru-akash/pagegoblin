@@ -13,15 +13,15 @@ const footerLinks = [
 
 export function SiteFooter() {
   return (
-    <footer className="w-full border-t border-border bg-bone/50 px-6 py-14">
-      <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 md:flex-row md:justify-between">
-        <div className="flex flex-col items-center gap-3 md:items-start">
+    <footer className="w-full border-t border-border bg-cave px-6 py-14">
+      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1fr_1.6fr_auto] md:items-start">
+        <div className="flex flex-col items-start gap-3">
           <GoblinLogo />
-          <p className="text-sm text-muted">
+          <p className="max-w-xs text-sm leading-relaxed text-muted">
             Throw me a page. I will drag the mess into the light.
           </p>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <nav className="grid grid-cols-2 gap-x-8 gap-y-3 sm:grid-cols-3" aria-label="Footer navigation">
           {footerLinks.map((link) => (
             <Link
               key={link.href}
@@ -30,17 +30,17 @@ export function SiteFooter() {
               rel={
                 link.href.startsWith("http") ? "noopener noreferrer" : undefined
               }
-              className="text-sm text-muted transition-colors hover:text-ink"
+              className="text-sm text-muted transition-colors hover:text-goblin-light focus-goblin"
             >
               {link.label}
             </Link>
           ))}
-        </div>
-        <div className="flex flex-col items-center gap-1 md:items-end">
+        </nav>
+        <div className="flex flex-col items-start gap-1 md:items-end md:text-right">
           <p className="text-sm text-muted">
             &copy; 2026 Sayuru Amarasinghe. MIT License.
           </p>
-          <p className="font-mono text-xs text-muted">the cave is awake</p>
+          <p className="font-mono text-xs uppercase tracking-[0.16em] text-goblin">the cave is awake</p>
         </div>
       </div>
     </footer>

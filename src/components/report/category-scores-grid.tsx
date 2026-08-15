@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { Shield, Crosshair, FileWarning, Users, Zap } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import type { CategoryScores } from "@/lib/analysis";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
@@ -63,16 +62,14 @@ function getScoreLabel(score: number): string {
 export function CategoryScoresGrid({ scores }: { scores: CategoryScores }) {
   return (
     <Stagger staggerDelay={0.08}>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="overflow-hidden border border-border bg-cave/55">
         {categories.map((cat) => {
           const score = scores[cat.key];
           const Icon = cat.icon;
           return (
             <StaggerItem key={cat.key}>
-              <Card className="h-full">
-                <CardContent>
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-center gap-2.5">
+              <div className="grid gap-4 border-b border-border px-4 py-4 last:border-b-0 sm:grid-cols-[minmax(180px,1.2fr)_70px_minmax(180px,1fr)_100px] sm:items-center sm:px-5">
+                  <div className="flex items-center gap-2.5">
                       <div
                         className="flex h-9 w-9 items-center justify-center rounded-lg"
                         style={{ backgroundColor: `${getScoreColor(score)}15` }}
@@ -82,25 +79,23 @@ export function CategoryScoresGrid({ scores }: { scores: CategoryScores }) {
                           style={{ color: getScoreColor(score) }}
                         />
                       </div>
-                      <div>
-                        <h3 className="font-display text-sm font-bold text-ink">
+                      <div className="min-w-0">
+                        <h3 className="font-display text-lg uppercase leading-none text-ink">
                           {cat.label}
                         </h3>
-                        <p className="text-xs text-muted">{cat.description}</p>
+                        <p className="mt-1 text-xs text-muted">{cat.description}</p>
                       </div>
-                    </div>
-                    <span
-                      className="font-display text-2xl font-bold"
+                  </div>
+                  <span
+                      className="font-display text-2xl"
                       style={{ color: getScoreColor(score) }}
                     >
-                      {score}
+                      {score}<small className="text-xs text-muted">/100</small>
                     </span>
-                  </div>
-
-                  <div className="mt-4">
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-bone">
+                  <div>
+                    <div className="h-2 w-full overflow-hidden bg-bone">
                       <motion.div
-                        className="h-full rounded-full"
+                        className="h-full"
                         style={{ backgroundColor: getScoreColor(score) }}
                         initial={{ width: 0 }}
                         whileInView={{ width: `${score}%` }}
@@ -112,19 +107,14 @@ export function CategoryScoresGrid({ scores }: { scores: CategoryScores }) {
                         }}
                       />
                     </div>
-                    <div className="mt-1.5 flex items-center justify-between">
-                      <span className="font-mono text-[10px] text-muted">0</span>
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${getScoreBg(score)}`}
+                  </div>
+                  <span
+                        className={`w-fit rounded-[0.2rem] px-2 py-1 font-mono text-[10px] font-medium uppercase tracking-wider ${getScoreBg(score)}`}
                         style={{ color: getScoreColor(score) }}
                       >
                         {getScoreLabel(score)}
                       </span>
-                      <span className="font-mono text-[10px] text-muted">100</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              </div>
             </StaggerItem>
           );
         })}

@@ -44,12 +44,12 @@ export default function SupportPage() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center bg-grain">
+      <main className="cave-page flex flex-1 flex-col items-center bg-grain">
         {/* Hero */}
         <section className="flex w-full flex-col items-center px-6 pt-24 pb-20 text-center">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl lg:text-6xl">
+              <h1 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-ink sm:text-7xl lg:text-8xl">
                 Something broke? <span className="text-goblin">Howl this way.</span>
               </h1>
             </Reveal>

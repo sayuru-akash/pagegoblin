@@ -19,7 +19,7 @@ export default async function AdminOverviewPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="font-display text-3xl font-bold tracking-tight">
+        <h1 className="font-display text-5xl uppercase leading-none tracking-tight sm:text-6xl">
           The cave&apos;s control pit
         </h1>
         <p className="mt-1 text-muted">
@@ -43,7 +43,7 @@ export default async function AdminOverviewPage() {
         ))}
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <Link
           href="/admin/api-config"
           className="goblin-card flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors hover:bg-bone"

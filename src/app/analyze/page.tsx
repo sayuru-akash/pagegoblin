@@ -54,7 +54,7 @@ export default async function AnalyzePage() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center bg-grain">
+      <main className="cave-page flex flex-1 flex-col items-center bg-grain">
         <section className="flex w-full flex-col items-center px-6 pt-24 pb-16 text-center">
           <div className="mx-auto max-w-2xl">
             <Reveal>
@@ -62,8 +62,8 @@ export default async function AnalyzePage() {
             </Reveal>
 
             <Reveal delay={0.1}>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
-                Throw me a URL
+              <h1 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-ink sm:text-7xl">
+                Throw me a <span className="text-goblin-dark">URL.</span>
               </h1>
             </Reveal>
 

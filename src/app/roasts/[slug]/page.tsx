@@ -48,7 +48,7 @@ export default async function RoastReportPage({ params }: PageProps) {
   return (
     <>
       <SiteHeader />
-      <main className="min-h-screen bg-parchment">
+      <main className="min-h-screen bg-grain bg-parchment">
         <ReportView payload={payload} />
       </main>
       <SiteFooter />

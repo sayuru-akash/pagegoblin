@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function GlobalError({
   error,
@@ -15,10 +16,9 @@ export default function GlobalError({
   }, [error]);
 
   return (
-    <div className="flex min-h-[70vh] flex-col items-center justify-center px-6 text-center">
-      <div className="mb-8 text-7xl">😵‍💫</div>
-      <h1 className="mb-3 text-4xl font-bold tracking-tight text-ink sm:text-5xl"
-          style={{ fontFamily: "var(--font-bricolage-grotesque)" }}>
+    <div className="flex min-h-screen flex-col items-center justify-center bg-grain px-6 py-16 text-center">
+      <Image src="/images/home/goblin-seated.png" alt="A tired PageGoblin" width={180} height={180} className="mb-8 h-40 w-40 object-contain drop-shadow-[0_0_30px_rgba(180,213,43,0.15)]" />
+      <h1 className="mb-4 font-display text-5xl uppercase leading-none tracking-tight text-ink sm:text-7xl">
         I broke something. Loudly.
       </h1>
       <p className="mb-8 max-w-md text-lg text-muted">
@@ -28,13 +28,13 @@ export default function GlobalError({
       <div className="flex gap-3">
         <button
           onClick={reset}
-          className="rounded-xl bg-goblin px-6 py-3 text-sm font-bold text-white shadow-lg transition-all hover:shadow-xl hover:scale-[1.02] active:scale-[0.98]"
+          className="rounded-[0.3rem] bg-goblin px-6 py-3 text-sm font-bold text-[#111605] shadow-goblin transition-all hover:bg-goblin-dark hover:shadow-glow active:scale-[0.98]"
         >
           Try again
         </button>
         <Link
           href="/"
-          className="rounded-xl border-2 border-border px-6 py-3 text-sm font-bold text-ink transition-all hover:border-goblin/50 active:scale-[0.98]"
+          className="rounded-[0.3rem] border border-border px-6 py-3 text-sm font-bold text-ink transition-all hover:border-goblin active:scale-[0.98]"
         >
           Crawl home
         </Link>

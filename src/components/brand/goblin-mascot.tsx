@@ -10,12 +10,12 @@ interface GoblinMascotProps {
 export function GoblinMascot({ className }: GoblinMascotProps) {
   return (
     <Image
-      src="/goblin.svg"
+      src="/images/home/goblin-curious.png"
       alt="PageGoblin mascot"
-      width={260}
-      height={282}
+      width={500}
+      height={500}
       priority
-      className={cn("h-auto w-48 sm:w-56 md:w-64", className)}
+      className={cn("h-auto w-40 drop-shadow-[0_0_32px_rgba(180,213,43,0.16)] sm:w-48 md:w-56", className)}
     />
   );
 }

@@ -28,14 +28,15 @@ export default async function DashboardPage({
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center bg-grain px-6 py-16">
-        <div className="mx-auto w-full max-w-4xl">
+      <main className="flex flex-1 flex-col items-center bg-grain px-5 py-12 sm:px-6 sm:py-16">
+        <div className="mx-auto w-full max-w-6xl">
           <Reveal>
-            <div className="mb-8 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <GoblinMascot className="shrink-0" />
+            <div className="mb-10 flex flex-col gap-6 border-b border-border pb-8 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-center gap-4 sm:gap-6">
+                <GoblinMascot className="w-20 shrink-0 sm:w-24" />
                 <div>
-                  <h1 className="font-display text-3xl font-bold tracking-tight text-ink">
+                  <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.2em] text-goblin">The pile I dragged</p>
+                  <h1 className="font-display text-4xl uppercase leading-none tracking-tight text-ink sm:text-6xl">
                     Back in the cave, {session.user.name || "stray creature"}
                   </h1>
                   <p className="text-sm text-muted">
@@ -48,7 +49,7 @@ export default async function DashboardPage({
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mb-8 grid gap-4 sm:grid-cols-3">
+            <div className="mb-10 grid gap-4 sm:grid-cols-3">
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm font-medium text-muted">
@@ -56,7 +57,7 @@ export default async function DashboardPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="font-display text-3xl font-bold text-ink">
+                  <p className="font-display text-4xl text-ink">
                     {stats.totalRoasts}
                   </p>
                 </CardContent>
@@ -69,7 +70,7 @@ export default async function DashboardPage({
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="font-display text-3xl font-bold text-ink">
+                  <p className="font-display text-4xl text-ink">
                     {stats.averageScore > 0 ? stats.averageScore : "None yet"}
                   </p>
                 </CardContent>

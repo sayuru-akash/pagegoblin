@@ -2,11 +2,11 @@ import { forwardRef, type HTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
 const variantStyles = {
-  default: "bg-bone text-ink border border-border",
-  goblin: "bg-goblin/15 text-goblin-dark border border-goblin/30",
+  default: "bg-bone text-muted border border-border",
+  goblin: "bg-goblin/10 text-goblin-light border border-goblin/40",
   warning: "bg-amber/15 text-amber-dark border border-amber/30",
   danger: "bg-rose/15 text-rose border border-rose/30",
-  cave: "bg-cave/10 text-cave border border-cave/20",
+  cave: "bg-cave text-muted border border-border",
 } as const;
 
 type BadgeVariant = keyof typeof variantStyles;
@@ -20,7 +20,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
     <span
       ref={ref}
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium",
+        "inline-flex items-center gap-1.5 rounded-[0.25rem] px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-wider",
         variantStyles[variant],
         className
       )}

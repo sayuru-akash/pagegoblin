@@ -8,19 +8,19 @@ import type { ReportPayload } from "@/lib/reports/types";
 export function ScoreHero({ report }: { report: ReportPayload["report"] }) {
   return (
     <Stagger staggerDelay={0.15}>
-      <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:gap-12">
+      <div className="flex flex-col items-start gap-8 sm:flex-row sm:gap-10">
         <StaggerItem>
           <ScoreOrb score={report.score} size="lg" label="My score" />
         </StaggerItem>
 
-        <div className="flex flex-1 flex-col gap-6">
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
           <StaggerItem>
-            <Card className="border-rose/20 bg-rose/5">
+            <Card className="border-rose/30 bg-rose/5 hover:translate-y-0">
               <CardContent>
                 <p className="mb-1 font-mono text-xs font-medium uppercase tracking-widest text-rose">
                   First thing I bit
                 </p>
-                <p className="font-display text-xl font-bold tracking-tight text-ink sm:text-2xl">
+                <p className="font-display text-2xl uppercase leading-tight tracking-tight text-ink sm:text-3xl">
                   {report.biggestCrime}
                 </p>
               </CardContent>

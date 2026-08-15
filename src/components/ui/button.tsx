@@ -6,19 +6,19 @@ import { cn } from "@/lib/utils";
 
 const variantStyles = {
   primary:
-    "bg-cave text-parchment font-semibold shadow-goblin hover:bg-cave-2 hover:shadow-glow",
+    "border border-goblin-light/40 bg-goblin text-[#111605] font-bold shadow-goblin hover:bg-goblin-dark hover:shadow-glow",
   secondary:
-    "bg-bone text-ink font-semibold border border-border hover:bg-parchment hover:border-goblin/30",
+    "bg-transparent text-ink font-semibold border border-border hover:bg-bone hover:border-goblin/60",
   ghost:
-    "bg-transparent text-ink font-medium hover:bg-bone",
+    "bg-transparent text-muted font-medium hover:bg-bone hover:text-ink",
   danger:
     "bg-rose text-white font-semibold hover:bg-rose/90",
 } as const;
 
 const sizeStyles = {
-  sm: "h-9 px-4 text-sm rounded-lg gap-1.5",
-  md: "h-11 px-6 text-sm rounded-xl gap-2",
-  lg: "h-14 px-8 text-base rounded-xl gap-2.5",
+  sm: "h-9 px-4 text-sm rounded-[0.3rem] gap-1.5",
+  md: "h-11 px-6 text-sm rounded-[0.3rem] gap-2",
+  lg: "h-14 px-8 text-base rounded-[0.35rem] gap-2.5",
 } as const;
 
 type ButtonVariant = keyof typeof variantStyles;

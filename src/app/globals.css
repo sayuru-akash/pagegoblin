@@ -2,51 +2,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --parchment: oklch(0.96 0.01 85);
-  --parchment-deep: oklch(0.92 0.015 82);
-  --bone: oklch(0.98 0.008 88);
-  --ink: oklch(0.18 0.02 280);
-  --muted: oklch(0.5 0.03 85);
-  --cave: oklch(0.15 0.03 300);
-  --cave-2: oklch(0.22 0.04 302);
-  --goblin: oklch(0.50 0.18 155);
-  --goblin-dark: oklch(0.40 0.16 160);
-  --goblin-light: oklch(0.62 0.14 155);
-  --amber: oklch(0.72 0.14 75);
-  --amber-dark: oklch(0.62 0.14 70);
-  --rose: oklch(0.58 0.2 25);
-  --rose-light: oklch(0.72 0.15 30);
-  --border: oklch(0.82 0.03 86);
-  --border-dark: oklch(0.65 0.03 86);
-  --gold: oklch(0.7 0.12 80);
-  --gold-dark: oklch(0.6 0.1 78);
-  --crimson: oklch(0.55 0.22 25);
+  --parchment: #020402;
+  --parchment-deep: #080b06;
+  --bone: #10130d;
+  --ink: #f5f5ed;
+  --muted: #aaa99f;
+  --cave: #050704;
+  --cave-2: #151a10;
+  --goblin: #a8c832;
+  --goblin-dark: #c7e34b;
+  --goblin-light: #d7ec71;
+  --amber: #c6a260;
+  --amber-dark: #d8bc7d;
+  --rose: #d55454;
+  --rose-light: #ef7878;
+  --border: rgba(184, 205, 63, 0.24);
+  --border-dark: rgba(184, 205, 63, 0.42);
+  --gold: #b8cd3f;
+  --gold-dark: #93aa28;
+  --crimson: #c84747;
 }
 
 .dark {
-  --parchment: oklch(0.18 0.05 300);
-  --parchment-deep: oklch(0.22 0.06 301);
-  --bone: oklch(0.255 0.075 302);
-  --ink: oklch(0.965 0.026 87);
-  --muted: oklch(0.65 0.03 84);
-  --cave: oklch(0.965 0.026 87);
-  --cave-2: oklch(0.915 0.043 82);
-  --goblin: oklch(0.50 0.18 155);
-  --goblin-dark: oklch(0.40 0.16 160);
-  --goblin-light: oklch(0.62 0.14 155);
-  --amber: oklch(0.72 0.14 75);
-  --amber-dark: oklch(0.62 0.14 70);
-  --rose: oklch(0.58 0.2 25);
-  --rose-light: oklch(0.72 0.15 30);
-  --border: oklch(0.35 0.04 300);
-  --border-dark: oklch(0.45 0.04 300);
-  --gold: oklch(0.7 0.12 80);
-  --gold-dark: oklch(0.6 0.1 78);
-  --crimson: oklch(0.55 0.22 25);
+  color-scheme: dark;
 }
 
 @theme inline {
-  --font-display: var(--font-bricolage-grotesque);
+  --font-display: var(--font-anton);
   --font-sans: var(--font-dm-sans);
   --font-mono: var(--font-jetbrains-mono);
 
@@ -70,11 +52,11 @@
   --color-gold-dark: var(--gold-dark);
   --color-crimson: var(--crimson);
 
-  --shadow-goblin: 0 2px 12px -2px oklch(0.55 0.18 155 / 0.2), 0 4px 20px -4px oklch(0 0 0 / 0.08);
-  --shadow-card: 0 1px 3px 0 oklch(0 0 0 / 0.03), 0 2px 8px -2px oklch(0 0 0 / 0.05);
-  --shadow-card-hover: 0 4px 16px -2px oklch(0 0 0 / 0.08), 0 8px 32px -4px oklch(0.55 0.18 155 / 0.1);
-  --shadow-glow: 0 0 24px -4px oklch(0.55 0.18 155 / 0.25), 0 0 48px -8px oklch(0.55 0.18 155 / 0.1);
-  --shadow-gold: 0 0 20px -4px oklch(0.7 0.12 80 / 0.2);
+  --shadow-goblin: 0 0 24px rgba(180, 213, 43, 0.2);
+  --shadow-card: inset 0 1px rgba(255, 255, 255, 0.015), 0 18px 60px rgba(0, 0, 0, 0.2);
+  --shadow-card-hover: inset 0 1px rgba(255, 255, 255, 0.025), 0 22px 70px rgba(0, 0, 0, 0.34);
+  --shadow-glow: 0 0 28px rgba(180, 213, 43, 0.3);
+  --shadow-gold: 0 0 22px rgba(184, 205, 63, 0.2);
 
   --ease-goblin: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -85,6 +67,8 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color-scheme: dark;
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -100,7 +84,13 @@ body {
   content: "";
   position: absolute;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image:
+    linear-gradient(180deg, rgba(2, 4, 2, 0.2), rgba(2, 4, 2, 0.85)),
+    url("/images/home/cave-texture.png");
+  background-position: center top;
+  background-size: auto, cover;
+  background-attachment: scroll;
+  opacity: 0.18;
   pointer-events: none;
   z-index: 0;
 }
@@ -111,23 +101,23 @@ body {
 }
 
 .goblin-card {
-  background-color: var(--bone);
+  background: linear-gradient(145deg, rgba(18, 22, 14, 0.9), rgba(7, 9, 6, 0.88));
   border: 1px solid var(--border);
-  border-radius: 1rem;
+  border-radius: 0.35rem;
   box-shadow: var(--shadow-card);
   transition: box-shadow 0.3s var(--ease-goblin), transform 0.3s var(--ease-goblin), border-color 0.3s var(--ease-goblin);
 }
 
 .goblin-card:hover {
   box-shadow: var(--shadow-card-hover);
-  border-color: oklch(0.55 0.18 155 / 0.3);
-  transform: translateY(-2px);
+  border-color: var(--border-dark);
+  transform: translateY(-1px);
 }
 
 .focus-goblin:focus-visible {
-  outline: 2px solid var(--goblin);
-  outline-offset: 2px;
-  border-radius: 0.5rem;
+  outline: 2px solid var(--goblin-light);
+  outline-offset: 3px;
+  border-radius: 0.25rem;
 }
 
 @keyframes goblin-idle {
@@ -344,4 +334,75 @@ body {
   height: 2px;
   background: linear-gradient(90deg, var(--rose), transparent);
   transform: rotate(-1deg);
+}
+
+.cave-page {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(168, 200, 50, 0.08), transparent 34rem),
+    var(--parchment);
+}
+
+.cave-page > section {
+  position: relative;
+  overflow: hidden;
+}
+
+.cave-page > section:first-child::after {
+  content: "";
+  position: absolute;
+  inset: auto 8% 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-dark), transparent);
+}
+
+.cave-page > section:nth-child(even) {
+  background: rgba(10, 13, 8, 0.68);
+}
+
+.cave-page h1,
+.cave-page h2,
+.cave-page h3 {
+  text-wrap: balance;
+}
+
+.cave-page p {
+  text-wrap: pretty;
+}
+
+.legal-page > section:last-child > div {
+  border-left: 1px solid var(--border);
+  padding-left: clamp(1.25rem, 4vw, 3rem);
+}
+
+.legal-page h2 {
+  color: var(--goblin-light);
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-size: 1.45rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+
+select,
+textarea {
+  color-scheme: dark;
+}
+
+@media (max-width: 640px) {
+  .cave-page > section {
+    padding-inline: 1.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

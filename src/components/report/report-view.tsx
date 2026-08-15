@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
@@ -18,9 +19,14 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
   const { report, links } = payload;
 
   return (
-    <div className="mx-auto max-w-4xl px-6 py-12 sm:py-16">
-      <div className="flex flex-col gap-16">
-        <header>
+    <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-14">
+      <div className="flex flex-col gap-14 sm:gap-20">
+        <header className="relative overflow-hidden border border-border bg-cave/60 px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[360px] lg:pr-[42%]">
+          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block">
+            <Image src="/images/home/hero-goblin-v2.webp" alt="" fill sizes="520px" className="object-cover object-[62%_center] opacity-75" />
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,#050704_0%,transparent_48%),linear-gradient(0deg,#050704_0%,transparent_35%)]" />
+          </div>
+          <div className="relative z-10">
           <Reveal>
             <div className="mb-6">
               {report.title && (
@@ -42,7 +48,8 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
               </div>
             </div>
           </Reveal>
-          <ScoreHero report={report} />
+            <ScoreHero report={report} />
+          </div>
         </header>
 
         <section aria-labelledby="category-scores">
@@ -107,13 +114,13 @@ export function ReportView({ payload }: { payload: ReportPayload }) {
         </section>
 
         <Reveal>
-          <div className="flex flex-col items-center gap-4 rounded-2xl border border-border bg-bone/30 px-6 py-10 text-center">
+          <div className="flex flex-col items-center gap-4 border border-border bg-bone/30 px-6 py-10 text-center">
             <p className="font-display text-xl font-bold text-ink">
               Got another page hiding in the woods?
             </p>
             <Link
               href="/"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
+              className="inline-flex h-11 items-center justify-center gap-2 rounded-[0.3rem] bg-goblin px-6 text-sm font-bold text-[#111605] shadow-goblin transition-colors hover:bg-goblin-dark"
             >
               Let me at another page
               <ArrowRight className="h-4 w-4" />

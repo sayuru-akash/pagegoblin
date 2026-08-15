@@ -18,7 +18,7 @@ export default function RoastError({
         className="flex flex-col items-center gap-6 text-center"
       >
         <GoblinMascot className="h-28 w-28 opacity-80" />
-        <h1 className="font-display text-4xl font-bold tracking-tight text-ink">
+        <h1 className="font-display text-5xl uppercase leading-none tracking-tight text-ink sm:text-7xl">
           I dropped the whole roast.
         </h1>
         <p className="max-w-md text-muted">
@@ -29,7 +29,7 @@ export default function RoastError({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={reset}
-          className="mt-4 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-goblin px-6 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
+          className="mt-4 inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-[0.3rem] bg-goblin px-6 text-sm font-bold text-[#111605] shadow-goblin transition-colors hover:bg-goblin-dark"
         >
           Drag it back
         </motion.button>

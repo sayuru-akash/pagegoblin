@@ -63,11 +63,11 @@ export default function PrivacyPage() {
   return (
     <>
       <SiteHeader />
-      <main className="flex flex-1 flex-col items-center bg-grain">
+      <main className="cave-page legal-page flex flex-1 flex-col items-center bg-grain">
         <section className="w-full px-6 pt-24 pb-16 text-center">
           <div className="mx-auto max-w-3xl">
             <Reveal>
-              <h1 className="font-display text-4xl font-bold tracking-tight text-ink sm:text-5xl">
+              <h1 className="font-display text-5xl uppercase leading-none tracking-tight text-ink sm:text-7xl">
                 Privacy Policy
               </h1>
             </Reveal>

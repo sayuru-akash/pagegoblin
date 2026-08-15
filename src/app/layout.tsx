@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Anton, Bricolage_Grotesque, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
 const bricolageGrotesque = Bricolage_Grotesque({
@@ -20,6 +20,13 @@ const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   display: "swap",
   preload: false,
+});
+
+const anton = Anton({
+  variable: "--font-anton",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 const baseUrl = process.env.APP_URL || "https://pagegoblin.org";
@@ -87,8 +94,8 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#4ade80",
-  colorScheme: "light",
+  themeColor: "#020402",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -99,7 +106,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bricolageGrotesque.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${anton.variable} ${bricolageGrotesque.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

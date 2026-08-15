@@ -11,8 +11,8 @@ export default async function AdminLayout({
   const session = await requireAdmin();
 
   return (
-    <div className="flex min-h-screen">
-      <aside className="hidden w-64 shrink-0 border-r border-border bg-cave/5 md:block">
+    <div className="min-h-screen bg-grain md:flex">
+      <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-cave/90 md:flex">
         <div className="flex h-16 items-center gap-3 border-b border-border px-6">
           <GoblinLogo />
         </div>
@@ -35,8 +35,17 @@ export default async function AdminLayout({
           </Link>
         </div>
       </aside>
-      <main className="flex-1 overflow-auto">
-        <div className="mx-auto max-w-6xl px-6 py-8">{children}</div>
+      <div className="sticky top-0 z-40 border-b border-border bg-cave/95 px-4 py-4 backdrop-blur md:hidden">
+        <div className="mb-4 flex items-center justify-between gap-3">
+          <GoblinLogo />
+          <Link href="/dashboard" className="text-xs font-medium text-goblin-light">
+            Back to roasts
+          </Link>
+        </div>
+        <AdminNav />
+      </div>
+      <main className="min-w-0 flex-1 overflow-auto">
+        <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 lg:py-12">{children}</div>
       </main>
     </div>
   );

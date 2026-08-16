@@ -62,6 +62,32 @@ describe("fetchPageHtml", () => {
     await expect(fetchPageHtml("https://example.com/api")).rejects.toMatchObject({ code: "NON_HTML_CONTENT" });
   });
 
+  it("rejects a Cloudflare challenge returned with a success status", async () => {
+    const challenge = `<!doctype html><html><head><title>Just a moment...</title></head><body><script src="/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1"></script></body></html>`;
+    globalThis.fetch = vi.fn().mockResolvedValue(makeResponse({ body: challenge }));
+
+    await expect(fetchPageHtml("https://example.com")).rejects.toMatchObject({ code: "ACCESS_BLOCKED" });
+  });
+
+  it("rejects access-shield HTTP statuses before analysis", async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue(makeResponse({ status: 403, body: "<html><body>Forbidden</body></html>" }));
+
+    await expect(fetchPageHtml("https://example.com")).rejects.toMatchObject({ code: "ACCESS_BLOCKED" });
+  });
+
+  it("does not mistake a normal Cloudflare mention for a challenge", async () => {
+    const normalPage = `<!doctype html><html><head><title>Our stack</title></head><body><h1>We use Cloudflare</h1><p>It keeps this site quick.</p></body></html>`;
+    globalThis.fetch = vi.fn().mockResolvedValue(makeResponse({ body: normalPage }));
+
+    await expect(fetchPageHtml("https://example.com")).resolves.toMatchObject({ status: 200 });
+  });
+
+  it("rejects ordinary HTTP error pages before analysis", async () => {
+    globalThis.fetch = vi.fn().mockResolvedValue(makeResponse({ status: 404, body: "<html><body>Not found</body></html>" }));
+
+    await expect(fetchPageHtml("https://example.com/missing")).rejects.toMatchObject({ code: "HTTP_ERROR" });
+  });
+
   it("rejects too-large body", async () => {
     const bigBody = "x".repeat(3_000_000);
     globalThis.fetch = vi.fn().mockResolvedValue(makeResponse({ body: bigBody }));

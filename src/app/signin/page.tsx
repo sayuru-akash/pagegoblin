@@ -7,10 +7,10 @@ import { signIn } from "next-auth/react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { AuthFrame } from "@/components/auth/auth-frame";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import formStyles from "@/components/auth/auth-form.module.css";
 
 function SignInForm() {
   const router = useRouter();
@@ -52,22 +52,20 @@ function SignInForm() {
       <AuthFrame
         title={<>Sign <span>in.</span></>}
         description="Your roast pile is still scratching at the walls."
+        imageSrc="/images/home/goblin-seated.png"
+        imageAlt="A bored PageGoblin waiting by the cave door"
+        artLine="You took long enough."
       >
-          <Card className="w-full border-0 bg-transparent p-0 shadow-none hover:translate-y-0 hover:shadow-none">
-            <CardHeader className="sr-only">
-              <CardTitle>Sign in</CardTitle>
-              <CardDescription>Enter your account details.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="w-full">
+              <form onSubmit={handleSubmit} className={formStyles.form}>
                 {error && (
-                  <div role="alert" aria-live="polite" className="border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+                  <div role="alert" aria-live="polite" className={formStyles.error}>
                     {error}
                   </div>
                 )}
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-ink">
+                <div className={formStyles.field}>
+                  <label htmlFor="email" className="block text-sm font-medium text-ink">
                     Email
                   </label>
                   <Input
@@ -81,8 +79,8 @@ function SignInForm() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="password" className="text-sm font-medium text-ink">
+                <div className={formStyles.field}>
+                  <label htmlFor="password" className="block text-sm font-medium text-ink">
                     Password
                   </label>
                   <Input
@@ -98,7 +96,7 @@ function SignInForm() {
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className={formStyles.submit}
                   disabled={loading}
                 >
                   {loading ? (
@@ -112,15 +110,14 @@ function SignInForm() {
                 </Button>
               </form>
 
-              <div className="mt-6 border-t border-border pt-5 text-center text-sm text-muted">
+              <div className={formStyles.switch}>
                 New here?{" "}
                 <Link href="/signup" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
                   Create account
                 </Link>
               </div>
-            </CardContent>
-          </Card>
-          <div className="mt-5 text-center">
+          </div>
+          <div className={formStyles.skip}>
             <Link href="/analyze" className="text-sm text-muted transition-colors hover:text-goblin-light">
               Skip this. Roast a page.
             </Link>

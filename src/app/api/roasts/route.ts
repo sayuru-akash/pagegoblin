@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createRoastReport } from "@/lib/reports";
 import type { CreateRoastResult } from "@/lib/reports/types";
 import { rateLimit } from "@/lib/rate-limit";
+import { auth } from "@/auth";
 
 export const runtime = "nodejs";
 
@@ -44,7 +45,8 @@ export async function POST(request: NextRequest) {
 
   let result: CreateRoastResult;
   try {
-    result = await createRoastReport(body);
+    const session = await auth();
+    result = await createRoastReport(body, { userId: session?.user?.id ?? null });
   } catch (err) {
     console.error("Failed to create roast report", err);
     return NextResponse.json(
@@ -55,7 +57,7 @@ export async function POST(request: NextRequest) {
 
   if (!result.ok) {
     return NextResponse.json(
-      { error: result.error.message },
+      { error: result.error.message, code: result.error.code },
       {
         status: result.error.status,
         headers: {

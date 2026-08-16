@@ -1,10 +1,13 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 
-const { mockCreateRoastReport, mockGetReportBySlug, mockRateLimit } = vi.hoisted(() => ({
+const { mockCreateRoastReport, mockGetReportBySlug, mockRateLimit, mockAuth } = vi.hoisted(() => ({
   mockCreateRoastReport: vi.fn(),
   mockGetReportBySlug: vi.fn(),
   mockRateLimit: vi.fn(),
+  mockAuth: vi.fn(),
 }));
+
+vi.mock("@/auth", () => ({ auth: mockAuth }));
 
 vi.mock("@/lib/reports", () => ({
   createRoastReport: mockCreateRoastReport,
@@ -71,6 +74,7 @@ let consoleErrorSpy: ReturnType<typeof vi.spyOn>;
 beforeEach(() => {
   vi.clearAllMocks();
   mockRateLimit.mockReturnValue({ success: true, remaining: 9, resetAt: Date.now() + 60_000 });
+  mockAuth.mockResolvedValue(null);
   consoleErrorSpy = vi.spyOn(console, "error").mockImplementation(() => undefined);
 });
 
@@ -89,6 +93,18 @@ describe("POST /api/roasts", () => {
     expect(response.status).toBe(201);
     const json = await response.json();
     expect(json.report.slug).toBe("goblin-abc123-xyz");
+  });
+
+  it("passes the signed-in user id to report creation", async () => {
+    mockAuth.mockResolvedValue({ user: { id: "user-123" } });
+    mockCreateRoastReport.mockResolvedValue({ ok: true, data: successPayload });
+
+    await POST(makePostRequest({ signals: { url: "https://example.com" } }));
+
+    expect(mockCreateRoastReport).toHaveBeenCalledWith(
+      { signals: { url: "https://example.com" } },
+      { userId: "user-123" }
+    );
   });
 
   it("returns 400 for invalid JSON body", async () => {
@@ -112,6 +128,24 @@ describe("POST /api/roasts", () => {
     expect(response.status).toBe(400);
     const json = await response.json();
     expect(json.error).toContain("either");
+  });
+
+  it("returns a stable code when a target site blocks access", async () => {
+    mockCreateRoastReport.mockResolvedValue({
+      ok: false,
+      error: {
+        status: 422,
+        code: "ACCESS_BLOCKED",
+        message: "That site put up a bot shield, so I stopped before making a fake roast.",
+      },
+    });
+
+    const response = await POST(makePostRequest({ url: "https://shielded.example" }));
+    const json = await response.json();
+
+    expect(response.status).toBe(422);
+    expect(json.code).toBe("ACCESS_BLOCKED");
+    expect(json.error).toContain("fake roast");
   });
 
   it("returns 429 when rate limited", async () => {

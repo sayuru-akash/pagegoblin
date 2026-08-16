@@ -29,6 +29,7 @@ export function LegalPage({ label, title, description, updated, sections }: Lega
       <main className={`${styles.page} bg-grain`}>
         <div className={styles.legalHero}>
           <InnerHero
+            variant="compact"
             label={label}
             title={title}
             description={`${description} Last updated: ${updated}.`}

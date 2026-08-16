@@ -100,6 +100,33 @@
   line-height: 1.65;
 }
 
+.center .heroInner {
+  display: block;
+  min-height: 31rem;
+  align-content: center;
+  text-align: center;
+}
+
+.center .heroCopy,
+.center .title,
+.center .description {
+  margin-inline: auto;
+}
+
+.center .title {
+  max-width: 15ch;
+}
+
+.compact .heroInner {
+  min-height: 25rem;
+  padding-block: 4rem;
+}
+
+.compact .title {
+  max-width: 18ch;
+  font-size: clamp(3.8rem, 7vw, 6.5rem);
+}
+
 @media (min-width: 900px) {
   .heroInner:has(.heroArt) {
     grid-template-columns: minmax(0, 1.05fr) minmax(24rem, 0.95fr);
@@ -110,6 +137,11 @@
   .heroInner {
     min-height: auto;
     padding-block: 4.5rem;
+  }
+
+  .center .heroInner,
+  .compact .heroInner {
+    min-height: auto;
   }
 
   .heroArt {

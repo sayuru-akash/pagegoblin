@@ -21,7 +21,8 @@ function stripHtmlFromSignals(signals: PageSignals): PageSignals {
 }
 
 export async function createRoastReport(
-  input: unknown
+  input: unknown,
+  options: { userId?: string | null } = {}
 ): Promise<CreateRoastResult> {
   const parsed = CreateRoastRequestSchema.safeParse(input);
   if (!parsed.success) {
@@ -61,8 +62,8 @@ export async function createRoastReport(
       signals = await fetchAndExtractSignals(url);
       source = "WEB_URL";
     } catch (err) {
-      const { status, message } = mapFetchErrorToStatus(err);
-      return { ok: false, error: { status, message } };
+      const { status, message, code } = mapFetchErrorToStatus(err);
+      return { ok: false, error: { status, message, code } };
     }
   } else {
     signals = sanitizePageSignals(rawSignals);
@@ -137,7 +138,7 @@ export async function createRoastReport(
       biggestCrime: finalBiggestCrime,
       verdict: finalVerdict,
       summaryMarkdown: finalSummaryMarkdown,
-      userId: null,
+      userId: options.userId ?? null,
     },
   });
 

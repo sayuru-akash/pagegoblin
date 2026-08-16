@@ -38,6 +38,8 @@ export type PageFetchErrorCode =
   | "TIMEOUT"
   | "BODY_TOO_LARGE"
   | "NON_HTML_CONTENT"
+  | "ACCESS_BLOCKED"
+  | "HTTP_ERROR"
   | "FETCH_FAILED";
 
 export class PageFetchError extends Error {

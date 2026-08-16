@@ -38,7 +38,8 @@ export default async function AnalyzePage() {
           label="Analyze"
           title={<>Drop a link. <span>Get eaten.</span></>}
           description="Paste a public page. I will drag every weak spot into the light."
-          image
+          imageSrc="/images/analyze-goblin-hunt.webp"
+          imageAlt="PageGoblin hunting through a torn website blueprint"
         >
           <div className={styles.heroForm}>
             <UrlRoastForm variant="standalone" aiAvailable={settings.aiModeEnabled === true} />

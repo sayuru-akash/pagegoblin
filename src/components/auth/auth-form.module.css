@@ -1,0 +1,70 @@
+.form {
+  display: grid;
+  gap: 1.35rem;
+}
+
+.field {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.field label {
+  display: block;
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.field input {
+  margin: 0;
+  border-color: rgba(184, 205, 63, 0.32);
+  background: rgba(11, 14, 8, 0.92);
+}
+
+.field input:focus {
+  border-color: var(--goblin);
+  background: #10130d;
+}
+
+.error {
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(213, 84, 84, 0.36);
+  background: rgba(213, 84, 84, 0.08);
+  color: var(--rose-light);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 0.15rem;
+}
+
+.switch {
+  margin-top: 1.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.86rem;
+  text-align: center;
+}
+
+.switch a {
+  color: var(--goblin-light);
+  font-weight: 700;
+}
+
+.skip {
+  margin-top: 1.2rem;
+  text-align: center;
+}
+
+.skip a {
+  color: var(--muted);
+  font-size: 0.82rem;
+  transition: color 180ms ease;
+}
+
+.skip a:hover {
+  color: var(--goblin-light);
+}

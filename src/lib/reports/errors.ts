@@ -1,6 +1,6 @@
 import { PageFetchError } from "@/lib/fetcher";
 
-export function mapFetchErrorToStatus(error: unknown): { status: number; message: string } {
+export function mapFetchErrorToStatus(error: unknown): { status: number; message: string; code?: string } {
   if (error instanceof PageFetchError) {
     switch (error.code) {
       case "INVALID_URL":
@@ -25,6 +25,18 @@ export function mapFetchErrorToStatus(error: unknown): { status: number; message
         return { status: 422, message: "That page is too huge for me to drag into the cave." };
       case "NON_HTML_CONTENT":
         return { status: 422, message: "That link is not a webpage I can chew through." };
+      case "ACCESS_BLOCKED":
+        return {
+          status: 422,
+          code: "ACCESS_BLOCKED",
+          message: "That site put up a bot shield, so I stopped before making a fake roast.",
+        };
+      case "HTTP_ERROR":
+        return {
+          status: 422,
+          code: "HTTP_ERROR",
+          message: "That site sent back an error page, so I did not roast it.",
+        };
     }
   }
   return { status: 500, message: "Something snapped in the cave. Throw the link at me again." };

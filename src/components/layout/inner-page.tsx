@@ -8,7 +8,9 @@ interface InnerHeroProps {
   title: ReactNode;
   description?: string;
   children?: ReactNode;
-  image?: boolean;
+  imageSrc?: string;
+  imageAlt?: string;
+  variant?: "default" | "center" | "compact";
 }
 
 export function InnerHero({
@@ -16,10 +18,12 @@ export function InnerHero({
   title,
   description,
   children,
-  image = false,
+  imageSrc,
+  imageAlt = "",
+  variant = "default",
 }: InnerHeroProps) {
   return (
-    <section className={styles.hero}>
+    <section className={`${styles.hero} ${styles[variant]}`}>
       <div className={styles.heroInner}>
         <div className={styles.heroCopy}>
           <Reveal>
@@ -33,11 +37,11 @@ export function InnerHero({
           )}
           {children && <Reveal delay={0.14}>{children}</Reveal>}
         </div>
-        {image && (
+        {imageSrc && (
           <Reveal delay={0.08} className={styles.heroArt}>
             <Image
-              src="/images/home/hero-goblin-v2.webp"
-              alt="PageGoblin waiting to bite into a website"
+              src={imageSrc}
+              alt={imageAlt}
               fill
               priority
               sizes="(max-width: 900px) 100vw, 46vw"

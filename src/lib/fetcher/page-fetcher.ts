@@ -19,6 +19,37 @@ function isHtmlContentType(contentType: string | null): boolean {
   return HTML_CONTENT_TYPES.some((t) => lower.includes(t));
 }
 
+function looksLikeAccessChallenge(html: string): boolean {
+  const sample = html.slice(0, 500_000).toLowerCase();
+
+  const exactChallengeMarkers = [
+    "cdn-cgi/challenge-platform",
+    "__cf_chl_",
+    "cf-chl-",
+    "captcha-delivery.com",
+  ];
+  if (exactChallengeMarkers.some((marker) => sample.includes(marker))) return true;
+
+  const cloudflareChallenge = sample.includes("cloudflare") && [
+    "just a moment",
+    "attention required",
+    "checking your browser",
+    "verify you are human",
+    "enable javascript and cookies to continue",
+  ].some((marker) => sample.includes(marker));
+
+  const akamaiChallenge = sample.includes("access denied")
+    && (sample.includes("reference #") || sample.includes("akamai"));
+
+  const perimeterXChallenge = sample.includes("press & hold")
+    && (sample.includes("perimeterx") || sample.includes("_px"));
+
+  const dataDomeChallenge = sample.includes("datadome")
+    && (sample.includes("captcha") || sample.includes("blocked"));
+
+  return cloudflareChallenge || akamaiChallenge || perimeterXChallenge || dataDomeChallenge;
+}
+
 async function readBodyWithCap(body: ReadableStream<Uint8Array> | null, maxBytes: number): Promise<{ html: string; bytesRead: number }> {
   if (!body) {
     return { html: "", bytesRead: 0 };
@@ -116,6 +147,20 @@ export async function fetchPageHtml(inputUrl: string, options?: FetchPageOptions
 
     const contentType = response.headers.get("content-type");
 
+    if ([401, 403, 407, 429].includes(response.status)) {
+      throw new PageFetchError(
+        "ACCESS_BLOCKED",
+        `The site returned an access shield instead of its page (HTTP ${response.status}).`
+      );
+    }
+
+    if (response.status >= 400) {
+      throw new PageFetchError(
+        "HTTP_ERROR",
+        `The site returned HTTP ${response.status} instead of a page.`
+      );
+    }
+
     if (!isHtmlContentType(contentType)) {
       throw new PageFetchError("NON_HTML_CONTENT", `Page did not return HTML content. Got: ${contentType ?? "unknown"}`);
     }
@@ -126,6 +171,13 @@ export async function fetchPageHtml(inputUrl: string, options?: FetchPageOptions
     }
 
     const { html, bytesRead } = await readBodyWithCap(response.body, maxBytes);
+
+    if (looksLikeAccessChallenge(html)) {
+      throw new PageFetchError(
+        "ACCESS_BLOCKED",
+        "The site returned a bot challenge instead of its real page."
+      );
+    }
 
     const finalNormalized = await assertSafeFetchUrl(response.url || currentUrl);
 

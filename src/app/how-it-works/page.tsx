@@ -58,6 +58,7 @@ export default function HowItWorksPage() {
       <main className={`${styles.page} bg-grain`}>
         <JsonLd data={faqJsonLd} />
         <InnerHero
+          variant="center"
           label="How it works"
           title={<>Three steps. <span>Zero mercy.</span></>}
           description="You throw the link. I crawl in. The page starts talking."

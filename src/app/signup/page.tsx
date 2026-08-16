@@ -7,10 +7,10 @@ import { signIn } from "next-auth/react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { AuthFrame } from "@/components/auth/auth-frame";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
+import formStyles from "@/components/auth/auth-form.module.css";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -65,22 +65,20 @@ export default function SignUpPage() {
       <AuthFrame
         title={<>Sign <span>up.</span></>}
         description="Keep every page I bite in one place."
+        imageSrc="/images/home/goblin-curious.png"
+        imageAlt="A curious PageGoblin peeking into a new cave"
+        artLine="New cave? I am looking."
       >
-          <Card className="w-full border-0 bg-transparent p-0 shadow-none hover:translate-y-0 hover:shadow-none">
-            <CardHeader className="sr-only">
-              <CardTitle>Create account</CardTitle>
-              <CardDescription>Enter your account details.</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="w-full">
+              <form onSubmit={handleSubmit} className={formStyles.form}>
                 {error && (
-                  <div role="alert" aria-live="polite" className="border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
+                  <div role="alert" aria-live="polite" className={formStyles.error}>
                     {error}
                   </div>
                 )}
 
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium text-ink">
+                <div className={formStyles.field}>
+                  <label htmlFor="name" className="block text-sm font-medium text-ink">
                     Name
                   </label>
                   <Input
@@ -94,8 +92,8 @@ export default function SignUpPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium text-ink">
+                <div className={formStyles.field}>
+                  <label htmlFor="email" className="block text-sm font-medium text-ink">
                     Email
                   </label>
                   <Input
@@ -109,8 +107,8 @@ export default function SignUpPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label htmlFor="password" className="text-sm font-medium text-ink">
+                <div className={formStyles.field}>
+                  <label htmlFor="password" className="block text-sm font-medium text-ink">
                     Password
                   </label>
                   <Input
@@ -127,7 +125,7 @@ export default function SignUpPage() {
 
                 <Button
                   type="submit"
-                  className="w-full"
+                  className={formStyles.submit}
                   disabled={loading}
                 >
                   {loading ? (
@@ -141,14 +139,13 @@ export default function SignUpPage() {
                 </Button>
               </form>
 
-              <div className="mt-6 border-t border-border pt-5 text-center text-sm text-muted">
+              <div className={formStyles.switch}>
                 Already have an account?{" "}
                 <Link href="/signin" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
                   Sign in
                 </Link>
               </div>
-            </CardContent>
-          </Card>
+          </div>
       </AuthFrame>
       <SiteFooter />
     </>

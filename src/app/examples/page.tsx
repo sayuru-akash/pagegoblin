@@ -35,6 +35,7 @@ export default function ExamplesPage() {
       <SiteHeader />
       <main className={`${styles.page} bg-grain`}>
         <InnerHero
+          variant="compact"
           label="Examples"
           title={<>Real mess. <span>Real fixes.</span></>}
           description="A few pages that left teeth marks."

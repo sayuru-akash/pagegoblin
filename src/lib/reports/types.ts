@@ -40,6 +40,7 @@ export interface CreateRoastError {
   error: {
     status: number;
     message: string;
+    code?: string;
   };
 }
 

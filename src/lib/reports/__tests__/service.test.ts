@@ -143,6 +143,18 @@ describe("createRoastReport", () => {
     expect(createArg.data.source).toBe("WEB_URL");
   });
 
+  it("links a new report to the signed-in user when provided", async () => {
+    mockCreate.mockResolvedValue(makePrismaReport({ userId: "user-123" }));
+
+    const result = await createRoastReport(
+      { signals: minimalSignals },
+      { userId: "user-123" }
+    );
+
+    expect(result.ok).toBe(true);
+    expect(mockCreate.mock.calls[0][0].data.userId).toBe("user-123");
+  });
+
   it("url input always persists source as WEB_URL even with override", async () => {
     const fetchedSignals: PageSignals = {
       ...minimalSignals,
@@ -214,6 +226,23 @@ describe("createRoastReport", () => {
     expect(result.ok).toBe(false);
     if (!result.ok) {
       expect(result.error.status).toBe(422);
+    }
+  });
+
+  it("stops a blocked page before analysis or saving", async () => {
+    const { PageFetchError } = await import("@/lib/fetcher");
+    mockFetchAndExtractSignals.mockRejectedValue(
+      new PageFetchError("ACCESS_BLOCKED", "Cloudflare challenge")
+    );
+
+    const result = await createRoastReport({ url: "https://shielded.example" });
+
+    expect(result.ok).toBe(false);
+    expect(mockCreate).not.toHaveBeenCalled();
+    if (!result.ok) {
+      expect(result.error.status).toBe(422);
+      expect(result.error.code).toBe("ACCESS_BLOCKED");
+      expect(result.error.message).toContain("fake roast");
     }
   });
 

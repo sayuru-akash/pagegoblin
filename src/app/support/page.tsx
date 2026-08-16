@@ -36,6 +36,7 @@ export default function SupportPage() {
       <SiteHeader />
       <main className={`${styles.page} bg-grain`}>
         <InnerHero
+          variant="center"
           label="Support"
           title={<>Need help? <span>Howl here.</span></>}
           description="Try the quick answers. If the cave still shakes, call a human."

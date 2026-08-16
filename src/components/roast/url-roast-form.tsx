@@ -2,8 +2,9 @@
 
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowRight, Loader2, Flame, Sparkles, Info } from "lucide-react";
+import { ArrowRight, Loader2, Flame, Sparkles, Info, ShieldAlert, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -29,6 +30,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
   const router = useRouter();
   const [url, setUrl] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isAccessBlocked, setIsAccessBlocked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const [aiMode, setAiMode] = useState(false);
@@ -36,6 +38,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+    setIsAccessBlocked(false);
 
     if (!isValidUrl(url)) {
       setError("That link has no scent. Give me something like example.com.");
@@ -58,13 +61,19 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
       const data = await res.json();
 
       if (!res.ok || !data.report) {
-        const status = data.error?.status ?? res.status;
+        const status = res.status;
+        const message = typeof data.error === "string" ? data.error : data.error?.message;
+        if (data.code === "ACCESS_BLOCKED") {
+          setError(message ?? "That site put up a bot shield, so I stopped before making a fake roast.");
+          setIsAccessBlocked(true);
+          return;
+        }
         if (status === 400) {
-          setError(data.error?.message ?? "That link smells wrong. Check it and throw it back.");
+          setError(message ?? "That link smells wrong. Check it and throw it back.");
         } else if (status === 429) {
           setError("Back off for one tiny minute. I am still chewing the last pile.");
         } else {
-          setError("I bit the page and it bit back. Make sure it is public, then throw it at me again.");
+          setError(message ?? "I bit the page and it bit back. Make sure it is public, then throw it at me again.");
         }
         return;
       }
@@ -146,7 +155,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
         </Button>
 
         <AnimatePresence>
-          {error && (
+          {error && !isAccessBlocked && (
             <motion.p
               id="url-roast-error"
               role="alert"
@@ -157,6 +166,49 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
             >
               {error}
             </motion.p>
+          )}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {error && isAccessBlocked && (
+            <motion.div
+              id="url-roast-error"
+              role="alert"
+              initial={{ opacity: 0, y: -8, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.98 }}
+              className="relative border border-goblin/50 bg-goblin/10 p-4 text-left shadow-[0_18px_60px_rgba(0,0,0,0.28)] sm:p-5"
+            >
+              <button
+                type="button"
+                onClick={() => {
+                  setError(null);
+                  setIsAccessBlocked(false);
+                }}
+                className="absolute right-3 top-3 p-1 text-muted transition-colors hover:text-ink"
+                aria-label="Close this message"
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <div className="flex gap-3 pr-7">
+                <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-goblin" aria-hidden="true" />
+                <div>
+                  <p className="font-display text-lg uppercase tracking-wide text-ink">
+                    This site shut the cave door.
+                  </p>
+                  <p className="mt-1 text-sm leading-6 text-muted">
+                    Its bot shield showed me a challenge page, not the real site. I stopped there, so no fake low score was made.
+                  </p>
+                  <Link
+                    href="/extension"
+                    className="mt-3 inline-flex items-center gap-2 text-sm font-bold text-goblin underline decoration-goblin/40 underline-offset-4 hover:decoration-goblin"
+                  >
+                    Roast the open tab with the extension
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>
 

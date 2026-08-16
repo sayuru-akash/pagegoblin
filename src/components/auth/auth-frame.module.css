@@ -23,16 +23,22 @@
   border-right: 1px solid var(--border);
 }
 
-.artImage {
-  object-fit: cover;
-  object-position: 58% center;
-  filter: saturate(0.75) contrast(1.08);
+.art {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(168, 200, 50, 0.08), transparent 46%),
+    #020402;
+}
+
+.artCharacter {
+  padding: 3.2rem;
+  object-fit: contain;
+  filter: saturate(0.78) contrast(1.05) drop-shadow(0 28px 60px rgba(0, 0, 0, 0.7));
 }
 
 .art::after {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, transparent 48%, #050704 100%), linear-gradient(0deg, #050704 0%, transparent 38%);
+  background: linear-gradient(90deg, transparent 65%, #050704 100%), linear-gradient(0deg, #050704 0%, transparent 24%);
   content: "";
 }
 

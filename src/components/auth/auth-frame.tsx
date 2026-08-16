@@ -6,23 +6,26 @@ interface AuthFrameProps {
   title: ReactNode;
   description: string;
   children: ReactNode;
+  imageSrc: string;
+  imageAlt: string;
+  artLine: string;
 }
 
-export function AuthFrame({ title, description, children }: AuthFrameProps) {
+export function AuthFrame({ title, description, children, imageSrc, imageAlt, artLine }: AuthFrameProps) {
   return (
     <main className={`${styles.main} bg-grain`}>
       <div className={styles.shell}>
         <div className={styles.art}>
           <Image
-            src="/images/home/hero-goblin-v2.webp"
-            alt="PageGoblin crouched behind a battered wall"
+            src={imageSrc}
+            alt={imageAlt}
             fill
             sizes="(min-width: 1024px) 510px, 0px"
-            className={styles.artImage}
+            className={styles.artCharacter}
             priority
           />
           <p className={styles.artLine}>
-            I kept your pile warm.
+            {artLine}
           </p>
         </div>
 

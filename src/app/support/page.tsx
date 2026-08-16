@@ -7,18 +7,16 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Help From the PageGoblin Cave",
   description:
     "Get help with PageGoblin website roasts, report sharing, Chrome extension behavior, privacy questions, and support requests.",
-  alternates: { canonical: "/support" },
-  openGraph: {
-    title: "PageGoblin Support",
-    description: "Help and support for PageGoblin website roast reports and the Chrome extension.",
-    url: "/support",
-  },
-};
+  path: "/support",
+  openGraphTitle: "PageGoblin Support",
+  keywords: ["PageGoblin support", "website roast help", "PageGoblin extension help"],
+});
 
 
 const quickFaqs = [

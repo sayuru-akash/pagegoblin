@@ -2,18 +2,16 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Reveal } from "@/components/motion/reveal";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Terms of Service",
   description:
     "PageGoblin terms of service covering acceptable use, roast report content, privacy, limitations, and contact information.",
-  alternates: { canonical: "/terms" },
-  openGraph: {
-    title: "PageGoblin Terms of Service",
-    description: "Terms for using PageGoblin website roasts, reports, and the Chrome extension.",
-    url: "/terms",
-  },
-};
+  path: "/terms",
+  openGraphTitle: "PageGoblin Terms of Service",
+  keywords: ["PageGoblin terms", "website roast terms", "Chrome extension terms"],
+});
 
 
 const sections = [

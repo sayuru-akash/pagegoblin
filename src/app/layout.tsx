@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Anton, Bricolage_Grotesque, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { JsonLd } from "@/components/seo/json-ld";
+import { DEFAULT_SOCIAL_IMAGE, SITE_URL } from "@/lib/seo";
 import "./globals.css";
 
 const bricolageGrotesque = Bricolage_Grotesque({
@@ -29,10 +31,8 @@ const anton = Anton({
   display: "swap",
 });
 
-const baseUrl = process.env.APP_URL || "https://pagegoblin.org";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(baseUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "PageGoblin: Throw Me a Website and Let Me Loose",
     template: "%s | PageGoblin",
@@ -45,44 +45,50 @@ export const metadata: Metadata = {
   publisher: "Sayuru",
   keywords: [
     "website roast",
-    "conversion teardown",
+    "website feedback tool",
+    "website conversion audit",
     "landing page audit",
-    "CTA checker",
-    "trust signals",
-    "conversion optimization",
+    "conversion teardown",
+    "CTA analysis",
+    "website trust signals",
     "landing page review",
     "website critique",
-    "page analysis",
-    "copy analysis",
+    "Chrome extension website audit",
+    "conversion rate optimization",
   ],
   alternates: {
-    canonical: baseUrl,
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   openGraph: {
     title: "PageGoblin: Throw Me a Website and Let Me Loose",
     description: "Give the goblin a URL. It will crawl inside, drag out the mess, and show you how to fix it.",
     type: "website",
-    url: baseUrl,
+    url: "/",
     siteName: "PageGoblin",
     locale: "en_US",
-    images: [
-      {
-        url: "/og-default.svg",
-        width: 1200,
-        height: 630,
-        alt: "PageGoblin crawling through a website roast",
-      },
-    ],
+    images: [DEFAULT_SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: "PageGoblin: Throw Me a Website and Let Me Loose",
     description: "Give the goblin a URL. It will crawl inside and drag out the mess.",
-    images: ["/og-default.svg"],
+    images: [DEFAULT_SOCIAL_IMAGE.url],
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/favicon-16x16.png", type: "image/png", sizes: "16x16" },
       { url: "/favicon.ico", sizes: "any" },
     ],
     apple: "/apple-touch-icon.png",
@@ -98,6 +104,42 @@ export const viewport = {
   colorScheme: "dark",
 };
 
+const siteJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}/#website`,
+      url: SITE_URL,
+      name: "PageGoblin",
+      description:
+        "A website roast tool that finds weak words, hidden calls to action, thin proof, and conversion friction.",
+      inLanguage: "en",
+    },
+    {
+      "@type": "Organization",
+      "@id": `${SITE_URL}/#organization`,
+      name: "PageGoblin",
+      url: SITE_URL,
+      logo: `${SITE_URL}/icon-512.png`,
+    },
+    {
+      "@type": "WebApplication",
+      name: "PageGoblin Website Roast",
+      url: `${SITE_URL}/analyze`,
+      applicationCategory: "BusinessApplication",
+      operatingSystem: "Web",
+      description:
+        "A browser-based website feedback tool for checking page clarity, calls to action, proof, copy, and conversion friction.",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -108,7 +150,10 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${bricolageGrotesque.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <JsonLd data={siteJsonLd} />
+        {children}
+      </body>
     </html>
   );
 }

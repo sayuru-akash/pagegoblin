@@ -9,19 +9,16 @@ import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { getAppSettings } from "@/lib/admin/service";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Throw Me a Website and Let Me Loose",
   description:
     "Give PageGoblin a public URL and get a wild, useful roast of the words, proof, buttons, and hard-to-use parts.",
-  alternates: { canonical: "/analyze" },
-  openGraph: {
-    title: "Let PageGoblin Tear Into Your Website",
-    description:
-      "Throw in a URL. PageGoblin will sniff out what is broken and tell you how to fix it.",
-    url: "/analyze",
-  },
-};
+  path: "/analyze",
+  openGraphTitle: "Let PageGoblin Tear Into Your Website",
+  keywords: ["analyze my website", "website roast tool", "website conversion audit", "landing page analyzer", "CTA checker"],
+});
 
 
 const criteria = [

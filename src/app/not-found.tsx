@@ -16,16 +16,16 @@ export default function NotFound() {
         I dug under every root and bit every loose link. Nothing. This page
         either ran away or was never here.
       </p>
-      <div className="flex gap-3">
+      <div className="flex w-full max-w-sm flex-col gap-3 sm:w-auto sm:max-w-none sm:flex-row">
         <Link
           href="/"
-          className="rounded-[0.3rem] bg-goblin px-6 py-3 text-sm font-bold text-[#111605] shadow-goblin transition-all hover:bg-goblin-dark hover:shadow-glow active:scale-[0.98]"
+          className="rounded-[0.3rem] bg-goblin px-6 py-3 text-sm font-bold text-[#111605] shadow-goblin transition-all hover:bg-goblin-dark hover:shadow-glow active:scale-[0.98] focus-goblin"
         >
           Crawl back home
         </Link>
         <Link
           href="/analyze"
-          className="rounded-[0.3rem] border border-border px-6 py-3 text-sm font-bold text-ink transition-all hover:border-goblin active:scale-[0.98]"
+          className="rounded-[0.3rem] border border-border px-6 py-3 text-sm font-bold text-ink transition-all hover:border-goblin active:scale-[0.98] focus-goblin"
         >
           Roast a page instead
         </Link>

@@ -10,19 +10,16 @@ import { ScoreOrb } from "@/components/ui/score-orb";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { FinalRoastCta } from "@/components/layout/final-roast-cta";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Website Roasts PageGoblin Dragged Out",
   description:
     "See PageGoblin tear into muddy headlines, hidden buttons, thin proof, and pages that make people guess.",
-  alternates: { canonical: "/examples" },
-  openGraph: {
-    title: "PageGoblin Website Roast Examples",
-    description:
-      "Real examples of the goblin finding the mess, howling about it, and showing the way out.",
-    url: "/examples",
-  },
-};
+  path: "/examples",
+  openGraphTitle: "PageGoblin Website Roast Examples",
+  keywords: ["website roast examples", "landing page critique examples", "CTA copy examples", "website feedback examples"],
+});
 
 
 interface MockRoast {

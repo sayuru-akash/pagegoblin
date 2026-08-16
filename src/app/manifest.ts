@@ -8,10 +8,11 @@ export default function manifest(): MetadataRoute.Manifest {
       "A wild little goblin that crawls through your webpage, roasts the mess, and drags back useful fixes.",
     start_url: "/",
     display: "standalone",
-    background_color: "#faf8f3",
-    theme_color: "#4ade80",
+    background_color: "#020402",
+    theme_color: "#b9d63b",
     icons: [
-      { src: "/favicon.svg", sizes: "any", type: "image/svg+xml" },
+      { src: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { src: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     categories: ["productivity", "developer", "business"],
   };

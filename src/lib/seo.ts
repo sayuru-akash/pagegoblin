@@ -6,7 +6,7 @@ export const CHROME_EXTENSION_URL =
   "https://chromewebstore.google.com/detail/pagegoblin-%E2%80%94-website-roas/dbhodopbhioihlpebnnjbjdhkbeomndp";
 
 export const DEFAULT_SOCIAL_IMAGE = {
-  url: "/images/social/pagegoblin-og.png",
+  url: "/images/social/pagegoblin-og.jpg",
   width: 1731,
   height: 909,
   alt: "PageGoblin ready to tear into a website",

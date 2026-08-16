@@ -215,7 +215,7 @@ export default function ExtensionPage() {
 
           <div className={styles.heroVisual} aria-label="PageGoblin extension preview">
             <Image
-              src="/images/extension/goblin-browser-hero.png"
+              src="/images/extension/goblin-browser-hero.webp"
               alt="A PageGoblin waiting beside a browser window"
               width={1536}
               height={1024}

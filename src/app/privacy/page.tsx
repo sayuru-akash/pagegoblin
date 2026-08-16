@@ -2,18 +2,16 @@ import type { Metadata } from "next";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { Reveal } from "@/components/motion/reveal";
+import { createPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Privacy Policy",
   description:
     "PageGoblin privacy policy explaining what page signals are collected, what is never collected, Chrome extension permissions, AI-provider disclosure, and data retention.",
-  alternates: { canonical: "/privacy" },
-  openGraph: {
-    title: "PageGoblin Privacy Policy",
-    description: "How PageGoblin handles submitted URLs, page signals, reports, Chrome extension data, and AI-provider disclosure.",
-    url: "/privacy",
-  },
-};
+  path: "/privacy",
+  openGraphTitle: "PageGoblin Privacy Policy",
+  keywords: ["PageGoblin privacy", "Chrome extension privacy", "website audit data privacy"],
+});
 
 
 const sections = [

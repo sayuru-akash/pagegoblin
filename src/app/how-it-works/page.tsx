@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Link as LinkIcon,
   Search,
@@ -18,19 +19,17 @@ import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { FinalRoastCta } from "@/components/layout/final-roast-cta";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
+import { createPageMetadata } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "How PageGoblin Hunts Through a Website",
   description:
     "See how PageGoblin crawls through a website, sniffs out weak words and hidden buttons, and brings back fixes you can use.",
-  alternates: { canonical: "/how-it-works" },
-  openGraph: {
-    title: "How PageGoblin Works",
-    description:
-      "See what the goblin checks, what the score means, and what comes back in a website roast.",
-    url: "/how-it-works",
-  },
-};
+  path: "/how-it-works",
+  openGraphTitle: "How PageGoblin Works",
+  keywords: ["how website audits work", "website roast score", "CTA analysis", "website trust signals", "conversion friction"],
+});
 
 
 const steps = [
@@ -108,11 +107,22 @@ const faqs = [
   },
 ];
 
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.q,
+    acceptedAnswer: { "@type": "Answer", text: faq.a },
+  })),
+};
+
 export default function HowItWorksPage() {
   return (
     <>
       <SiteHeader />
       <main className="cave-page flex flex-1 flex-col items-center bg-grain">
+        <JsonLd data={faqJsonLd} />
         {/* Hero */}
         <section className="flex w-full flex-col items-center px-6 pt-24 pb-20 text-center">
           <div className="mx-auto max-w-3xl">
@@ -212,6 +222,9 @@ export default function HowItWorksPage() {
                       One click and I crawl through the page you have open. You get
                       the score and the first fixes fast.
                     </CardDescription>
+                    <Link href="/extension" className="mt-3 inline-flex items-center text-sm font-bold text-goblin-light hover:underline focus-goblin">
+                      Meet the browser goblin
+                    </Link>
                   </CardHeader>
                 </Card>
                 <Card className="border-amber/20 bg-amber/5">
@@ -224,6 +237,9 @@ export default function HowItWorksPage() {
                       Paste any public URL and get the whole pile: every howl,
                       every fix, a share link, and a file you can keep.
                     </CardDescription>
+                    <Link href="/analyze" className="mt-3 inline-flex items-center text-sm font-bold text-amber hover:underline focus-goblin">
+                      Feed me a URL
+                    </Link>
                   </CardHeader>
                 </Card>
               </div>

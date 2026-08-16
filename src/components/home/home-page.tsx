@@ -188,7 +188,7 @@ export function HomePage() {
       </a>
       <div className={styles.pageTexture} aria-hidden="true">
         <Image
-          src="/images/home/cave-texture.png"
+          src="/images/home/cave-texture.webp"
           alt=""
           fill
           sizes="100vw"

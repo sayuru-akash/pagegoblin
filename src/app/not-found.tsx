@@ -1,7 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+
+export const metadata: Metadata = {
+  title: "That Page Ran Away",
+  description: "PageGoblin could not find this page.",
+};
 
 export default function NotFound() {
   return (

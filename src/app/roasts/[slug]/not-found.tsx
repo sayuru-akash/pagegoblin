@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { GoblinMascot } from "@/components/brand/goblin-mascot";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 
 export default function NotFound() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-parchment px-6">
+    <>
+    <SiteHeader />
+    <main className="flex min-h-[75vh] flex-col items-center justify-center bg-parchment px-6">
       <div className="flex flex-col items-center gap-6 text-center">
         <GoblinMascot className="h-28 w-28 opacity-80" />
         <h1 className="font-display text-5xl uppercase leading-none tracking-tight text-ink sm:text-7xl">
@@ -20,6 +24,8 @@ export default function NotFound() {
           Give me another page
         </Link>
       </div>
-    </div>
+    </main>
+    <SiteFooter />
+    </>
   );
 }

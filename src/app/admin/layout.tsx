@@ -2,6 +2,8 @@ import { requireAdmin } from "@/lib/auth-guards";
 import { AdminNav } from "@/components/admin/admin-nav";
 import Link from "next/link";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 
 export default async function AdminLayout({
   children,
@@ -11,7 +13,9 @@ export default async function AdminLayout({
   const session = await requireAdmin();
 
   return (
-    <div className="min-h-screen bg-grain md:flex">
+    <div className="flex min-h-screen flex-col bg-grain">
+      <SiteHeader />
+      <div className="flex flex-1 flex-col md:flex-row">
       <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-cave/90 md:flex">
         <div className="flex h-16 items-center gap-3 border-b border-border px-6">
           <GoblinLogo />
@@ -47,6 +51,8 @@ export default async function AdminLayout({
       <main className="min-w-0 flex-1 overflow-auto">
         <div className="mx-auto max-w-6xl px-5 py-8 sm:px-6 lg:py-12">{children}</div>
       </main>
+      </div>
+      <SiteFooter />
     </div>
   );
 }

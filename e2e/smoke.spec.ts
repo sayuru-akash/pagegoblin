@@ -4,8 +4,8 @@ test.describe("Page rendering", () => {
   test("homepage loads with hero and roast form", async ({ page }) => {
     await page.goto("/");
     await expect(page).toHaveTitle(/PageGoblin/i);
-    await expect(page.locator('input[type="text"], input[placeholder*="website"]')).toBeVisible();
-    await expect(page.getByText(/unleash the goblin/i)).toBeVisible();
+    await expect(page.locator('input[type="text"], input[placeholder*="website"]').first()).toBeVisible();
+    await expect(page.getByRole("button", { name: /roast my page/i }).first()).toBeVisible();
   });
 
   test("how-it-works page loads", async ({ page }) => {

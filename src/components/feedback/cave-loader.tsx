@@ -6,6 +6,7 @@ interface CaveLoaderProps {
   detail: string;
   compact?: boolean;
   showTracks?: boolean;
+  showCreature?: boolean;
 }
 
 export function CaveLoader({
@@ -13,6 +14,7 @@ export function CaveLoader({
   detail,
   compact = false,
   showTracks = false,
+  showCreature = true,
 }: CaveLoaderProps) {
   return (
     <section
@@ -23,22 +25,22 @@ export function CaveLoader({
     >
       <div className={styles.grain} aria-hidden="true" />
       <div className={styles.inner}>
-        <div className={styles.creatureWindow} aria-hidden="true">
-          <Image
-            src="/images/home/hero-goblin-mobile-v2.webp"
-            alt=""
-            fill
-            sizes="180px"
-            quality={65}
-            loading="eager"
-            fetchPriority="high"
-            className={styles.creature}
-          />
-          <span className={styles.scanLine} />
-          <span className={styles.clawMark} />
-          <span className={styles.clawMark} />
-          <span className={styles.clawMark} />
-        </div>
+        {showCreature ? (
+          <div className={styles.creatureWindow} aria-hidden="true">
+            <Image
+              src="/images/home/hero-goblin-mobile-v2.webp"
+              alt=""
+              fill
+              sizes="180px"
+              quality={65}
+              className={styles.creature}
+            />
+            <span className={styles.scanLine} />
+            <span className={styles.clawMark} />
+            <span className={styles.clawMark} />
+            <span className={styles.clawMark} />
+          </div>
+        ) : null}
 
         <p className={styles.eyebrow}>Something is scratching in there</p>
         <p className={styles.title}>{title}</p>

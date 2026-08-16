@@ -1,6 +1,13 @@
 @import "tailwindcss";
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 72px;
+  scrollbar-color: var(--goblin) var(--cave);
+  scrollbar-gutter: stable;
+}
+
 :root {
   --parchment: #020402;
   --parchment-deep: #080b06;

@@ -10,8 +10,8 @@ import {
   Zap,
 } from "lucide-react";
 import { Anton, Cinzel } from "next/font/google";
-import { HomeFooter } from "./home-footer";
-import { HomeHeader } from "./home-header";
+import { SiteFooter } from "@/components/layout/site-footer";
+import { SiteHeader } from "@/components/layout/site-header";
 import { HomeRoastForm } from "./home-roast-form";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import styles from "./home-page.module.css";
@@ -186,7 +186,9 @@ export function HomePage() {
   });
 
   return (
-    <div className={`${styles.page} ${anton.variable} ${cinzel.variable}`}>
+    <>
+      <SiteHeader />
+      <div className={`${styles.page} ${anton.variable} ${cinzel.variable}`}>
       <a className={styles.skipLink} href="#main-content">
         Skip to content
       </a>
@@ -200,8 +202,6 @@ export function HomePage() {
           className={styles.pageTextureImage}
         />
       </div>
-
-      <HomeHeader />
 
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="home-heading">
@@ -423,7 +423,8 @@ export function HomePage() {
         </section>
       </main>
 
-      <HomeFooter />
-    </div>
+      </div>
+      <SiteFooter />
+    </>
   );
 }

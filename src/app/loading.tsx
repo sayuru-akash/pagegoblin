@@ -5,6 +5,7 @@ export default function GlobalLoading() {
     <CaveLoader
       title="I’m in the walls."
       detail="Claws out. Nose down. I’m hunting for the next thing to bite."
+      showCreature={false}
     />
   );
 }

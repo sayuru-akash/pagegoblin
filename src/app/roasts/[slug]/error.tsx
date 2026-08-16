@@ -2,6 +2,8 @@
 
 import { motion } from "motion/react";
 import { GoblinMascot } from "@/components/brand/goblin-mascot";
+import { SiteHeader } from "@/components/layout/site-header";
+import { SiteFooter } from "@/components/layout/site-footer";
 
 export default function RoastError({
   reset,
@@ -10,7 +12,9 @@ export default function RoastError({
   reset: () => void;
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-parchment px-6">
+    <>
+    <SiteHeader />
+    <main className="flex min-h-[75vh] flex-col items-center justify-center bg-parchment px-6">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -34,6 +38,8 @@ export default function RoastError({
           Drag it back
         </motion.button>
       </motion.div>
-    </div>
+    </main>
+    <SiteFooter />
+    </>
   );
 }

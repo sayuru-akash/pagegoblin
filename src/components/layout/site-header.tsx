@@ -6,11 +6,9 @@ import { motion } from "motion/react";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const navLinks = [
-  { href: "/analyze", label: "Analyze" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/examples", label: "Examples" },
   { href: "/support", label: "Support" },
-  { href: "/privacy", label: "Privacy" },
 ];
 
 export function SiteHeader() {

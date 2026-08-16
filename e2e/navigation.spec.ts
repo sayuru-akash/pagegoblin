@@ -13,9 +13,9 @@ test.describe("Navigation", () => {
     await expect(page).toHaveURL(/\/privacy/);
   });
 
-  test("roast a page CTA navigates", async ({ page }) => {
+  test("roast my page CTA navigates", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /roast a page/i }).first().click();
+    await page.getByRole("link", { name: /roast my page/i }).first().click();
     await expect(page).toHaveURL(/\/analyze|\/$/);
   });
 });

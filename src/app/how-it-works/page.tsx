@@ -16,7 +16,7 @@ import { Badge } from "@/components/ui/badge";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
-import { UrlRoastForm } from "@/components/roast/url-roast-form";
+import { FinalRoastCta } from "@/components/layout/final-roast-cta";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 
 export const metadata: Metadata = {
@@ -258,24 +258,7 @@ export default function HowItWorksPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="w-full border-t border-border bg-bone/40 px-6 py-24 text-center">
-          <div className="mx-auto max-w-2xl">
-            <Reveal>
-              <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Ready to let the beast loose?
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mx-auto mt-4 max-w-lg text-muted">
-                Throw me the link. I already smell a weak button.
-              </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <UrlRoastForm variant="hero" className="mt-10" />
-            </Reveal>
-          </div>
-        </section>
+        <FinalRoastCta />
       </main>
       <SiteFooter />
     </>

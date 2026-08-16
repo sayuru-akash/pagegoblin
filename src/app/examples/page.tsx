@@ -9,6 +9,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { ScoreOrb } from "@/components/ui/score-orb";
 import { Reveal } from "@/components/motion/reveal";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { FinalRoastCta } from "@/components/layout/final-roast-cta";
 
 export const metadata: Metadata = {
   title: "Website Roasts PageGoblin Dragged Out",
@@ -223,30 +224,7 @@ export default function ExamplesPage() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="w-full border-t border-border bg-bone/40 px-6 py-24 text-center">
-          <div className="mx-auto max-w-2xl">
-            <Reveal>
-              <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-                Want me crawling through your page?
-              </h2>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mx-auto mt-4 max-w-lg text-muted">
-                Throw me the URL. I will bring back every loose bone.
-              </p>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <Link
-                href="/analyze"
-                className="mt-10 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-goblin px-8 text-sm font-semibold text-white shadow-goblin transition-colors hover:bg-goblin-dark"
-              >
-                Roast my page
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Reveal>
-          </div>
-        </section>
+        <FinalRoastCta />
       </main>
       <SiteFooter />
     </>

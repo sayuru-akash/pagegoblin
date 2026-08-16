@@ -1,0 +1,672 @@
+.page {
+  --extension-black: #020402;
+  --extension-surface: #0c1009;
+  --extension-panel: #12180d;
+  --extension-line: rgba(185, 214, 59, 0.26);
+  --extension-lime: #b9d63b;
+  --extension-lime-bright: #d1eb4f;
+  --extension-ink: #f5f5ed;
+  --extension-muted: #aaa99f;
+  overflow: hidden;
+  background: var(--extension-black);
+  color: var(--extension-ink);
+}
+
+.page * {
+  box-sizing: border-box;
+}
+
+.hero {
+  position: relative;
+  display: grid;
+  min-height: min(820px, calc(100svh - 72px));
+  grid-template-columns: minmax(0, 0.9fr) minmax(520px, 1.1fr);
+  align-items: center;
+  border-bottom: 1px solid var(--extension-line);
+  background:
+    radial-gradient(circle at 78% 52%, rgba(145, 171, 42, 0.2), transparent 31%),
+    linear-gradient(115deg, rgba(31, 42, 18, 0.48), transparent 45%);
+  padding: clamp(4.5rem, 8vw, 8rem) max(2rem, calc((100vw - 1320px) / 2));
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(187, 212, 61, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(187, 212, 61, 0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(90deg, black, transparent 72%);
+  pointer-events: none;
+}
+
+.heroCopy {
+  position: relative;
+  z-index: 3;
+  max-width: 670px;
+}
+
+.extensionTag,
+.eyebrow,
+.sectionIntro > p,
+.installBand > div > p {
+  color: var(--extension-lime-bright);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.extensionTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--extension-line);
+  background: rgba(20, 28, 12, 0.72);
+  padding: 0.6rem 0.75rem;
+}
+
+.extensionTag svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.hero h1,
+.sectionIntro h2,
+.benefitsCopy h2,
+.installBand h2 {
+  margin: 0;
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(4.5rem, 7.5vw, 8.5rem);
+  line-height: 0.85;
+}
+
+.hero h1 span {
+  display: block;
+  color: var(--extension-lime-bright);
+}
+
+.heroLead {
+  max-width: 590px;
+  margin: 1.8rem 0 0;
+  color: #cfcec4;
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
+}
+
+.heroActions,
+.installActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem 1.25rem;
+  margin-top: 2rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
+  min-height: 3.2rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border-radius: 0.25rem;
+  padding: 0.8rem 1.1rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.primaryButton {
+  border: 1px solid var(--extension-lime-bright);
+  background: var(--extension-lime);
+  color: #101403;
+  box-shadow: 0 8px 26px rgba(160, 192, 43, 0.16);
+}
+
+.secondaryButton {
+  border: 1px solid var(--extension-line);
+  color: var(--extension-ink);
+}
+
+.primaryButton svg,
+.secondaryButton svg,
+.textLink svg {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+}
+
+.textLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--extension-ink);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-underline-offset: 0.25rem;
+}
+
+.heroNote {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 1rem 0 0;
+  color: var(--extension-muted);
+  font-size: 0.78rem;
+}
+
+.heroNote svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--extension-lime-bright);
+}
+
+.heroVisual {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.heroGoblin {
+  position: absolute;
+  inset: 50% auto auto 49%;
+  width: min(820px, 64vw);
+  max-width: none;
+  height: auto;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  filter: saturate(0.88) contrast(1.05);
+}
+
+.popupPreview {
+  position: absolute;
+  right: 1%;
+  bottom: 9%;
+  width: min(390px, 48%);
+  overflow: hidden;
+  border: 1px solid rgba(210, 235, 79, 0.72);
+  border-radius: 0.45rem;
+  background: #f7f7f4;
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.5), 0 0 38px rgba(174, 205, 54, 0.14);
+  transform: rotate(1.5deg);
+}
+
+.popupImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.stepsSection,
+.screensSection,
+.benefitsSection,
+.privacySection,
+.faqSection {
+  padding: clamp(5rem, 9vw, 8rem) max(1.25rem, calc((100vw - 1180px) / 2));
+}
+
+.stepsSection,
+.benefitsSection,
+.faqSection {
+  background: var(--extension-black);
+}
+
+.screensSection,
+.privacySection {
+  border-block: 1px solid var(--extension-line);
+  background: linear-gradient(180deg, rgba(26, 34, 17, 0.74), rgba(8, 11, 6, 0.94));
+}
+
+.sectionIntro {
+  max-width: 850px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.sectionIntro > p,
+.eyebrow {
+  margin: 0 0 0.75rem;
+}
+
+.sectionIntro h2,
+.benefitsCopy h2,
+.installBand h2 {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.94;
+}
+
+.privacyLead {
+  margin-top: 1rem;
+  color: var(--extension-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.steps {
+  display: grid;
+  max-width: 1180px;
+  margin: 4rem auto 0;
+  padding: 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--extension-line);
+  list-style: none;
+}
+
+.steps li {
+  position: relative;
+  min-height: 300px;
+  padding: 2rem;
+}
+
+.steps li + li {
+  border-left: 1px solid var(--extension-line);
+}
+
+.steps li > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: 4.6rem;
+  color: var(--extension-lime-bright);
+}
+
+.stepNumber {
+  position: absolute;
+  top: 1.6rem;
+  right: 1.7rem;
+  color: rgba(209, 235, 79, 0.22);
+  font-family: var(--font-anton), Impact, sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.steps h3,
+.privacyGrid h3 {
+  margin: 1rem 0 0;
+  color: var(--extension-ink);
+  font-size: 1.08rem;
+}
+
+.steps p,
+.privacyGrid p {
+  margin: 0.6rem 0 0;
+  color: var(--extension-muted);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+
+.screenshotRail {
+  display: grid;
+  max-width: 1320px;
+  margin: 4rem auto 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.screenshotCard {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--extension-line);
+  background: #090c07;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.screenshotCard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
+.screenshotCard figcaption {
+  border-top: 1px solid var(--extension-line);
+  padding: 0.9rem 1rem;
+  color: #cfcec4;
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.benefitsSection {
+  display: grid;
+  max-width: 1320px;
+  margin-inline: auto;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(3rem, 8vw, 8rem);
+  align-items: start;
+}
+
+.benefitsCopy {
+  position: sticky;
+  top: 130px;
+}
+
+.benefitsCopy > p:last-child {
+  max-width: 540px;
+  margin: 1.35rem 0 0;
+  color: var(--extension-muted);
+  line-height: 1.7;
+}
+
+.benefitList {
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--extension-line);
+  list-style: none;
+}
+
+.benefitList li {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 1rem;
+  align-items: start;
+  border-bottom: 1px solid var(--extension-line);
+  padding: 1.55rem 0;
+  color: #e0dfd6;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  line-height: 1.5;
+}
+
+.benefitList span {
+  color: var(--extension-lime);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: 0.72rem;
+}
+
+.privacyGrid {
+  display: grid;
+  max-width: 1180px;
+  margin: 4rem auto 2rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--extension-line);
+  border-left: 1px solid var(--extension-line);
+}
+
+.privacyGrid article {
+  display: grid;
+  min-height: 180px;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 1rem;
+  border-right: 1px solid var(--extension-line);
+  border-bottom: 1px solid var(--extension-line);
+  padding: 1.6rem;
+}
+
+.privacyGrid article > svg {
+  width: 1.45rem;
+  height: 1.45rem;
+  margin-top: 0.8rem;
+  color: var(--extension-lime-bright);
+}
+
+.privacySection > .textLink {
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.faqList {
+  max-width: 860px;
+  margin: 3.5rem auto 0;
+  border-top: 1px solid var(--extension-line);
+}
+
+.faqList details {
+  border-bottom: 1px solid var(--extension-line);
+}
+
+.faqList summary {
+  cursor: pointer;
+  padding: 1.35rem 2.75rem 1.35rem 0;
+  color: var(--extension-ink);
+  font-size: 1rem;
+  font-weight: 750;
+}
+
+.faqList p {
+  max-width: 740px;
+  margin: -0.3rem 0 1.45rem;
+  color: var(--extension-muted);
+  line-height: 1.7;
+}
+
+.installBand {
+  display: flex;
+  width: min(1180px, calc(100% - 2.5rem));
+  margin: 0 auto clamp(4rem, 8vw, 7rem);
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border: 1px solid rgba(209, 235, 79, 0.65);
+  background:
+    radial-gradient(circle at 12% 120%, rgba(190, 220, 55, 0.2), transparent 34%),
+    #141b0d;
+  padding: clamp(2rem, 5vw, 4rem);
+}
+
+.installBand h2 {
+  max-width: 650px;
+  margin-top: 0.45rem;
+  font-size: clamp(2.7rem, 5vw, 5rem);
+}
+
+.installActions {
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .primaryButton:hover,
+  .secondaryButton:hover {
+    transform: translateY(-2px);
+  }
+
+  .primaryButton:hover {
+    background: var(--extension-lime-bright);
+    box-shadow: 0 12px 34px rgba(176, 210, 47, 0.24);
+  }
+
+  .secondaryButton:hover,
+  .screenshotCard:hover {
+    border-color: rgba(209, 235, 79, 0.65);
+  }
+
+  .textLink:hover {
+    color: var(--extension-lime-bright);
+    text-decoration: underline;
+  }
+
+  .screenshotCard:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.page a:focus-visible,
+.page summary:focus-visible {
+  outline: 2px solid var(--extension-lime-bright);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+  .hero {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    padding: 6rem 2rem 2rem;
+  }
+
+  .heroCopy {
+    max-width: 760px;
+  }
+
+  .heroVisual {
+    min-height: 620px;
+    margin-top: -1rem;
+  }
+
+  .heroGoblin {
+    width: min(860px, 105vw);
+  }
+
+  .popupPreview {
+    right: 3%;
+    bottom: 6%;
+    width: min(400px, 54%);
+  }
+
+  .benefitsSection {
+    grid-template-columns: 1fr;
+  }
+
+  .benefitsCopy {
+    position: static;
+  }
+
+  .installBand {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .installActions {
+    width: 100%;
+    flex-direction: row;
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    padding: 4.5rem 1.25rem 1rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(4rem, 19vw, 6.2rem);
+  }
+
+  .heroActions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+
+  .heroActions .textLink {
+    align-self: center;
+  }
+
+  .heroVisual {
+    min-height: 480px;
+    margin-inline: -1.25rem;
+  }
+
+  .heroGoblin {
+    inset: 48% auto auto 50%;
+    width: 148vw;
+  }
+
+  .popupPreview {
+    right: 5%;
+    bottom: 4%;
+    width: 63%;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+  }
+
+  .steps li {
+    min-height: 250px;
+  }
+
+  .steps li + li {
+    border-top: 1px solid var(--extension-line);
+    border-left: 0;
+  }
+
+  .screenshotRail {
+    display: flex;
+    width: calc(100vw - 1.25rem);
+    margin-left: -0.1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: thin;
+    scrollbar-color: var(--extension-lime) transparent;
+    padding-bottom: 0.75rem;
+  }
+
+  .screenshotCard {
+    width: 86vw;
+    max-width: 460px;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  .privacyGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .installActions {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 430px) {
+  .stepsSection,
+  .screensSection,
+  .benefitsSection,
+  .privacySection,
+  .faqSection {
+    padding-inline: 1rem;
+  }
+
+  .sectionIntro h2,
+  .benefitsCopy h2 {
+    font-size: clamp(2.9rem, 15vw, 4rem);
+  }
+
+  .heroVisual {
+    min-height: 420px;
+  }
+
+  .popupPreview {
+    width: 70%;
+  }
+
+  .privacyGrid article {
+    grid-template-columns: 1.8rem 1fr;
+    padding: 1.25rem;
+  }
+
+  .installBand {
+    width: calc(100% - 2rem);
+    padding: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primaryButton,
+  .secondaryButton,
+  .screenshotCard {
+    transition: none;
+  }
+}

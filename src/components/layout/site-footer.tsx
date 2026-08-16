@@ -2,6 +2,7 @@ import Link from "next/link";
 import { GoblinLogo } from "@/components/brand/goblin-logo";
 
 const footerLinks = [
+  { href: "/extension", label: "Chrome extension" },
   { href: "/analyze", label: "Let me at a page" },
   { href: "/how-it-works", label: "How it works" },
   { href: "/examples", label: "Examples" },

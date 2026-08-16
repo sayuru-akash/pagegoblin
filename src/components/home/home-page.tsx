@@ -12,6 +12,7 @@ import {
 import { Anton, Cinzel } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
+import { FinalRoastCta } from "@/components/layout/final-roast-cta";
 import { HomeRoastForm } from "./home-roast-form";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import styles from "./home-page.module.css";
@@ -403,24 +404,7 @@ export function HomePage() {
           </div>
         </section>
 
-        <section className={styles.finalCtaSection}>
-          <div className={`${styles.container} ${styles.finalCta}`}>
-            <SectionHeading
-              title="Go on. Feed me"
-              accent="the page."
-              description="I can already smell a weak button. Let me loose."
-            />
-            <HomeRoastForm />
-            <Image
-              src="/images/home/goblin-peek.png"
-              alt=""
-              width={408}
-              height={408}
-              sizes="220px"
-              className={styles.finalGoblin}
-            />
-          </div>
-        </section>
+        <FinalRoastCta />
       </main>
 
       </div>

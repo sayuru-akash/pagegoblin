@@ -9,20 +9,13 @@ import {
   UsersRound,
   Zap,
 } from "lucide-react";
-import { Anton, Cinzel } from "next/font/google";
+import { Cinzel } from "next/font/google";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { FinalRoastCta } from "@/components/layout/final-roast-cta";
 import { HomeRoastForm } from "./home-roast-form";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import styles from "./home-page.module.css";
-
-const anton = Anton({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-home-display",
-});
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -189,7 +182,7 @@ export function HomePage() {
   return (
     <>
       <SiteHeader />
-      <div className={`${styles.page} ${anton.variable} ${cinzel.variable}`}>
+      <div className={`${styles.page} ${cinzel.variable}`}>
       <a className={styles.skipLink} href="#main-content">
         Skip to content
       </a>

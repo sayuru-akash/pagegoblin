@@ -15,7 +15,7 @@ export function AdminNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex flex-col gap-1" aria-label="Cave controls">
+    <nav className="flex gap-1 overflow-x-auto lg:flex-col" aria-label="Cave controls">
       {links.map((link) => {
         const isActive =
           link.href === "/admin"
@@ -26,7 +26,7 @@ export function AdminNav() {
             key={link.href}
             href={link.href}
             className={cn(
-              "flex items-center gap-3 border-l px-3 py-2.5 text-sm font-medium transition-colors",
+              "flex shrink-0 items-center gap-3 whitespace-nowrap border-l px-3 py-2.5 text-sm font-medium transition-colors",
               isActive
                 ? "border-goblin bg-goblin/10 text-goblin-light"
                 : "border-transparent text-muted hover:border-border hover:bg-bone hover:text-ink"

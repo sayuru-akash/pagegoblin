@@ -4,6 +4,7 @@ import { useState, useTransition, useCallback, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, CheckCircle2 } from "lucide-react";
+import styles from "./admin.module.css";
 
 interface SettingsData {
   defaultVisibility?: string;
@@ -17,6 +18,7 @@ interface SettingsData {
 export function SettingsForm({ initialSettings }: { initialSettings: SettingsData }) {
   const [settings, setSettings] = useState<SettingsData>(initialSettings);
   const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
@@ -29,15 +31,22 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
   const handleSave = useCallback(
     (key: string, value: unknown) => {
       startTransition(async () => {
-        const res = await fetch("/api/admin/settings", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key, value }),
-        });
+        setError(null);
+        try {
+          const res = await fetch("/api/admin/settings", {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ key, value }),
+          });
 
-        if (res.ok) {
+          if (!res.ok) {
+            setError("The cave spat that change back out.");
+            return;
+          }
           setSettings((prev) => ({ ...prev, [key]: value }));
           setSuccess("The cave kept that change.");
+        } catch {
+          setError("The wire out of the cave went dead.");
         }
       });
     },
@@ -47,13 +56,14 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
   return (
     <div className="space-y-6">
       {success && (
-        <div className="flex items-center gap-2 rounded-lg border border-goblin/30 bg-goblin/10 px-4 py-3 text-sm font-medium text-goblin-dark">
+        <div className={`${styles.notice} flex items-center gap-2 border border-goblin/30 bg-goblin/10 px-4 py-3 text-sm font-medium text-goblin-light`} role="status" aria-live="polite">
           <CheckCircle2 className="h-4 w-4" />
           {success}
         </div>
       )}
+      {error && <div className={`${styles.notice} border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose-light`} role="alert" aria-live="polite">{error}</div>}
 
-      <Card>
+      <Card className={styles.formSection}>
         <CardHeader>
           <CardTitle>Where new roasts may roam</CardTitle>
         </CardHeader>
@@ -64,7 +74,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
           <select
             value={settings.defaultVisibility || "UNLISTED"}
             onChange={(e) => handleSave("defaultVisibility", e.target.value)}
-            className="flex h-11 w-full max-w-xs rounded-xl border border-border bg-bone px-4 text-sm text-ink transition-colors focus:outline-2 focus:outline-goblin focus:outline-offset-2"
+            className="flex h-11 w-full max-w-xs rounded-[0.25rem] border border-border bg-bone px-4 text-sm text-ink transition-colors focus:outline-2 focus:outline-goblin focus:outline-offset-2"
           >
             <option value="PRIVATE">Private</option>
             <option value="UNLISTED">Unlisted</option>
@@ -73,7 +83,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className={styles.formSection}>
         <CardHeader>
           <CardTitle>How much the beast may eat</CardTitle>
         </CardHeader>
@@ -99,7 +109,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className={styles.formSection}>
         <CardHeader>
           <CardTitle>Unchain the bigger goblin</CardTitle>
         </CardHeader>
@@ -121,7 +131,7 @@ export function SettingsForm({ initialSettings }: { initialSettings: SettingsDat
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className={styles.formSection}>
         <CardHeader>
           <CardTitle>Branding</CardTitle>
         </CardHeader>

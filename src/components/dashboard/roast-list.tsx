@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
-import { Eye, EyeOff, Globe, Trash2, ExternalLink } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { ExternalLink, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { DashboardRoast } from "@/lib/dashboard/service";
+import styles from "./dashboard.module.css";
 
 interface RoastListProps {
   roasts: DashboardRoast[];
@@ -14,174 +15,84 @@ interface RoastListProps {
   onDelete: (slug: string) => Promise<void>;
 }
 
-const visibilityOptions = [
-  { value: "PUBLIC", label: "Public", icon: Globe },
-  { value: "UNLISTED", label: "Unlisted", icon: Eye },
-  { value: "PRIVATE", label: "Private", icon: EyeOff },
-] as const;
+const visibilityOptions = ["PUBLIC", "UNLISTED", "PRIVATE"] as const;
 
-function scoreColor(score: number): string {
-  if (score >= 70) return "text-goblin";
-  if (score >= 40) return "text-amber";
-  return "text-rose";
-}
-
-function scoreBadgeVariant(score: number): "goblin" | "warning" | "danger" {
+function scoreVariant(score: number): "goblin" | "warning" | "danger" {
   if (score >= 70) return "goblin";
   if (score >= 40) return "warning";
   return "danger";
 }
 
-function visibilityBadgeVariant(vis: string): "default" | "goblin" | "cave" {
-  if (vis === "PUBLIC") return "goblin";
-  if (vis === "PRIVATE") return "cave";
-  return "default";
-}
-
 function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-  });
+  return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
 }
 
 export function RoastList({ roasts, onUpdateVisibility, onDelete }: RoastListProps) {
-  const [deleting, setDeleting] = useState<string | null>(null);
-  const [updatingVis, setUpdatingVis] = useState<string | null>(null);
+  const [busy, setBusy] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  async function handleDelete(slug: string) {
-    if (deleting) return;
-    setDeleting(slug);
+  async function changeVisibility(slug: string, visibility: string) {
+    if (busy) return;
+    setBusy(slug);
+    setError(null);
     try {
-      await onDelete(slug);
+      await onUpdateVisibility(slug, visibility);
+    } catch {
+      setError("That change slipped out of my claws. Try again.");
     } finally {
-      setDeleting(null);
+      setBusy(null);
     }
   }
 
-  async function handleVisibilityChange(slug: string, visibility: string) {
-    if (updatingVis) return;
-    setUpdatingVis(slug);
+  async function removeRoast(slug: string) {
+    if (busy || !window.confirm("Delete this roast for good?")) return;
+    setBusy(slug);
+    setError(null);
     try {
-      await onUpdateVisibility(slug, visibility);
+      await onDelete(slug);
+    } catch {
+      setError("I could not throw that roast out. Try again.");
     } finally {
-      setUpdatingVis(null);
+      setBusy(null);
     }
   }
 
   if (roasts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-center">
-        <p className="text-lg font-display font-bold text-ink">
-          This cave is empty. I have bitten nothing for you.
-        </p>
-        <p className="mt-2 text-sm text-muted">
-          Throw me a URL and I will fill the shelf.
-        </p>
-        <Link href="/analyze">
-          <Button className="mt-6" variant="primary" size="md">
-            Let me at a page
-          </Button>
-        </Link>
+      <div className={styles.empty}>
+        <strong>The shelf is empty.</strong>
+        <p>Throw me a URL.</p>
+        <Link href="/analyze"><Button className="mt-6">Roast a page</Button></Link>
       </div>
     );
   }
 
   return (
     <>
-      {/* Desktop table */}
-      <div className="hidden md:block">
-        <table className="w-full">
+      {error && <p className={styles.notice} role="alert" aria-live="polite">{error}</p>}
+
+      <div className={styles.desktopTable}>
+        <table className={styles.table}>
           <thead>
-            <tr className="border-b border-border text-left">
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                Page
-              </th>
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                Score
-              </th>
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                First thing I bit
-              </th>
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                Visibility
-              </th>
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                Date
-              </th>
-              <th className="pb-3 text-xs font-medium uppercase tracking-wider text-muted">
-                <span className="sr-only">Actions</span>
-              </th>
-            </tr>
+            <tr><th>Page</th><th>Score</th><th>First bite</th><th>Visibility</th><th>Date</th><th><span className="sr-only">Actions</span></th></tr>
           </thead>
           <tbody>
             <AnimatePresence mode="popLayout">
-              {roasts.map((roast, i) => (
-                <motion.tr
-                  key={roast.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
-                  transition={{ duration: 0.3, delay: i * 0.05 }}
-                  className="group border-b border-border/50 transition-colors hover:bg-bone/50"
-                >
-                  <td className="py-4 pr-4">
-                    <Link
-                      href={`/roasts/${roast.slug}`}
-                      className="flex items-center gap-2 text-sm font-medium text-ink hover:text-goblin transition-colors"
-                    >
-                      {roast.domain}
-                      <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </Link>
-                    {roast.title && (
-                      <p className="mt-0.5 text-xs text-muted line-clamp-1">
-                        {roast.title}
-                      </p>
-                    )}
+              {roasts.map((roast, index) => (
+                <motion.tr key={roast.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.22, delay: index * 0.025 }}>
+                  <td>
+                    <Link href={`/roasts/${roast.slug}`} className={styles.domain}>{roast.domain}<ExternalLink aria-hidden="true" /></Link>
+                    {roast.title && <p className={styles.title}>{roast.title}</p>}
                   </td>
-                  <td className="py-4 pr-4">
-                    <Badge variant={scoreBadgeVariant(roast.score)}>
-                      <span className={scoreColor(roast.score)}>{roast.score}</span>
-                    </Badge>
-                  </td>
-                  <td className="py-4 pr-4">
-                    <p className="text-sm text-muted line-clamp-1 max-w-[200px]">
-                      {roast.biggestCrime}
-                    </p>
-                  </td>
-                  <td className="py-4 pr-4">
-                    <select
-                      value={roast.visibility}
-                      onChange={(e) =>
-                        handleVisibilityChange(roast.slug, e.target.value)
-                      }
-                      disabled={updatingVis === roast.slug}
-                      className="rounded-lg border border-border bg-parchment px-2 py-1 text-xs font-medium text-ink focus-goblin disabled:opacity-50 cursor-pointer"
-                    >
-                      {visibilityOptions.map((opt) => (
-                        <option key={opt.value} value={opt.value}>
-                          {opt.label}
-                        </option>
-                      ))}
+                  <td><Badge variant={scoreVariant(roast.score)}>{roast.score}/100</Badge></td>
+                  <td><span className={styles.crime}>{roast.biggestCrime}</span></td>
+                  <td>
+                    <select className={styles.select} value={roast.visibility} onChange={(event) => changeVisibility(roast.slug, event.target.value)} disabled={busy === roast.slug} aria-label={`Visibility for ${roast.domain}`}>
+                      {visibilityOptions.map((value) => <option value={value} key={value}>{value.charAt(0) + value.slice(1).toLowerCase()}</option>)}
                     </select>
                   </td>
-                  <td className="py-4 pr-4">
-                    <span className="text-xs text-muted">
-                      {formatDate(roast.createdAt)}
-                    </span>
-                  </td>
-                  <td className="py-4">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(roast.slug)}
-                      disabled={deleting === roast.slug}
-                      className="opacity-0 group-hover:opacity-100 transition-opacity text-rose hover:text-rose"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </td>
+                  <td className="text-xs text-muted">{formatDate(roast.createdAt)}</td>
+                  <td><Button variant="ghost" size="sm" onClick={() => removeRoast(roast.slug)} disabled={busy === roast.slug} aria-label={`Delete roast for ${roast.domain}`}><Trash2 size={15} /></Button></td>
                 </motion.tr>
               ))}
             </AnimatePresence>
@@ -189,57 +100,23 @@ export function RoastList({ roasts, onUpdateVisibility, onDelete }: RoastListPro
         </table>
       </div>
 
-      {/* Mobile cards */}
-      <div className="md:hidden space-y-3">
+      <div className={styles.mobileList}>
         <AnimatePresence mode="popLayout">
-          {roasts.map((roast, i) => (
-            <motion.div
-              key={roast.id}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
-              className="goblin-card p-4"
-            >
-              <div className="flex items-start justify-between">
-                <Link
-                  href={`/roasts/${roast.slug}`}
-                  className="text-sm font-medium text-ink hover:text-goblin transition-colors"
-                >
-                  {roast.domain}
-                </Link>
-                <Badge variant={scoreBadgeVariant(roast.score)}>
-                  <span className={scoreColor(roast.score)}>{roast.score}</span>
-                </Badge>
+          {roasts.map((roast, index) => (
+            <motion.article className={styles.mobileCard} key={roast.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.22, delay: index * 0.025 }}>
+              <div className={styles.mobileTop}>
+                <Link href={`/roasts/${roast.slug}`} className={styles.domain}>{roast.domain}</Link>
+                <Badge variant={scoreVariant(roast.score)}>{roast.score}/100</Badge>
               </div>
-              {roast.title && (
-                <p className="mt-1 text-xs text-muted line-clamp-1">
-                  {roast.title}
-                </p>
-              )}
-              <p className="mt-2 text-xs text-muted line-clamp-1">
-                {roast.biggestCrime}
-              </p>
-              <div className="mt-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Badge variant={visibilityBadgeVariant(roast.visibility)}>
-                    {roast.visibility.toLowerCase()}
-                  </Badge>
-                  <span className="text-xs text-muted">
-                    {formatDate(roast.createdAt)}
-                  </span>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => handleDelete(roast.slug)}
-                  disabled={deleting === roast.slug}
-                  className="text-rose hover:text-rose"
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
+              <p className="my-3 text-sm text-muted">{roast.biggestCrime}</p>
+              <div className={styles.mobileBottom}>
+                <select className={styles.select} value={roast.visibility} onChange={(event) => changeVisibility(roast.slug, event.target.value)} disabled={busy === roast.slug} aria-label={`Visibility for ${roast.domain}`}>
+                  {visibilityOptions.map((value) => <option value={value} key={value}>{value.charAt(0) + value.slice(1).toLowerCase()}</option>)}
+                </select>
+                <span className="text-xs text-muted">{formatDate(roast.createdAt)}</span>
+                <Button variant="ghost" size="sm" onClick={() => removeRoast(roast.slug)} disabled={busy === roast.slug} aria-label={`Delete roast for ${roast.domain}`}><Trash2 size={15} /></Button>
               </div>
-            </motion.div>
+            </motion.article>
           ))}
         </AnimatePresence>
       </div>

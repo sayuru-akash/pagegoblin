@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { Shield, Crosshair, FileWarning, Users } from "lucide-react";
+import { Crosshair, FileWarning, LockKeyhole, Shield, Users, Zap } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { GoblinMascot } from "@/components/brand/goblin-mascot";
+import { InnerHero, SectionIntro } from "@/components/layout/inner-page";
 import { UrlRoastForm } from "@/components/roast/url-roast-form";
 import { Reveal } from "@/components/motion/reveal";
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import { getAppSettings } from "@/lib/admin/service";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import { createPageMetadata } from "@/lib/seo";
+import styles from "@/styles/public-pages.module.css";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Throw Me a Website and Let Me Loose",
@@ -20,92 +19,50 @@ export const metadata: Metadata = createPageMetadata({
   keywords: ["analyze my website", "website roast tool", "website conversion audit", "landing page analyzer", "CTA checker"],
 });
 
-
 const criteria = [
-  {
-    icon: Shield,
-    title: CATEGORY_COPY.trustTax.label,
-    description: CATEGORY_COPY.trustTax.description,
-  },
-  {
-    icon: Crosshair,
-    title: CATEGORY_COPY.ctaCorpse.label,
-    description: CATEGORY_COPY.ctaCorpse.description,
-  },
-  {
-    icon: FileWarning,
-    title: CATEGORY_COPY.fluffDamage.label,
-    description: CATEGORY_COPY.fluffDamage.description,
-  },
-  {
-    icon: Users,
-    title: CATEGORY_COPY.buyerConfusionLevel.label,
-    description: CATEGORY_COPY.buyerConfusionLevel.description,
-  },
+  { icon: Shield, ...CATEGORY_COPY.trustTax },
+  { icon: Crosshair, ...CATEGORY_COPY.ctaCorpse },
+  { icon: FileWarning, ...CATEGORY_COPY.fluffDamage },
+  { icon: Users, ...CATEGORY_COPY.buyerConfusionLevel },
+  { icon: Zap, ...CATEGORY_COPY.conversionFriction },
 ];
 
 export default async function AnalyzePage() {
   const settings = await getAppSettings();
-  const aiAvailable = settings.aiModeEnabled === true;
 
   return (
     <>
       <SiteHeader />
-      <main className="cave-page flex flex-1 flex-col items-center bg-grain">
-        <section className="flex w-full flex-col items-center px-6 pt-24 pb-16 text-center">
-          <div className="mx-auto max-w-2xl">
-            <Reveal>
-              <GoblinMascot className="mx-auto mb-8" />
-            </Reveal>
-
-            <Reveal delay={0.1}>
-              <h1 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-ink sm:text-7xl">
-                Throw me a <span className="text-goblin-dark">URL.</span>
-              </h1>
-            </Reveal>
-
-            <Reveal delay={0.15}>
-              <p className="mx-auto mt-4 max-w-lg text-lg leading-relaxed text-muted">
-                Give me any public page. I&apos;ll crawl inside, sniff out the weak
-                bits, and drag the fixes back to you.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <UrlRoastForm variant="standalone" className="mt-10 mx-auto" aiAvailable={aiAvailable} />
-            </Reveal>
-
-            <Reveal delay={0.25}>
-              <p className="mt-6 text-xs text-muted">
-                No signup. No waiting. Your report stays private unless you share it.
-              </p>
-            </Reveal>
+      <main className={`${styles.page} bg-grain`}>
+        <InnerHero
+          label="Analyze"
+          title={<>Drop a link. <span>Get eaten.</span></>}
+          description="Paste a public page. I will drag every weak spot into the light."
+          image
+        >
+          <div className={styles.heroForm}>
+            <UrlRoastForm variant="standalone" aiAvailable={settings.aiModeEnabled === true} />
           </div>
-        </section>
+          <p className={styles.privacyNote}>
+            <LockKeyhole aria-hidden="true" size={14} />
+            No signup. Reports stay unlisted unless you change them.
+          </p>
+        </InnerHero>
 
-        <section className="w-full border-t border-border bg-bone/40 px-6 py-20">
-          <div className="mx-auto max-w-3xl">
-            <Reveal>
-              <h2 className="text-center font-display text-2xl font-bold text-ink">
-                What I sink my teeth into
-              </h2>
+        <section className={styles.section}>
+          <div className={styles.inner}>
+            <SectionIntro label="Five trails" title="What I hunt" />
+            <Reveal delay={0.08}>
+              <div className={styles.criteria}>
+                {criteria.map((item) => (
+                  <article className={styles.criterion} key={item.label}>
+                    <item.icon aria-hidden="true" />
+                    <h3>{item.label}</h3>
+                    <p>{item.description}</p>
+                  </article>
+                ))}
+              </div>
             </Reveal>
-
-            <Stagger className="mt-10 grid gap-4 sm:grid-cols-2" staggerDelay={0.08}>
-              {criteria.map((item) => (
-                <StaggerItem key={item.title} className="h-full">
-                  <Card className="h-full">
-                    <CardHeader>
-                      <div className="mb-2 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-goblin/15 text-goblin">
-                        <item.icon className="h-4 w-4" />
-                      </div>
-                      <CardTitle className="text-base">{item.title}</CardTitle>
-                      <CardDescription>{item.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </StaggerItem>
-              ))}
-            </Stagger>
           </div>
         </section>
       </main>

@@ -1,10 +1,10 @@
 "use client";
 
 import { Wrench } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Stagger, StaggerItem } from "@/components/motion/stagger";
 import type { UsefulFix, Priority, Effort } from "@/lib/analysis";
+import styles from "./report.module.css";
 
 const priorityVariant: Record<Priority, "danger" | "warning" | "default"> = {
   urgent: "danger",
@@ -35,8 +35,8 @@ const effortDots: Record<Effort, number> = {
 export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
   if (fixes.length === 0) {
     return (
-      <Card>
-        <CardContent className="flex flex-col items-center gap-3 py-8 text-center">
+      <div className={styles.verdict}>
+        <div className="flex flex-col items-center gap-3 text-center">
           <Wrench className="h-8 w-8 text-goblin" />
           <p className="font-display text-lg font-bold text-ink">
             No big fixes. You escaped my teeth.
@@ -44,28 +44,26 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
           <p className="text-sm text-muted">
             Keep watching the page as it grows. I may find a loose bone next time.
           </p>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
   }
 
   return (
     <Stagger staggerDelay={0.08}>
-      <div className="space-y-3">
+      <div className={styles.list}>
         {fixes.map((fix, i) => (
           <StaggerItem key={i}>
-            <Card>
-              <CardContent>
-                <div className="flex flex-wrap items-start justify-between gap-2">
-                  <h3 className="font-display text-base font-bold text-goblin-dark">
+            <article className={styles.listRow}>
+                <div className={styles.listTop}>
+                  <h3 className="text-goblin-light">
                     {fix.title}
                   </h3>
                   <div className="flex items-center gap-2">
                     <Badge variant={priorityVariant[fix.priority]}>
                       {priorityLabel[fix.priority]}
                     </Badge>
-                    <div
-                      className="flex items-center gap-1"
+                    <div className={styles.effort}
                       title={`How much work: ${effortLabel[fix.effort]}`}
                     >
                       {[1, 2, 3].map((dot) => (
@@ -84,11 +82,10 @@ export function FixesList({ fixes }: { fixes: UsefulFix[] }) {
                     </div>
                   </div>
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
+                <p>
                   {fix.detail}
                 </p>
-              </CardContent>
-            </Card>
+            </article>
           </StaggerItem>
         ))}
       </div>

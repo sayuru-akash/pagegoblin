@@ -50,20 +50,18 @@ function SignInForm() {
     <>
       <SiteHeader />
       <AuthFrame
-        title={<>Back to the cave, <span className="text-goblin-dark">are you?</span></>}
-        description="Good. Your old roasts are still scratching at the walls. Open the stash and see what survived."
+        title={<>Sign <span>in.</span></>}
+        description="Your roast pile is still scratching at the walls."
       >
-          <Card className="w-full bg-transparent shadow-none hover:translate-y-0 hover:shadow-none">
-            <CardHeader>
-              <CardTitle>Open your roast stash</CardTitle>
-              <CardDescription>
-                Give me the email and password tied to your cave.
-              </CardDescription>
+          <Card className="w-full border-0 bg-transparent p-0 shadow-none hover:translate-y-0 hover:shadow-none">
+            <CardHeader className="sr-only">
+              <CardTitle>Sign in</CardTitle>
+              <CardDescription>Enter your account details.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {error && (
-                  <div className="rounded-lg bg-rose/10 border border-rose/30 px-4 py-3 text-sm text-rose">
+                  <div role="alert" aria-live="polite" className="border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
                     {error}
                   </div>
                 )}
@@ -75,7 +73,7 @@ function SignInForm() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="goblin@example.com"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -90,7 +88,7 @@ function SignInForm() {
                   <Input
                     id="password"
                     type="password"
-                    placeholder="Your cave password"
+                    placeholder="Your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -106,7 +104,7 @@ function SignInForm() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Sniffing the key...
+                      Opening the cave...
                     </>
                   ) : (
                     "Sign in"
@@ -115,16 +113,16 @@ function SignInForm() {
               </form>
 
               <div className="mt-6 border-t border-border pt-5 text-center text-sm text-muted">
-                Don&apos;t have an account?{" "}
+                New here?{" "}
                 <Link href="/signup" className="font-medium text-goblin hover:text-goblin-dark transition-colors">
-                  Dig out a new cave
+                  Create account
                 </Link>
               </div>
             </CardContent>
           </Card>
           <div className="mt-5 text-center">
             <Link href="/analyze" className="text-sm text-muted transition-colors hover:text-goblin-light">
-              Skip the cave and roast a page →
+              Skip this. Roast a page.
             </Link>
           </div>
       </AuthFrame>

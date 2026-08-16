@@ -1,12 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { SectionHeading } from "@/components/ui/section-heading";
 import { ReportMeta } from "@/components/report/report-meta";
-import { ScoreHero } from "@/components/report/score-hero";
 import { CategoryScoresGrid } from "@/components/report/category-scores-grid";
 import { WarningsPanel } from "@/components/report/warnings-panel";
 import { ComplaintsList } from "@/components/report/complaints-list";
@@ -14,120 +11,83 @@ import { FixesList } from "@/components/report/fixes-list";
 import { VerdictCard } from "@/components/report/verdict-card";
 import { ShareSection } from "@/components/report/share-section";
 import type { ReportPayload } from "@/lib/reports/types";
+import styles from "./report.module.css";
+
+function SectionHead({ id, label, title }: { id: string; label: string; title: string }) {
+  return (
+    <Reveal>
+      <div className={styles.sectionHead}>
+        <span>{label}</span>
+        <h2 id={id}>{title}</h2>
+      </div>
+    </Reveal>
+  );
+}
 
 export function ReportView({ payload }: { payload: ReportPayload }) {
   const { report, links } = payload;
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10 sm:px-6 sm:py-14">
-      <div className="flex flex-col gap-14 sm:gap-20">
-        <header className="relative overflow-hidden border border-border bg-cave/60 px-5 py-8 sm:px-8 sm:py-10 lg:min-h-[360px] lg:pr-[42%]">
-          <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[46%] lg:block">
-            <Image src="/images/home/hero-goblin-v2.webp" alt="" fill sizes="520px" className="object-cover object-[62%_center] opacity-75" />
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,#050704_0%,transparent_48%),linear-gradient(0deg,#050704_0%,transparent_35%)]" />
-          </div>
-          <div className="relative z-10">
-          <Reveal>
-            <div className="mb-6">
-              {report.title && (
-                <h1 className="mb-3 font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-                  {report.title}
-                </h1>
+    <div className={styles.shell}>
+      <article className={styles.report}>
+        <Reveal>
+          <header className={styles.hero}>
+            <div className={styles.heroMain}>
+              <Link href="/dashboard" className={styles.back}><ArrowLeft size={14} /> Back to roast pile</Link>
+              <h1>{report.title || "Roast report"}</h1>
+              <div className={styles.meta}><ReportMeta report={report} /></div>
+              {report.roastMode === "AI_ASSISTED" && (
+                <span className={styles.ai} title="AI shaped the writing. Page clues still make the score."><Sparkles size={13} /> Extra wild roast</span>
               )}
-              <div className="flex items-center gap-3">
-                <ReportMeta report={report} />
-                {report.roastMode === "AI_ASSISTED" && (
-                  <span
-                    className="inline-flex items-center gap-1.5 rounded-full border border-goblin/30 bg-goblin/10 px-3 py-1 text-xs font-medium text-goblin-dark"
-                    title="AI helped me shape the words. The score still comes from the page clues I found."
-                  >
-                    <Sparkles className="h-3 w-3" />
-                    Extra wild AI roast
-                  </span>
-                )}
+            </div>
+            <div className={styles.side}>
+              <div className={styles.score}>
+                <p className={styles.micro}>My score</p>
+                <strong>{report.score}</strong><span>/100</span>
+              </div>
+              <div className={styles.crime}>
+                <p className={styles.micro}>First thing I bit</p>
+                <strong>{report.biggestCrime}</strong>
+                <blockquote>{report.verdict}</blockquote>
               </div>
             </div>
-          </Reveal>
-            <ScoreHero report={report} />
-          </div>
-        </header>
+          </header>
+        </Reveal>
 
         <section aria-labelledby="category-scores">
-          <Reveal>
-            <SectionHeading
-              eyebrow="I sniffed five trails"
-              title="Here is where the page fought back"
-              description="Higher is better. A low score means I found plenty to bite."
-              align="left"
-              className="mb-8"
-            />
-          </Reveal>
+          <SectionHead id="category-scores" label="Five trails" title="Where the page fought back" />
           <CategoryScoresGrid scores={report.categoryScores} />
         </section>
 
         {report.warnings.length > 0 && (
           <section aria-labelledby="warnings">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Wait. My nose caught something."
-                title="Read this before the roast"
-                align="left"
-                className="mb-6"
-              />
-            </Reveal>
+            <SectionHead id="warnings" label="Heads up" title="Read this first" />
             <WarningsPanel warnings={report.warnings} />
           </section>
         )}
 
         <section aria-labelledby="complaints">
-          <Reveal>
-            <SectionHeading
-              eyebrow="I found the mess"
-              title="Here is what made me howl"
-              description="The loudest problems come first. I left the tiny scratches for later."
-              align="left"
-              className="mb-8"
-            />
-          </Reveal>
+          <SectionHead id="complaints" label="The mess" title="What made me howl" />
           <ComplaintsList complaints={report.goblinComplaints} />
         </section>
 
         <section aria-labelledby="fixes">
-          <Reveal>
-            <SectionHeading
-              eyebrow="Now clean it up"
-              title="Fix these before I come back"
-              description="Start at the top. Each step tells you what to change and where."
-              align="left"
-              className="mb-8"
-            />
-          </Reveal>
+          <SectionHead id="fixes" label="The way out" title="Fix these first" />
           <FixesList fixes={report.actuallyUsefulFixes} />
         </section>
 
-        <section aria-labelledby="verdict">
-          <VerdictCard verdict={report.verdict} />
-        </section>
-
-        <section aria-labelledby="share">
-          <ShareSection report={report} links={links} />
-        </section>
+        <section aria-label="Final verdict"><VerdictCard verdict={report.verdict} /></section>
+        <section aria-label="Share this report"><ShareSection report={report} links={links} /></section>
 
         <Reveal>
-          <div className="flex flex-col items-center gap-4 border border-border bg-bone/30 px-6 py-10 text-center">
-            <p className="font-display text-xl font-bold text-ink">
-              Got another page hiding in the woods?
-            </p>
-            <Link
-              href="/"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-[0.3rem] bg-goblin px-6 text-sm font-bold text-[#111605] shadow-goblin transition-colors hover:bg-goblin-dark"
-            >
-              Let me at another page
-              <ArrowRight className="h-4 w-4" />
+          <div className={styles.finalCta}>
+            <strong>Another page hiding?</strong>
+            <Link href="/analyze" className="inline-flex h-11 items-center gap-2 rounded-[0.25rem] bg-goblin px-5 text-sm font-bold text-[#111605] transition-colors hover:bg-goblin-dark focus-goblin">
+              Feed me the page <ArrowRight size={16} />
             </Link>
           </div>
         </Reveal>
-      </div>
+      </article>
     </div>
   );
 }

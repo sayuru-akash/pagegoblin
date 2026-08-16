@@ -83,7 +83,7 @@ export function UrlRoastForm({ variant = "hero", className, aiAvailable }: UrlRo
   return (
     <div
       className={cn(
-        isHero ? "w-full max-w-xl" : "w-full rounded-2xl border border-border bg-bone/50 p-6 shadow-sm",
+        isHero ? "w-full max-w-xl" : "w-full border-y border-border bg-cave/70 p-4 sm:p-5",
         className
       )}
     >

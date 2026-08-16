@@ -10,7 +10,7 @@ export function SignOutButton() {
     >
       <button
         type="submit"
-        className="inline-flex h-9 cursor-pointer items-center justify-center gap-1.5 rounded-lg bg-transparent px-4 text-sm font-medium text-ink transition-all duration-300 hover:bg-bone focus-goblin"
+        className="inline-flex h-10 cursor-pointer items-center justify-center gap-1.5 rounded-[0.25rem] bg-transparent px-4 text-sm font-medium text-ink transition-colors hover:bg-bone focus-goblin"
       >
         Sign out
       </button>

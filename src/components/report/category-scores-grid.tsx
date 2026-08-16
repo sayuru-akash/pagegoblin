@@ -83,7 +83,6 @@ export function CategoryScoresGrid({ scores }: { scores: CategoryScores }) {
                         <h3 className="font-display text-lg uppercase leading-none text-ink">
                           {cat.label}
                         </h3>
-                        <p className="mt-1 text-xs text-muted">{cat.description}</p>
                       </div>
                   </div>
                   <span

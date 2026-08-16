@@ -9,6 +9,8 @@ const footerLinks = [
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/support", label: "Support" },
+  { href: "/signin", label: "Sign in" },
+  { href: "/dashboard", label: "My roast pile" },
   { href: "https://github.com/sayuru-akash/pagegoblin", label: "GitHub" },
 ];
 

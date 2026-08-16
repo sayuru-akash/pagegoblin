@@ -1,110 +1,44 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Link as LinkIcon,
-  Search,
-  FileCheck,
-  Shield,
-  Crosshair,
-  FileWarning,
-  Users,
-  Zap,
-} from "lucide-react";
+import { ArrowRight, Crosshair, FileWarning, Globe2, MonitorUp, Shield, Users, Zap } from "lucide-react";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { SectionHeading } from "@/components/ui/section-heading";
-import { Reveal } from "@/components/motion/reveal";
-import { Stagger, StaggerItem } from "@/components/motion/stagger";
+import { InnerHero, SectionIntro } from "@/components/layout/inner-page";
 import { FinalRoastCta } from "@/components/layout/final-roast-cta";
+import { Reveal } from "@/components/motion/reveal";
+import { JsonLd } from "@/components/seo/json-ld";
 import { CATEGORY_COPY } from "@/lib/analysis/category-copy";
 import { createPageMetadata } from "@/lib/seo";
-import { JsonLd } from "@/components/seo/json-ld";
+import styles from "@/styles/public-pages.module.css";
 
 export const metadata: Metadata = createPageMetadata({
   title: "How PageGoblin Hunts Through a Website",
-  description:
-    "See how PageGoblin crawls through a website, sniffs out weak words and hidden buttons, and brings back fixes you can use.",
+  description: "See how PageGoblin hunts weak words, hidden buttons, thin proof, and friction, then brings back useful fixes.",
   path: "/how-it-works",
   openGraphTitle: "How PageGoblin Works",
   keywords: ["how website audits work", "website roast score", "CTA analysis", "website trust signals", "conversion friction"],
 });
 
-
 const steps = [
-  {
-    number: "01",
-    icon: LinkIcon,
-    title: "Throw me a URL",
-    description:
-      "Give me any public page. I grab the link, crawl inside, and start sniffing under every heading and button.",
-  },
-  {
-    number: "02",
-    icon: Search,
-    title: "I tear through the page",
-    description:
-      "I hunt for proof, clear words, useful buttons, and every muddy bit that makes people stop. Nothing gets to hide in the roots.",
-  },
-  {
-    number: "03",
-    icon: FileCheck,
-    title: "I drag back the fixes",
-    description:
-      "You get my score, what made me howl, and the fixes I would make first. No giant report. No fog. Just the mess and the way out.",
-  },
+  { number: "01", title: "Throw the link", text: "Give me any public page." },
+  { number: "02", title: "I hunt", text: "I sniff out weak words, proof, buttons, and friction." },
+  { number: "03", title: "You fix it", text: "Take the score, the bites, and the first repairs." },
 ];
 
-const categories = [
-  {
-    icon: Shield,
-    title: CATEGORY_COPY.trustTax.label,
-    description: CATEGORY_COPY.trustTax.description,
-  },
-  {
-    icon: Crosshair,
-    title: CATEGORY_COPY.ctaCorpse.label,
-    description: CATEGORY_COPY.ctaCorpse.description,
-  },
-  {
-    icon: FileWarning,
-    title: CATEGORY_COPY.fluffDamage.label,
-    description: CATEGORY_COPY.fluffDamage.description,
-  },
-  {
-    icon: Users,
-    title: CATEGORY_COPY.buyerConfusionLevel.label,
-    description: CATEGORY_COPY.buyerConfusionLevel.description,
-  },
-  {
-    icon: Zap,
-    title: CATEGORY_COPY.conversionFriction.label,
-    description: CATEGORY_COPY.conversionFriction.description,
-  },
+const trails = [
+  { icon: Shield, label: CATEGORY_COPY.trustTax.label },
+  { icon: Crosshair, label: CATEGORY_COPY.ctaCorpse.label },
+  { icon: FileWarning, label: CATEGORY_COPY.fluffDamage.label },
+  { icon: Users, label: CATEGORY_COPY.buyerConfusionLevel.label },
+  { icon: Zap, label: CATEGORY_COPY.conversionFriction.label },
 ];
 
 const faqs = [
-  {
-    q: "Is PageGoblin free?",
-    a: "Yes. Keep throwing me pages. I stay hungry.",
-  },
-  {
-    q: "Does the goblin store my page data?",
-    a: "I keep only the page clues needed for the report. I do not keep the full page HTML.",
-  },
-  {
-    q: "Can I share my roast?",
-    a: "Yes. Every roast gets a link you can copy and send.",
-  },
-  {
-    q: "Will the goblin roast my competitors?",
-    a: "Yes. I do not care whose page it is. Bad buttons all smell the same.",
-  },
-  {
-    q: "Is this an SEO tool?",
-    a: "Not really. I care most about clear words, real proof, and whether people know what to do next.",
-  },
+  { q: "Is it free?", a: "Yes. Keep throwing me pages." },
+  { q: "Do you keep the whole page?", a: "No. I keep only the clues needed for the report." },
+  { q: "Can I share the roast?", a: "Yes. Every roast gets a link." },
+  { q: "Can I roast a competitor?", a: "If the page is public, I can reach it." },
+  { q: "Is this an SEO tool?", a: "No. I care about clear words, real proof, and the next click." },
 ];
 
 const faqJsonLd = {
@@ -121,156 +55,73 @@ export default function HowItWorksPage() {
   return (
     <>
       <SiteHeader />
-      <main className="cave-page flex flex-1 flex-col items-center bg-grain">
+      <main className={`${styles.page} bg-grain`}>
         <JsonLd data={faqJsonLd} />
-        {/* Hero */}
-        <section className="flex w-full flex-col items-center px-6 pt-24 pb-20 text-center">
-          <div className="mx-auto max-w-3xl">
-            <Reveal>
-              <h1 className="font-display text-5xl uppercase leading-[0.95] tracking-tight text-ink sm:text-7xl lg:text-8xl">
-                How I hunt through your <span className="text-goblin">page</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mx-auto mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-                You throw me the link. I crawl in. The page starts screaming.
-              </p>
-            </Reveal>
-          </div>
-        </section>
+        <InnerHero
+          label="How it works"
+          title={<>Three steps. <span>Zero mercy.</span></>}
+          description="You throw the link. I crawl in. The page starts talking."
+        />
 
-        {/* Steps */}
-        <section className="w-full border-t border-border bg-bone/40 px-6 py-24">
-          <div className="mx-auto max-w-5xl">
-            <Stagger className="space-y-8" staggerDelay={0.15}>
-              {steps.map((step) => (
-                <StaggerItem key={step.number}>
-                  <Card className="flex flex-col gap-6 sm:flex-row sm:items-start">
-                    <div className="flex items-center gap-4 sm:w-64 sm:shrink-0">
-                      <span className="font-mono text-4xl font-bold text-goblin/30">
-                        {step.number}
-                      </span>
-                      <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-goblin/15 text-goblin">
-                        <step.icon className="h-6 w-6" />
-                      </div>
-                    </div>
-                    <div>
-                      <CardTitle className="text-lg">{step.title}</CardTitle>
-                      <CardDescription className="mt-2 text-base">
-                        {step.description}
-                      </CardDescription>
-                    </div>
-                  </Card>
-                </StaggerItem>
-              ))}
-            </Stagger>
-          </div>
-        </section>
-
-        {/* What gets roasted */}
-        <section className="w-full px-6 py-24">
-          <div className="mx-auto max-w-5xl">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Where I dig"
-                title="Nothing gets to hide"
-                description="These are the five trails I follow through every page."
-              />
+        <section className={styles.section}>
+          <div className={styles.inner}>
+            <SectionIntro title="The whole hunt" />
+            <Reveal delay={0.08}>
+              <div className={styles.steps}>
+                {steps.map((step) => (
+                  <article className={styles.step} key={step.number}>
+                    <span className={styles.stepNumber}>{step.number}</span>
+                    <h3>{step.title}</h3>
+                    <p>{step.text}</p>
+                  </article>
+                ))}
+              </div>
             </Reveal>
 
-            <Stagger
-              className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-              staggerDelay={0.1}
-            >
-              {categories.map((cat) => (
-                <StaggerItem key={cat.title}>
-                  <Card className="h-full">
-                    <CardHeader>
-                      <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-goblin/15 text-goblin">
-                        <cat.icon className="h-5 w-5" />
-                      </div>
-                      <CardTitle>{cat.title}</CardTitle>
-                      <CardDescription>{cat.description}</CardDescription>
-                    </CardHeader>
-                  </Card>
-                </StaggerItem>
-              ))}
-            </Stagger>
-          </div>
-        </section>
-
-        {/* Extension vs Web */}
-        <section className="w-full border-t border-border bg-bone/40 px-6 py-24">
-          <div className="mx-auto max-w-5xl">
-            <Reveal>
-              <SectionHeading
-                eyebrow="Two holes into the cave"
-                title="Browser button or full website"
-                description="Pick where you want to let me loose. I bite the same either way."
-              />
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="mt-12 grid gap-6 sm:grid-cols-2">
-                <Card className="border-goblin/20 bg-goblin/5">
-                  <CardHeader>
-                    <Badge variant="goblin" className="w-fit">
-                      Chrome Extension
-                    </Badge>
-                    <CardTitle className="mt-3">Let me loose on this tab</CardTitle>
-                    <CardDescription className="text-base">
-                      One click and I crawl through the page you have open. You get
-                      the score and the first fixes fast.
-                    </CardDescription>
-                    <Link href="/extension" className="mt-3 inline-flex items-center text-sm font-bold text-goblin-light hover:underline focus-goblin">
-                      Meet the browser goblin
-                    </Link>
-                  </CardHeader>
-                </Card>
-                <Card className="border-amber/20 bg-amber/5">
-                  <CardHeader>
-                    <Badge variant="warning" className="w-fit">
-                      Web App
-                    </Badge>
-                    <CardTitle className="mt-3">Drag back the full report</CardTitle>
-                    <CardDescription className="text-base">
-                      Paste any public URL and get the whole pile: every howl,
-                      every fix, a share link, and a file you can keep.
-                    </CardDescription>
-                    <Link href="/analyze" className="mt-3 inline-flex items-center text-sm font-bold text-amber hover:underline focus-goblin">
-                      Feed me a URL
-                    </Link>
-                  </CardHeader>
-                </Card>
+            <Reveal delay={0.12}>
+              <div className={styles.trail} aria-label="The five things PageGoblin checks">
+                {trails.map((trail) => (
+                  <div className={styles.trailItem} key={trail.label}>
+                    <trail.icon aria-hidden="true" />
+                    <span>{trail.label}</span>
+                  </div>
+                ))}
               </div>
             </Reveal>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="w-full px-6 py-24">
-          <div className="mx-auto max-w-3xl">
-            <Reveal>
-              <SectionHeading
-                eyebrow="You have questions"
-                title="I have answers. Probably."
-              />
-            </Reveal>
+        <section className={styles.sectionMuted}>
+          <div className={styles.inner}>
+            <SectionIntro label="Pick your door" title="Tab or full report" />
+            <div className={styles.choiceGrid}>
+              <article className={styles.choice}>
+                <MonitorUp aria-hidden="true" className="mb-6 text-goblin-light" />
+                <h3>Chrome extension</h3>
+                <p>Roast the tab you already have open.</p>
+                <Link href="/extension">Get the extension <ArrowRight size={16} /></Link>
+              </article>
+              <article className={styles.choice}>
+                <Globe2 aria-hidden="true" className="mb-6 text-goblin-light" />
+                <h3>Website</h3>
+                <p>Paste a URL and keep the full report.</p>
+                <Link href="/analyze">Roast a page <ArrowRight size={16} /></Link>
+              </article>
+            </div>
+          </div>
+        </section>
 
-            <Stagger className="mt-12 space-y-4" staggerDelay={0.08}>
+        <section className={styles.section}>
+          <div className={styles.narrow}>
+            <SectionIntro title="Quick answers" />
+            <div className={styles.faqList}>
               {faqs.map((faq) => (
-                <StaggerItem key={faq.q}>
-                  <Card>
-                    <CardHeader className="mb-0">
-                      <CardTitle className="text-base">{faq.q}</CardTitle>
-                      <CardDescription className="text-sm">
-                        {faq.a}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </StaggerItem>
+                <details className={styles.faq} key={faq.q}>
+                  <summary>{faq.q}</summary>
+                  <p>{faq.a}</p>
+                </details>
               ))}
-            </Stagger>
+            </div>
           </div>
         </section>
 

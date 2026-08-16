@@ -220,7 +220,7 @@ export default function ExtensionPage() {
               width={1536}
               height={1024}
               sizes="(max-width: 900px) 100vw, 58vw"
-              quality={72}
+              quality={75}
               priority
               className={styles.heroGoblin}
             />

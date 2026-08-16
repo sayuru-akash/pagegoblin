@@ -63,20 +63,18 @@ export default function SignUpPage() {
     <>
       <SiteHeader />
       <AuthFrame
-        title={<>Dig out your <span className="text-goblin-dark">own cave.</span></>}
-        description="Keep every page I bite. Come back later, compare the damage, and see whether your fixes shut me up."
+        title={<>Sign <span>up.</span></>}
+        description="Keep every page I bite in one place."
       >
-          <Card className="w-full bg-transparent shadow-none hover:translate-y-0 hover:shadow-none">
-            <CardHeader>
-              <CardTitle>Mark this cave as yours</CardTitle>
-              <CardDescription>
-                Give me three things and I will guard your roast pile.
-              </CardDescription>
+          <Card className="w-full border-0 bg-transparent p-0 shadow-none hover:translate-y-0 hover:shadow-none">
+            <CardHeader className="sr-only">
+              <CardTitle>Create account</CardTitle>
+              <CardDescription>Enter your account details.</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 {error && (
-                  <div className="rounded-lg bg-rose/10 border border-rose/30 px-4 py-3 text-sm text-rose">
+                  <div role="alert" aria-live="polite" className="border border-rose/30 bg-rose/10 px-4 py-3 text-sm text-rose">
                     {error}
                   </div>
                 )}
@@ -103,7 +101,7 @@ export default function SignUpPage() {
                   <Input
                     id="email"
                     type="email"
-                    placeholder="goblin@example.com"
+                    placeholder="you@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
@@ -135,7 +133,7 @@ export default function SignUpPage() {
                   {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Digging out your cave...
+                      Making your account...
                     </>
                   ) : (
                     "Create account"

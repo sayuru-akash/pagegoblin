@@ -41,7 +41,7 @@ export async function PATCH(
       name: name || existing.name,
       providerType: providerType || existing.providerType,
       baseUrl: baseUrl !== undefined ? baseUrl : existing.baseUrl || undefined,
-      apiKey: apiKey || "",
+      apiKey: apiKey || undefined,
       model: model || existing.model,
       enabled: enabled !== undefined ? enabled : existing.enabled,
     });

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link2, Download, Copy, Check, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,16 +8,44 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Reveal } from "@/components/motion/reveal";
 import type { ReportPayload } from "@/lib/reports/types";
 
-type CopyState = "idle" | "copied";
+type CopyState = "idle" | "copied" | "failed";
+
+async function copyText(text: string) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.setAttribute("readonly", "");
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  const copied = document.execCommand("copy");
+  textarea.remove();
+  if (!copied) throw new Error("Copy failed");
+}
 
 function useCopyFeedback(duration = 2000) {
   const [state, setState] = useState<CopyState>("idle");
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => () => {
+    if (timer.current) clearTimeout(timer.current);
+  }, []);
 
   const trigger = useCallback(
-    (action: () => void) => {
-      action();
-      setState("copied");
-      setTimeout(() => setState("idle"), duration);
+    async (text: string) => {
+      try {
+        await copyText(text);
+        setState("copied");
+      } catch {
+        setState("failed");
+      }
+      if (timer.current) clearTimeout(timer.current);
+      timer.current = setTimeout(() => setState("idle"), duration);
     },
     [duration]
   );
@@ -39,17 +67,9 @@ export function ShareSection({
 
   const fullUrl = `${typeof window !== "undefined" ? window.location.origin : ""}${links.report}`;
 
-  const handleCopyLink = () => {
-    linkCopy.trigger(() => {
-      navigator.clipboard.writeText(fullUrl);
-    });
-  };
+  const handleCopyLink = () => linkCopy.trigger(fullUrl);
 
-  const handleCopySummary = () => {
-    summaryCopy.trigger(() => {
-      navigator.clipboard.writeText(report.summaryMarkdown);
-    });
-  };
+  const handleCopySummary = () => summaryCopy.trigger(report.summaryMarkdown);
 
   const handleDownload = () => {
     setDownloading(true);
@@ -89,6 +109,8 @@ export function ShareSection({
                     <Check className="h-3.5 w-3.5" />
                     Snatched!
                   </motion.span>
+                ) : linkCopy.state === "failed" ? (
+                  <motion.span key="failed" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>Copy failed</motion.span>
                 ) : (
                   <motion.span
                     key="copy"
@@ -149,6 +171,8 @@ export function ShareSection({
                     <Check className="h-3.5 w-3.5" />
                     Snatched!
                   </motion.span>
+                ) : summaryCopy.state === "failed" ? (
+                  <motion.span key="failed" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>Copy failed</motion.span>
                 ) : (
                   <motion.span
                     key="copy"

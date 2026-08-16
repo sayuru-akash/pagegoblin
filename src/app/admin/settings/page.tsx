@@ -1,19 +1,16 @@
 import { getAppSettings } from "@/lib/admin/service";
 import { SettingsForm } from "@/components/admin/settings-form";
+import styles from "@/components/admin/admin.module.css";
 
 export default async function SettingsPage() {
   const settings = await getAppSettings();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-5xl uppercase leading-none tracking-tight sm:text-6xl">
-          Rules carved into the cave
-        </h1>
-        <p className="mt-1 text-muted">
-          Choose what I may eat, where reports may roam, and how wild I get.
-        </p>
-      </div>
+    <div className={styles.page}>
+      <header className={styles.pageHead}>
+        <h1>Site settings.</h1>
+        <p>Set the cave defaults.</p>
+      </header>
       <SettingsForm initialSettings={settings as Record<string, unknown>} />
     </div>
   );

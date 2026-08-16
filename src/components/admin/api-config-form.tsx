@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, Zap, Plus, Loader2, CheckCircle2, XCircle, ToggleLeft, ToggleRight } from "lucide-react";
+import styles from "./admin.module.css";
 
 interface ApiConfigItem {
   id: string;
@@ -77,8 +78,8 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
       e.preventDefault();
       setError(null);
 
-      if (!form.name.trim() || !form.apiKey.trim() || !form.model.trim()) {
-        setError("Name, API key, and model are required.");
+      if (!form.name.trim() || (!editingId && !form.apiKey.trim()) || !form.model.trim()) {
+        setError(editingId ? "Name and model are required." : "Name, API key, and model are required.");
         return;
       }
 
@@ -116,10 +117,17 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
     (id: string) => {
       if (!confirm("Throw this API key out of the cave?")) return;
       startTransition(async () => {
-        const res = await fetch(`/api/admin/api-config/${id}`, { method: "DELETE" });
-        if (res.ok) {
+        setError(null);
+        try {
+          const res = await fetch(`/api/admin/api-config/${id}`, { method: "DELETE" });
+          if (!res.ok) {
+            setError("The cave would not let go of that key.");
+            return;
+          }
           setSuccess("The key is gone from the cave.");
           await fetchConfigs();
+        } catch {
+          setError("The wire out of the cave went dead.");
         }
       });
     },
@@ -129,13 +137,20 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
   const handleToggle = useCallback(
     (id: string, currentEnabled: boolean) => {
       startTransition(async () => {
-        const res = await fetch(`/api/admin/api-config/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ enabled: !currentEnabled }),
-        });
-        if (res.ok) {
+        setError(null);
+        try {
+          const res = await fetch(`/api/admin/api-config/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ enabled: !currentEnabled }),
+          });
+          if (!res.ok) {
+            setError("That switch would not move.");
+            return;
+          }
           await fetchConfigs();
+        } catch {
+          setError("The wire out of the cave went dead.");
         }
       });
     },
@@ -188,7 +203,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
   return (
     <div className="space-y-6">
       {success && (
-        <div className="flex items-center gap-2 rounded-lg border border-goblin/30 bg-goblin/10 px-4 py-3 text-sm font-medium text-goblin-dark">
+        <div className={`${styles.notice} flex items-center gap-2 border border-goblin/30 bg-goblin/10 px-4 py-3 text-sm font-medium text-goblin-light`} role="status" aria-live="polite">
           <CheckCircle2 className="h-4 w-4" />
           {success}
         </div>
@@ -202,7 +217,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
       )}
 
       {showForm && (
-        <Card>
+        <Card className={styles.formSection}>
           <CardHeader>
             <CardTitle>{editingId ? "Change this cave key" : "Bring in a new cave key"}</CardTitle>
           </CardHeader>
@@ -229,7 +244,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
                     id="providerType"
                     value={form.providerType}
                     onChange={(e) => setForm({ ...form, providerType: e.target.value })}
-                    className="flex h-11 w-full rounded-xl border border-border bg-bone px-4 text-sm text-ink transition-colors focus:outline-2 focus:outline-goblin focus:outline-offset-2"
+                    className="flex h-11 w-full rounded-[0.25rem] border border-border bg-bone px-4 text-sm text-ink transition-colors focus:outline-2 focus:outline-goblin focus:outline-offset-2"
                   >
                     <option value="OPENAI_COMPATIBLE">OpenAI Compatible</option>
                     <option value="OPENAI">OpenAI</option>
@@ -311,7 +326,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
           const isTesting = testingIds.has(config.id);
 
           return (
-            <Card key={config.id}>
+            <Card key={config.id} className={styles.formSection}>
               <CardContent className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="min-w-0 flex-1 space-y-1">
                   <div className="flex items-center gap-2">
@@ -343,7 +358,7 @@ export function ApiConfigForm({ initialConfigs }: { initialConfigs: ApiConfigIte
                 <div className="flex flex-wrap items-center gap-2">
                   {testResult && (
                     <div
-                      className={`flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium ${
+                      className={`flex items-center gap-1.5 rounded-[0.25rem] px-3 py-1.5 text-xs font-medium ${
                         testResult.success
                           ? "bg-goblin/10 text-goblin-dark"
                           : "bg-rose/10 text-rose"

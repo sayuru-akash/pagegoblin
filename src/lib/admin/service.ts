@@ -78,25 +78,39 @@ export async function upsertApiConfig(input: {
   name: string;
   providerType: "OPENAI_COMPATIBLE" | "OPENAI" | "OTHER";
   baseUrl?: string;
-  apiKey: string;
+  apiKey?: string;
   model: string;
   enabled?: boolean;
 }) {
   const encryptionKey = process.env.ENCRYPTION_KEY!;
-  const encryptedApiKey = encryptSecret(input.apiKey, encryptionKey);
-
-  const data = {
+  const sharedData = {
     name: input.name,
     providerType: input.providerType,
     baseUrl: input.baseUrl || null,
-    encryptedApiKey,
     model: input.model,
     enabled: input.enabled ?? false,
   };
 
   if (input.id) {
-    return prisma.apiConfig.update({ where: { id: input.id }, data });
+    return prisma.apiConfig.update({
+      where: { id: input.id },
+      data: {
+        ...sharedData,
+        ...(input.apiKey
+          ? { encryptedApiKey: encryptSecret(input.apiKey, encryptionKey) }
+          : {}),
+      },
+    });
   }
+
+  if (!input.apiKey) {
+    throw new Error("API key is required for a new config");
+  }
+
+  const data = {
+    ...sharedData,
+    encryptedApiKey: encryptSecret(input.apiKey, encryptionKey),
+  };
 
   return prisma.apiConfig.upsert({
     where: { name: input.name },

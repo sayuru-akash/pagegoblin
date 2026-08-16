@@ -1,114 +1,53 @@
 import Link from "next/link";
+import { KeyRound, Settings } from "lucide-react";
 import { getAdminStats, getRecentReports } from "@/lib/admin/service";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { KeyRound, Users, Flame, TrendingUp } from "lucide-react";
+import styles from "@/components/admin/admin.module.css";
 
 export default async function AdminOverviewPage() {
-  const [stats, recentReports] = await Promise.all([
-    getAdminStats(),
-    getRecentReports(10),
-  ]);
-
+  const [stats, recentReports] = await Promise.all([getAdminStats(), getRecentReports(10)]);
   const statCards = [
-    { label: "Pages bitten", value: stats.totalReports, icon: Flame, color: "text-amber" },
-    { label: "Cave keepers", value: stats.totalUsers, icon: Users, color: "text-goblin-dark" },
-    { label: "Average score", value: stats.avgScore, icon: TrendingUp, color: "text-rose" },
-    { label: "Fresh bites this week", value: stats.reportsThisWeek, icon: Flame, color: "text-goblin" },
+    ["Pages bitten", stats.totalReports],
+    ["Cave keepers", stats.totalUsers],
+    ["Average score", stats.avgScore],
+    ["Fresh this week", stats.reportsThisWeek],
   ];
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-5xl uppercase leading-none tracking-tight sm:text-6xl">
-          The cave&apos;s control pit
-        </h1>
-        <p className="mt-1 text-muted">
-          Watch the beast, guard the keys, and keep the walls standing.
-        </p>
-      </div>
+    <div className={styles.page}>
+      <header className={styles.pageHead}>
+        <h1>Cave controls.</h1>
+        <p>The beast at a glance.</p>
+      </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {statCards.map((card) => (
-          <Card key={card.label}>
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted">
-                {card.label}
-              </CardTitle>
-              <card.icon className={`h-5 w-5 ${card.color}`} />
-            </CardHeader>
-            <CardContent>
-              <p className="font-display text-3xl font-bold">{card.value}</p>
-            </CardContent>
-          </Card>
+      <div className={styles.stats}>
+        {statCards.map(([label, value]) => (
+          <div className={styles.stat} key={label}><span>{label}</span><strong>{value}</strong></div>
         ))}
       </div>
 
-      <div className="flex flex-col gap-4 sm:flex-row">
-        <Link
-          href="/admin/api-config"
-          className="goblin-card flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors hover:bg-bone"
-        >
-          <KeyRound className="h-4 w-4 text-goblin-dark" />
-          Guard the AI keys
-        </Link>
-        <Link
-          href="/admin/settings"
-          className="goblin-card flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors hover:bg-bone"
-        >
-          Change the cave rules
-        </Link>
+      <div className={styles.actions}>
+        <Link href="/admin/api-config"><KeyRound size={16} /> AI keys</Link>
+        <Link href="/admin/settings"><Settings size={16} /> Site settings</Link>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Fresh things I dragged home</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-border">
-                  <th className="pb-3 font-medium text-muted">Domain</th>
-                  <th className="pb-3 font-medium text-muted">Score</th>
-                  <th className="pb-3 font-medium text-muted">User</th>
-                  <th className="pb-3 font-medium text-muted">Visibility</th>
-                  <th className="pb-3 font-medium text-muted">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {recentReports.map((report) => (
-                  <tr key={report.id} className="hover:bg-bone/50">
-                    <td className="py-3 font-medium">{report.domain}</td>
-                    <td className="py-3">
-                      <span className="inline-flex items-center rounded-full bg-goblin/15 px-2.5 py-0.5 text-xs font-semibold text-goblin-dark">
-                        {report.score}
-                      </span>
-                    </td>
-                    <td className="py-3 text-muted">
-                      {report.user?.email ?? "No owner"}
-                    </td>
-                    <td className="py-3">
-                      <span className="inline-flex items-center rounded-full bg-bone px-2.5 py-0.5 text-xs font-medium text-ink border border-border">
-                        {report.visibility}
-                      </span>
-                    </td>
-                    <td className="py-3 text-muted">
-                      {new Date(report.createdAt).toLocaleDateString()}
-                    </td>
-                  </tr>
-                ))}
-                {recentReports.length === 0 && (
-                  <tr>
-                    <td colSpan={5} className="py-6 text-center text-muted">
-                      Nothing here yet. The beast is pacing.
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        </CardContent>
-      </Card>
+      <section className={`${styles.panel} overflow-x-auto p-5 sm:p-6`}>
+        <h2 className="mb-5 font-display text-2xl uppercase text-ink">Fresh bites</h2>
+        <table className="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead><tr className="border-b border-border font-mono text-[10px] uppercase tracking-[0.14em] text-goblin-light"><th className="pb-3">Domain</th><th className="pb-3">Score</th><th className="pb-3">User</th><th className="pb-3">Visibility</th><th className="pb-3">Date</th></tr></thead>
+          <tbody>
+            {recentReports.map((report) => (
+              <tr key={report.id} className="border-b border-border/50 transition-colors last:border-0 hover:bg-goblin/5">
+                <td className="py-3 font-semibold text-ink">{report.domain}</td>
+                <td className="py-3 font-mono text-goblin-light">{report.score}/100</td>
+                <td className="py-3 text-muted">{report.user?.email ?? "No owner"}</td>
+                <td className="py-3 text-muted">{report.visibility.toLowerCase()}</td>
+                <td className="py-3 text-muted">{new Date(report.createdAt).toLocaleDateString()}</td>
+              </tr>
+            ))}
+            {recentReports.length === 0 && <tr><td colSpan={5} className="py-10 text-center text-muted">Nothing here yet.</td></tr>}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 }
